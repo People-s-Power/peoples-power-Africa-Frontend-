@@ -1,0 +1,38 @@
+.explore {
+	min-height: 100vh;
+	// background: #f5fff5;
+	.container {
+		.ex-bar {
+			@media screen and (max-width: 768px) {
+				flex-direction: column;
+			}
+			.ex-input {
+				flex: 1;
+				._ex-input {
+					flex: 1;
+					// input {
+					//   width: 80% !important;
+					//   box-sizing: border-box;
+					//   all: unset;
+					//   height: 48px;
+					//   border-radius: 30px;
+					//   background: #ffffff;
+					//   @media screen and (max-width: 768px) {
+					//     width: 100% !important;
+					//   }
+					// }
+				}
+			}
+			.ex-feature {
+				flex: 1;
+			}
+		}
+
+		.load-more {
+			span {
+				color: #18C73E;
+				font-size: 25px;
+			}
+		}
+	}
+}

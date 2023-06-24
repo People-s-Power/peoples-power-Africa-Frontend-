@@ -1,0 +1,19 @@
+.privacy-policy {
+	min-height: 100vh;
+	text-align: justify;
+	h1,
+	h2 {
+		font-weight: bold;
+	}
+	h2 {
+		font-size: 1.2rem;
+	}
+	h1 {
+		color: $warning;
+		font-size: 1.5rem;
+	}
+}
+
+.terms {
+	@extend .privacy-policy;
+}

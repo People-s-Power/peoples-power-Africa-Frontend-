@@ -1,0 +1,125 @@
+.my-camp {
+  background: #e5e5e5;
+  .first {
+    background: #fbfbfb;
+    border-bottom: 1px solid #c1c1c1;
+    .heading {
+      gap: 1rem;
+      .left {
+        flex: 1;
+      }
+      .right {
+        flex: 1;
+        @media screen and (max-width: 768px) {
+          gap: 0.5rem;
+        }
+        .tooltip-sec {
+          // display: inline-block;
+          gap: 0.5rem;
+          background: #ebffeb;
+          .status-handler {
+            //   background: black;
+            .profile-img {
+              width: 49px;
+              height: 49px;
+              overflow: hidden;
+              img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+              }
+            }
+            .profile-status {
+              width: 13px;
+              height: 13px;
+              background: red;
+              right: 3px;
+              bottom: 5px;
+            }
+          }
+          .tooltiptext {
+            transform: scale(0, 0) translateX(-100px);
+            min-height: 10px;
+            position: absolute;
+            z-index: 1000;
+            top: 105%;
+            left: -10%;
+            min-width: 0px;
+            list-style: none;
+            gap: 0.5rem;
+            transition: transform 0.5s;
+            li {
+              border-radius: 5px;
+              padding: 1px;
+              &:hover {
+                background: rgba(235, 255, 235, 0.15);
+              }
+            }
+            &::after {
+              content: "";
+              position: absolute;
+              bottom: 100%;
+              left: 70%;
+              margin-left: -5px;
+              border-width: 0.7rem;
+              border-style: solid;
+              border-color: transparent transparent #0f401c transparent;
+            }
+          }
+
+          &:hover {
+            .tooltiptext {
+              // visibility: visible;
+              transform: scale(1, 1) translateX(0px);
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.second {
+  .client-home {
+    display: block;
+  }
+}
+
+.edit-sec {
+  .pro-img-wrap {
+    display: inline-block;
+    // background-color: red;
+    .pro-img {
+      width: 9rem;
+      height: 9rem;
+      border: 3px solid $secondary;
+      overflow: hidden;
+      shape-outside: circle(50%);
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+    input {
+      display: none;
+    }
+    i {
+      z-index: 100;
+      background: #ebffeb;
+      position: absolute;
+      bottom: 0;
+      right: 10px;
+      width: 32px;
+      height: 32px;
+      cursor: pointer;
+      overflow: hidden;
+    }
+  }
+  .summary {
+    i {
+      transition: transform 0.5s;
+    }
+  }
+}

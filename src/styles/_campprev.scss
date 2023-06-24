@@ -1,0 +1,25 @@
+.preview-camp {
+  min-height: 100vh;
+  .container {
+    .pre {
+      span {
+        text-decoration: underline;
+      }
+    }
+    .camp-title {
+      font-size: 20px;
+    }
+    img {
+      width: 100%;
+      display: block;
+      height: 406px;
+    }
+    .launch-camp {
+      button {
+        background: #18C73E;
+        border-radius: 20px;
+        color: white;
+      }
+    }
+  }
+}

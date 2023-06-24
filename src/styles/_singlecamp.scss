@@ -1,0 +1,86 @@
+.single-camp {
+  &-img {
+    min-height: calc(100vh - 500px);
+    overflow: hidden;
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+  .inner {
+    .single-camp-wrap {
+      gap: 3rem;
+      .sec-1 {
+        flex: 0.7;
+        text-align: justify;
+        @media screen and (max-width: 768px) {
+          flex: 1;
+        }
+        .comment {
+          textarea {
+            outline: 0;
+          }
+          &-profile {
+            gap: 1rem;
+            &-img {
+              width: 60px;
+              height: 60px;
+              border-radius: 100%;
+              shape-outside: circle(50%);
+              overflow: hidden;
+              img {
+                width: 100%;
+                // height: 100%;
+                object-fit: cover;
+              }
+            }
+          }
+        }
+      }
+      .sec-2 {
+        flex: 0.3;
+        @media screen and (max-width: 768px) {
+          flex: 1;
+        }
+        .card-bg {
+          background: #ebffeb;
+          font-size: 1.5rem;
+        }
+        .cards {
+          .img-cont {
+            width: 70px;
+            height: 70px;
+            shape-outside: circle(50%);
+            border-radius: 100%;
+            overflow: hidden;
+            img {
+              width: 100%;
+              height: 100%;
+              object-fit: cover;
+            }
+          }
+          .r-icons {
+            gap: 2.5rem;
+            i {
+              width: 40px;
+              height: 40px;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              border-radius: 100%;
+              shape-outside: circle(50%);
+              color: #c1c1c1;
+              transition: color 1s, background 0.5s;
+              cursor: pointer;
+              &:hover {
+                background: #ebffeb;
+                color: #00401c;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

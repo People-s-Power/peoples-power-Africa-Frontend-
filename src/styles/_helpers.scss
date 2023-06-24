@@ -1,0 +1,129 @@
+.fs-inherit {
+  font-size: inherit;
+}
+// font weights
+
+.fw-300 {
+  font-weight: 300;
+}
+
+.fw-400 {
+  font-weight: 400;
+}
+
+.fw-500 {
+  font-weight: 500;
+}
+
+.fw-600 {
+  font-weight: 600;
+}
+
+.fw-700 {
+  font-weight: 700;
+}
+
+// font sizes
+.fs-inherit {
+  font-size: inherit;
+}
+
+.fs-8 {
+  font-size: 0.5rem;
+}
+
+.fs-10 {
+  font-size: 0.625rem;
+}
+
+.fs-12 {
+  font-size: 0.75rem;
+}
+
+.fs-14 {
+  font-size: 0.875rem;
+}
+.fs-16{
+  font-size: 1rem;
+}
+
+.fs-18 {
+  font-size: 1.125rem;
+}
+
+.fs-20 {
+  font-size: 1.25rem;
+}
+
+.fs-24 {
+  font-size: 1.5rem;
+}
+
+.fs-36 {
+  font-size: 2.25rem;
+}
+
+.fs-40 {
+  font-size: 2.5rem;
+}
+
+.fs-48 {
+  font-size: 3rem;
+}
+
+.c-hand {
+  cursor: pointer;
+}
+
+.image-fit {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+.flex-1 {
+  flex-grow: 1;
+}
+
+.bg-sky {
+  background-color: $sky;
+}
+
+.text-facebook {
+  color: $facebook-blue;
+}
+.bg-facebook {
+  background-color: $facebook-blue;
+}
+.text-twitter {
+  color: $twitter-blue;
+}
+.bg-twitter {
+  background-color: $twitter-blue;
+}
+.text-whatsapp {
+  color: $whatsapp-green;
+}
+.bg-whatsapp {
+  background-color: $whatsapp-green;
+}
+.small {
+  font-size: 0.875rem;
+}
+.bb-gray {
+  border: 0;
+  border-bottom: 1.5px solid rgba(102, 73, 73, 0.5);
+}
+
+.unset {
+  all: unset;
+}
+
+.pass-icon {
+  position: relative;
+  i {
+    position: absolute;
+    right: 2px;
+    bottom: 4px;
+  }
+}

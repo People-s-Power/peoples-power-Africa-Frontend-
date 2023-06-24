@@ -1,0 +1,57 @@
+@import "./variables";
+@import "./helpers";
+@import "./header";
+@import "./main";
+@import "./home";
+@import "./footer";
+@import "./upload";
+@import "./signup";
+@import "./campprev";
+@import "./previewcampsec";
+@import "./explore";
+@import "./singlecamp";
+@import "./terms";
+@import "./about";
+@import "./_privacy";
+@import "./mycamp";
+
+// @import "rsuite/dist/styles/rsuite-default.css";
+
+
+.front {
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+	.children {
+		flex: 1;
+	}
+}
+
+// Reps and Lawyers
+
+.reps,
+.lawyers {
+	.card-wrapper {
+		display: grid;
+		/* grid-template-columns: repeat(3, 1fr); */
+		gap: 1rem;
+
+		@media screen and (min-width: 768px) and (max-width: 1000px) {
+			grid-template-columns: repeat(2, 1fr);
+		}
+		@media screen and (min-width: 1000px) and (max-width: 1200px) {
+			grid-template-columns: repeat(3, 1fr);
+		}
+		@media screen and (min-width: 1201px) {
+			grid-template-columns: repeat(4, 1fr);
+		}
+
+		.user-card {
+			img {
+				width: 100%;
+				height: 20rem;
+				object-fit: cover;
+			}
+		}
+	}
+}

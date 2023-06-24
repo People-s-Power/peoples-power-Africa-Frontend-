@@ -1,0 +1,94 @@
+.camp-cards {
+    min-height: 100vh;
+    background: url("/images/style/Subtract.png") no-repeat;
+    background-position: top;
+    background-size: contain;
+}
+
+.campaign-list {
+    display: grid;
+    gap: 1.5rem;
+    @media screen and (min-width: 920px) {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    // @media screen and(min-width:768px) {
+    // 	grid-template-columns: repeat(2, 1fr);
+    // }
+    .card {
+        .card-image {
+            width: 100%;
+            height: 13rem;
+            object-fit: cover;
+        }
+        transition: all 0.5s ease-in-out;
+        &:hover {
+            transform: scale(1.1, 1.1);
+            box-shadow: 0 0.5rem 1rem rgb(0 0 0 / 15%);
+        }
+    }
+}
+
+.camp-category {
+    height: 23rem;
+    // background: url("/images/style/Mask-Group.png") no-repeat;
+    background-size: cover;
+    background-position: center;
+    @media screen and (max-width: 768px) {
+        height: 40vh;
+    }
+    ._camp-category {
+        background-color: rgba($primary, 0.8);
+        min-height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        .time-boxes {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            // @media screen and (max-width: 768px) {
+            // 	margin-bottom: 1rem;
+            // }
+            .box {
+                min-width: 6.25rem;
+                background: #f5f6fa;
+                box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.08);
+                border-radius: 5px;
+            }
+        }
+    }
+}
+
+.community-saying {
+    min-height: 60vh;
+    background: #ebffeb;
+    box-sizing: border-box;
+    color: #00401c;
+    ._community-saying {
+        .slick-arrow {
+            width: 2rem;
+            height: 2.8rem;
+            // background: #899f3a;
+            border-radius: 3px;
+            @media screen and (max-width: 768px) {
+                transform: scale(0.8, 0.8);
+            }
+        }
+        .slidecontainer {
+            // min-height: 25rem;
+            user-select: text;
+            color: #00401c;
+            ._container {
+                width: 100%;
+                max-width: 43.75rem;
+                margin: 0 auto;
+                .side-txt {
+                    font-size: 1.2rem;
+                }
+                p {
+                    text-align: justify;
+                }
+            }
+        }
+    }
+}

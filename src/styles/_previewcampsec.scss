@@ -1,0 +1,136 @@
+.previewcampsec {
+  ._previewcampsec {
+    background: url("/images/style/activists-gathered-together-demonstration_23-2148296502\ 1.png")
+      no-repeat;
+    background-size: cover;
+    background-position: 0 0;
+    height: 60vh;
+  }
+  .launch-view {
+    background: #f2f2f2;
+    min-height: 60vh;
+    .container {
+      .img-wrap {
+        img {
+          @media screen and (max-width: 768px) {
+            transform: scale(0.7, 0.7);
+          }
+        }
+      }
+      .center-txt {
+        @media screen and (max-width: 768px) {
+          font-size: 24px;
+        }
+      }
+      .sec-txt {
+        font-weight: 600;
+        font-size: 39px;
+        @media screen and (max-width: 768px) {
+          font-size: 20px;
+        }
+        span {
+          color: #18C73E;
+        }
+      }
+      .payment {
+        color: #f2f2f2;
+        background: #18C73E;
+        font-weight: bold;
+        font-size: 48px;
+        @media screen and (max-width: 768px) {
+          font-size: 24px;
+        }
+      }
+    }
+  }
+  ._payment {
+    min-height: 500px;
+    background: #f2f2f2;
+    .container {
+      .token-txt {
+        font-size: 28px;
+        @media screen and (max-width: 768px) {
+          font-size: 20px;
+        }
+      }
+      .p-pay-btn {
+        .pay-btn {
+          background: #18C73E;
+          font-weight: bold;
+          font-size: 28px;
+          border-radius: 20px;
+          color: #f2f2f2;
+          @media screen and (max-width: 768px) {
+            font-size: 20px;
+          }
+        }
+      }
+    }
+  }
+}
+.container {
+  .thanks-msg {
+    font-weight: 600;
+    font-size: 48px;
+    @media screen and (max-width: 768px) {
+      font-size: 24px;
+    }
+  }
+  .thanks-img {
+    height: 410px;
+  }
+  .thanks-txt {
+    // font-weight: 100 !important;
+    font-size: 1.1rem;
+  }
+}
+.finalsec-wrap {
+  min-height: 100vh;
+  .container {
+    .finalsec-txt {
+      font-weight: bold;
+      font-size: 39px;
+      @media screen and (max-width: 768px) {
+        font-size: 20px;
+      }
+    }
+    .love-img {
+      height: 200px;
+      @media screen and (max-width: 768px) {
+        transform: scale(0.7, 0.7);
+      }
+    }
+    .num-of-end {
+      font-weight: 500;
+      font-size: 31px;
+      @media screen and (max-width: 768px) {
+        font-size: 20px;
+      }
+    }
+    .final-sec-share {
+      .share-btn-wrap {
+        width: 50%;
+        @media screen and (max-width: 768px) {
+          width: 100%;
+        }
+        .bbn {
+          min-height: 48.96px;
+          color: white;
+          display: flex;
+          cursor: pointer;
+          font-weight: 500;
+          font-size: 18px;
+        }
+        .facebook-btn {
+          background: #2f69ff;
+        }
+        .twitter-btn {
+          background: #2fb4ff;
+        }
+        .email-btn {
+          background: #18C73E;
+        }
+      }
+    }
+  }
+}

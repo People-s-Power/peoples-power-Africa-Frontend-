@@ -1,0 +1,140 @@
+.about-wrap {
+	min-height: 100vh;
+	.about-img {
+		overflow: hidden;
+		.resize-ico {
+			@media screen and (max-width: 768px) {
+				width: 100% !important;
+			}
+		}
+		position: relative;
+		&::after {
+			content: "";
+			width: 100%;
+			height: 100%;
+			background: url("/images/style/Subtract.png") no-repeat;
+			background-size: cover;
+			top: 0;
+			right: 0;
+			position: absolute;
+			z-index: -1;
+		}
+	}
+	.our-mission {
+		background: #f2f2f2;
+		min-height: 100vh;
+		._our-mission {
+			.mission-wrap {
+				.mission-card {
+					._mission-card {
+						// overflow: hidden;
+						border-radius: 1.875rem;
+						min-height: 26.5625rem;
+						.mission-img {
+							min-height: 6.25rem;
+							img {
+								transform: translateY(-50%);
+								@media screen and (max-width: 768px) {
+									transform: translateY(0);
+								}
+							}
+						}
+						.mission-title {
+							h3 {
+								color: #18C73E;
+								font-weight: bold;
+								font-size: 1.5rem;
+							}
+						}
+					}
+				}
+			}
+			.mission-moto {
+				p {
+					font-weight: 800;
+				}
+			}
+		}
+	}
+	.our-vision {
+		min-height: 100vh;
+		._our-vision {
+			.vision-goal {
+				.vision {
+					width: 100%;
+					max-width: 367px;
+					transform: translateY(-20%);
+					@media screen and (max-width: 996px) {
+						transform: translateY(0);
+					}
+					@media screen and (max-width: 768px) {
+						width: 100%;
+						max-width: none;
+					}
+				}
+				.goal {
+					width: 100%;
+					max-width: 557px;
+					transform: translateY(-20%);
+					@media screen and (max-width: 996px) {
+						transform: translateY(0);
+					}
+					@media screen and (max-width: 768px) {
+						margin-left: 0 !important;
+						width: 100%;
+						max-width: none;
+					}
+				}
+				.bold {
+					font-weight: 900;
+					font-size: 48px;
+					@media screen and (max-width: 768px) {
+						font-size: 30px;
+					}
+				}
+			}
+		}
+	}
+	.what-we-do {
+		gap: 2rem;
+		&-txt {
+			flex: auto;
+		}
+		&-img {
+			width: 100%;
+			max-width: 20rem;
+			@media screen and (max-width: 768px) {
+				display: none;
+			}
+		}
+	}
+	.last-layer {
+		background-color: #f2f2f2;
+		._last-layer {
+			.bottom-card {
+				._bottom-card {
+					width: 50%;
+					@media screen and (max-width: 768px) {
+						width: 100%;
+					}
+					.img {
+						width: 218px;
+						height: 218px;
+						overflow: hidden;
+						img {
+							width: 100%;
+							height: 100%;
+							object-fit: cover;
+						}
+						@media screen and (max-width: 768px) {
+							transform: scale(0.8, 0.8);
+						}
+					}
+					.b-color {
+						color: #18C73E;
+					}
+				}
+			}
+		}
+	}
+}

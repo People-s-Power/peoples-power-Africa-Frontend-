@@ -1,0 +1,96 @@
+@import "./variables";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import "bootstrap/scss/bootstrap";
+@import "~slick-carousel/slick/slick.css";
+@import "~slick-carousel/slick/slick-theme.css";
+.slick-prev:before, .slick-next:before {
+    color: black !important;
+}
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@300");
+// @import "rsuite/dist/styles/rsuite-default.css";
+
+*,
+html {
+	font-family: "Poppins", sans-serif;
+	scroll-behavior: smooth;
+	font-size: 14px;
+	overscroll-behavior-y: contain;
+	@media screen and (min-width: 768px) {
+		font-size: 16px;
+	}
+	color: #000;
+}
+
+aside::-webkit-scrollbar {
+  width: 2px;
+}
+#popup::-webkit-scrollbar {
+  width: 2px;
+}
+body {
+	overflow-x: hidden;
+	font-family: 'Poppins', sans-serif;
+	&::-webkit-scrollbar {
+		background: #e0e0e0;
+	}
+	&::-webkit-scrollbar-thumb {
+		background: #18C73E;
+		border-radius: 30px;
+	}
+	.rs-dropdown-toggle, .rs-dropdown-toggle.rs-btn{
+		z-index: 0;
+	}
+	.styles-module_wrapper__1I_qj{
+		top: 80px;
+	}
+	// .styles-module_close__2I1sI{
+	// 	opacity: 100%;
+	// 	color: #18C73E;
+	// }
+	// .styles-module_navigation__1pqAE{
+	// 	opacity: 100%;
+	// 	color: #18C73E;
+	// }
+}
+.btn, button,input,textarea {
+	outline: none !important;
+	&:active,
+	&:focus {
+		outline: none !important;
+		box-shadow: none;
+	}
+}
+
+a {
+	&:hover {
+		text-decoration: none;
+	}
+}
+
+.notify-bell {
+	padding: 11px 16px;
+border-radius: 100%;
+}
+
+.fade-in-out {
+  opacity: 0;
+  animation: fade-in 1s ease-in forwards, fade-out 4s 1s ease-out forwards;
+}
+
+@keyframes fade-in {
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fade-out {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}

@@ -1,0 +1,2 @@
+(function(d,t) {var BASE_URL="https://app1.chatcloud.ai"; var g=d.createElement(t),s=d.getElementsByTagName(t)[0]; g.src='https://chatcloud.b-cdn.net'+"/packs/js/sdk.js"; g.defer = true; g.async = true; s.parentNode.insertBefore(g,s); g.onload=function(){window.chatcloudSDK.run({websiteToken:'rnoErfmhV1GFpwky4AFU17tH', baseUrl: BASE_URL})}})(document,"script");
+console.log('Chat me up')
