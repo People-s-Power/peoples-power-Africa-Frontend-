@@ -175,7 +175,7 @@ const addadmin = () => {
 				query: print(DELETE_OPERATOR),
 				variables: {
 					DeleteOperator: {
-						userId: sing,
+						operatorId: sing,
 						orgId: query.page,
 					},
 				},
