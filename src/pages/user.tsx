@@ -486,12 +486,12 @@ const user = () => {
 									? all.map((single: any, index: number) => {
 										// setType(single.__typename)
 										switch (single.__typename) {
-											case "Advert":
-												return (
-													<div key={index}>
-														<AdvertsComp advert={single} />
-													</div>
-												)
+											// case "Advert":
+											// 	return (
+											// 		<div key={index}>
+											// 			<AdvertsComp advert={single} />
+											// 		</div>
+											// 	)
 											case "Event":
 												return (
 													<div key={index}>
@@ -510,12 +510,12 @@ const user = () => {
 														<VictoryCard post={single} orgs={orgs} />
 													</div>
 												)
-											case "Post":
-												return (
-													<div key={index}>
-														<CampComp post={single} />
-													</div>
-												)
+											// case "Post":
+											// 	return (
+											// 		<div key={index}>
+											// 			<CampComp post={single} />
+											// 		</div>
+											// 	)
 											case "Update":
 												return (
 													<div key={index}>

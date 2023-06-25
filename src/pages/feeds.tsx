@@ -369,12 +369,12 @@ const HomePage = () => {
 						{all.map((single: any, index: number) => {
 							// setType(single.__typename)
 							switch (single.__typename) {
-								case "Advert":
-									return (
-										<div key={index}>
-											<AdvertsComp advert={single} />
-										</div>
-									)
+								// case "Advert":
+								// 	return (
+								// 		<div key={index}>
+								// 			<AdvertsComp advert={single} />
+								// 		</div>
+								// 	)
 								case "Event":
 									return (
 										<div key={index}>
@@ -393,12 +393,12 @@ const HomePage = () => {
 											<VictoryCard post={single} orgs={orgs} />
 										</div>
 									)
-								case "Post":
-									return (
-										<div key={index}>
-											<CampComp open={() => handelOpenFindExpart()} post={single} openPetition={() => handelPetition()} />
-										</div>
-									)
+								// case "Post":
+								// 	return (
+								// 		<div key={index}>
+								// 			<CampComp open={() => handelOpenFindExpart()} post={single} openPetition={() => handelPetition()} />
+								// 		</div>
+								// 	)
 								case "Update":
 									return (
 										<div key={index}>
