@@ -417,12 +417,12 @@ const HomePage = () => {
 											<Timeline item={single} />
 										</div>
 									)
-								default:
-									return (
-										<div key={index}>
-											<Shared shared={single} />
-										</div>
-									)
+								// default:
+								// 	return (
+								// 		<div key={index}>
+								// 			<Shared shared={single} />
+								// 		</div>
+								// 	)
 							}
 						})}
 						{/* <CampComp /> */}
