@@ -131,9 +131,9 @@ const connection = () => {
 											<p className='text-xs my-2'>{user.description}</p>
 										</div>
 									</div>
-									<Link href={`/messages?page=${user._id}`}>
+									{/* <Link href={`/messages?page=${user._id}`}>
 										<div className="lg:text-xs border text-warning border-warning lg:p-3 p-2 text-xs h-10 my-auto lg:w-44 w-full my-6 text-center rounded-full cursor-pointer">Send message</div>
-									</Link>
+									</Link> */}
 								</div>
 							))
 							: active === "following"
@@ -189,9 +189,9 @@ function Following({ user, getFollowing }) {
 					<p className='text-xs my-2'>{user.description}</p>
 				</div>
 			</div>
-			<Link href={`/messages?page=${user._id}`}>
+			{/* <Link href={`/messages?page=${user._id}`}>
 				<div className="lg:text-xs border text-warning border-warning lg:p-3 p-2 text-xs h-10 my-auto lg:w-44 w-full my-6 text-center rounded-full cursor-pointer">Send message</div>
-			</Link>
+			</Link> */}
 		</div>
 	)
 }

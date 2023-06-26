@@ -380,7 +380,7 @@ const messages = () => {
 								item.type === "consumer-to-consumer" ? item.unread === true || item.messages[item.messages.length - 1]?.received === false && item.messages[item.messages.length - 1]?.to === active.id ? "flex p-3 bg-gray-100 cursor-pointer" : "flex p-3 hover:bg-gray-100 w-full cursor-pointer" : item.unread === true || item.messages[item.messages.length - 1].received === false && item.messages[item.messages.length - 1]?.to === active._id ? "flex p-3 bg-gray-100 cursor-pointer" : "flex p-3 hover:bg-gray-100 w-full cursor-pointer"}>
 
 
-								<div onClick={() => { setShow(item); readMessage(item.id, item.messages[item.messages.length - 1]._id); markRead(item.id, item.messages[item.messages.length - 1]._id) }}
+								<div onClick={() => { setShow(item); readMessage(item.id, item.messages[item.messages.length - 1]?._id); markRead(item.id, item.messages[item.messages.length - 1]?._id) }}
 									className={"w-full flex"}
 								>
 									{
@@ -502,7 +502,7 @@ const messages = () => {
 						</div>
 					)}
 					{
-						show?.messages[show.messages.length - 1].type === "advert" ? <div className="fixed bottom-5 text-center w-[45%] bg-white">
+						show?.messages[show.messages.length - 1]?.type === "advert" ? <div className="fixed bottom-5 text-center w-[45%] bg-white">
 							<a href={show.messages[show.messages.length - 1].link}>
 								<button className="p-2 bg-warning w-44 mx-auto text-white rounded-md">Sign Up</button>
 							</a>
@@ -636,12 +636,12 @@ const messages = () => {
 									) : null}
 								</div>
 							) : <div className="p-4 text-center">
-								<img className="w-40 mx-auto h-40 sm:hidden" src="/images/lolo.jpeg" alt="" />
-								<h5 className="my-4 sm:hidden">Chat with your connections.</h5>
-								<p className="sm:hidden">Go to My Connections and followers or following to send message.</p>
-								<Link href={'/connection?page=followers'}>
-									<button className="bg-warning px-4 text-white p-2 my-4 rounded-sm">chat with connections</button>
-								</Link>
+								<img className="w-40 mx-auto h-40 sm:hidden" src="/images/logo.svg" alt="" />
+								<h5 className="my-4 sm:hidden">Chat with your clients.</h5>
+								<p className="sm:hidden">Respond to Clients Message and Petitions message.</p>
+								{/* <Link href={'/connection?page=followers'}> */}
+								<button className="bg-warning px-4 text-white p-2 my-4 rounded-sm">chat with your clinets</button>
+								{/* </Link> */}
 							</div>) :
 								<div className="text-center text-gray-400">This user has been blocked {show.blockedBy === active.id || active._id ? <span className="text-warning cursor-pointer" onClick={() => unblockUser(show?.id)}>Unblock</span> : null} </div>
 					}

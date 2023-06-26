@@ -369,13 +369,14 @@ const user = () => {
 													<span>&#x270E;</span> Edit
 												</button>
 											</Link>
-										</div> : <div className="font-black text-lg">
-											<Link href={`messages?page=${user?.id}`}>
-												<button className="bg-transparent border border-warning rounded-full px-6 py-1 text-warning">
-													Send Message
-												</button>
-											</Link>
-										</div>
+										</div> : ""
+										// <div className="font-black text-lg">
+										// 	<Link href={`messages?page=${user?.id}`}>
+										// 		<button className="bg-transparent border border-warning rounded-full px-6 py-1 text-warning">
+										// 			Send Message
+										// 		</button>
+										// 	</Link>
+										// </div>
 									}
 								</div>
 							</div>

@@ -274,7 +274,7 @@ const HomePage = () => {
 							<div className="text-base font-light">{active?.name}</div>
 							<div className="text-xs px-3">{active?.description?.substring(0, 100) + "..."}</div>
 						</div>
-						<div className="overflow-y-auto overflow-x-hidden h-[500px]">
+						<div className="overflow-y-auto overflow-x-hidden h-[400px]">
 							<div className="border-b border-gray-200 px-3">
 								<a href="https://teamapp-6jfl6.ondigitalocean.app/" target="_blank">
 									<div className="flex justify-between my-2">
@@ -324,9 +324,9 @@ const HomePage = () => {
 								</div>
 							</div>
 							<div className="text-left sm:p-3">
-								<div className="flex justify-between">
-									<p className="my-4">My Interests
-									</p><Link href={"/mycamp/profile"}><span className="cursor-pointer">
+								<div className="flex">
+									<p className="my-4">My Interests</p>
+									<Link href={"/mycamp/profile"}><span className="cursor-pointer m-3">
 										{/* <img src="/images/pencil.png" className="w-6 h-6" alt="" /> */}
 										<button className="bg-transparent p-2 text-warning rotate-90">
 											<span className="text-warning">&#x270E;</span>
@@ -335,14 +335,14 @@ const HomePage = () => {
 								</div>
 								{author?.interests.map((interst, i) => <p className="text-sm my-3 capitalize cursor-pointer" key={i} onClick={() => filterItemsByInterest(interst)}>{interst}</p>)}
 							</div>
-							<div className="">
-								<Link href="/contact">
-									<button className="btn btn-warning px-4 fw-bold my-3 text-light rounded-pill">
-										Get in Touch
-										<i className="fas fa-long-arrow-alt-right ms-2"></i>
-									</button>
-								</Link>
-							</div>
+						</div>
+						<div className="">
+							<Link href="/contact">
+								<button className="btn btn-warning px-4 fw-bold my-3 text-light rounded-pill">
+									Get in Touch
+									<i className="fas fa-long-arrow-alt-right ms-2"></i>
+								</button>
+							</Link>
 						</div>
 						{/* <div className="text-left">
 							<Dropdown title="My Interests">

@@ -129,7 +129,7 @@ const EventsCard = ({ event, timeLine }: IProps) => {
 					<div className="text-xl my-3">{event.description}</div>
 					<div className="text-sm mb-2">{event.type}</div>
 
-					{event.interested.length >= 2 ? <div className="flex my-6">
+					{event.interested?.length >= 2 ? <div className="flex my-6">
 						<div className="flex">
 							{event.interested.slice(0, 2).map((item, index) => (
 								<img key={index} src={item.image} className="rounded-full w-10 h-10" alt="" />
@@ -165,7 +165,7 @@ const EventsCard = ({ event, timeLine }: IProps) => {
 					<div className="p-2">
 						<input type="text" onChange={(e) => { }} className="p-3 lg:w-96 w-full rounded-full  pl-10 mb-4 text-sm" placeholder="Search" />
 						{
-							interestedIn.length > 0 ?
+							interestedIn?.length > 0 ?
 								interestedIn.map((item, index) => (
 									<div key={index} className='lg:flex w-full my-3 justify-between'>
 										<div className="flex">
