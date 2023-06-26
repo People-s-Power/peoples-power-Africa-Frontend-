@@ -58,7 +58,7 @@ const HomePage = () => {
 							</p>
 							<div className="btn-holder d-flex flex-wrap" style={{ gap: "1rem" }}>
 								<Link href="/?mode=signup">
-									<a className="btn btn-warning btn-lg rounded-pill text-xs px-4 py-2 text-light font-weight-bolder fs-20 ">Post your Complaint</a>
+									<a className="btn btn-warning btn-lg rounded-pill text-xs px-4 py-2 text-light font-weight-bolder fs-20 ">Start Petition</a>
 								</Link>
 								<Link href="/about">
 									<button className="btn btn-lg border-warning text-xs font-weight-bold text-warning py-2 px-4 rounded-pill fs-20">Learn More</button>

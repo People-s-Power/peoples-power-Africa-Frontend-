@@ -309,6 +309,9 @@ function Buildprofile(): React.ReactElement {
 											<button className="p-2 bg-warning text-white rounded-sm" onClick={onNext}>
 												Next
 											</button>
+											<div className="my-1">
+												<Button onClick={onNext}>Skip</Button>
+											</div>
 										</div>
 									</div>
 								)

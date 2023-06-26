@@ -30,7 +30,7 @@ export default function PostActionCard({
 					<h1 className="text-2xl font-semibold">#{hashtag || "Social Policy"}</h1>
 					<p className="text-sm text-zinc-400 my-1">202240</p>
 					<div className="the-hash hidden">{hashtag}</div>
-					<button className="text-white bg-[#f9a826] p-3 py-2 rounded">+ Follow</button>
+					<button className="text-white bg-warning p-3 py-2 rounded">+ Follow</button>
 				</div>
 			</div>}
 			<div className="flex justify-center">
@@ -52,7 +52,7 @@ export default function PostActionCard({
 					{/* <img className="w-6 h-6 my-auto" src="/images/home/icons/experts.svg" alt="" /> */}
 					<div className="my-auto text-sm ml-3">Find NGO/Activists</div>
 				</div>
-				<div className="flex  cursor-pointer sm:hidden" onClick={() => handelEventClick()}>
+				<div className="flex  cursor-pointer" onClick={() => handelEventClick()}>
 					<img className="w-6 h-6 my-auto" src="/images/home/icons/fe_sitemap.svg" alt="" />
 					<div className="my-auto text-sm ml-3">Events</div>
 				</div>

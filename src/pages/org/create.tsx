@@ -29,12 +29,12 @@ const create = () => {
 
 	const categories = [
 		{ value: "NGO", label: "Non-Governmental Organization (NGO)" },
-		{ value: "coaching and mentoring", label: "Coaching and mentoring" },
-		{ value: "health", label: "Health" },
-		{ value: "leadership development", label: "Leadership development" },
-		{ value: "law", label: "Law" },
-		{ value: "information technology", label: "Information technology" },
-		{ value: "others", label: "Others" },
+		// { value: "coaching and mentoring", label: "Coaching and mentoring" },
+		// { value: "health", label: "Health" },
+		// { value: "leadership development", label: "Leadership development" },
+		{ value: "law", label: "Human Right Lawyer" },
+		// { value: "information technology", label: "Information technology" },
+		// { value: "others", label: "Others" },
 	]
 	const subCategories = [
 		{ value: "human right awareness", label: "Human right awareness" },

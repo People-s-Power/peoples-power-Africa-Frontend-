@@ -510,11 +510,10 @@ const messages = () => {
 								<div className="fixed bottom-0 lg:w-[45%] sm:left-0 w-full bg-white ">
 									<div className="flex relative">
 										<textarea
-											onChange={(e) => setMessage(e.target.value)}
+											onChange={(e) => { setMessage(e.target.value), sendTyping(show?.users[1]._id === active.id || active._id ? show.users[0]?._id : show?.users[1]?._id) }}
 											className="w-full h-32 text-sm p-2 border bg-gray-200 border-white"
 											placeholder="Write a message"
 											value={message}
-											onFocus={() => sendTyping(show?.users[1]._id === active.id || active._id ? show.users[0]?._id : show?.users[1]?._id)}
 										></textarea>
 										<Dropdown placement="topEnd" title={<img className="h-6 w-6 text-sm" src="/images/edit.svg" alt="" />} noCaret>
 											{show?.type === "customer-org" && (
