@@ -188,7 +188,7 @@ const SingleCampaignPage = (): JSX.Element => {
 											user?.id === endorse.author.id ? (
 												<div key={i}>
 													<div>
-														Thank you {user.firstName} for endorsing this campaign. Let's now make this campaign get to other supporters on Peoples Power by
+														Thank you {user.firstName} for endorsing this campaign. Let's now make this campaign get to other supporters on PEOPLE POWER by
 														promoting it.
 													</div>
 													<Link href={`/promote?slug=${camp.slug}`}>

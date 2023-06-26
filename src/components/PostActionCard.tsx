@@ -49,8 +49,8 @@ export default function PostActionCard({
 					</div>
 				</div>
 				<div className="flex  cursor-pointer" onClick={() => handelOpenFindExpart()}>
-					{/* <img className="w-6 h-6 my-auto" src="/images/home/icons/experts.svg" alt="" /> */}
-					<div className="my-auto text-sm ml-3">Find NGO/Activists</div>
+					<img className="w-6 h-6 my-auto" src="/images/home/icons/experts.svg" alt="" />
+					<div className="my-auto text-sm ml-3">Find Expert</div>
 				</div>
 				<div className="flex  cursor-pointer" onClick={() => handelEventClick()}>
 					<img className="w-6 h-6 my-auto" src="/images/home/icons/fe_sitemap.svg" alt="" />

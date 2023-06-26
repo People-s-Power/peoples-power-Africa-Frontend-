@@ -122,7 +122,7 @@ const HomePage = () => {
 								<strong className="text-4xl">your No. 1 Technology For</strong> <br /> all your <strong className="text-4xl">complaint</strong>
 							</div>
 							<p className="mb-5 text-[#666666] lg:w-[80%]">
-								What are your personal and Social Complaints? PEOPLES POWER is your no. 1 platform for personal and social solution. Post your Complaint for people to get in touch and have your issues resolved.
+								What are your personal and Social Complaints? PEOPLE POWER is your no. 1 platform for personal and social solution. Post your Complaint for people to get in touch and have your issues resolved.
 							</p>
 							<div className="btn-holder d-flex flex-wrap" style={{ gap: "1rem" }}>
 								<Link href="/?mode=signup">

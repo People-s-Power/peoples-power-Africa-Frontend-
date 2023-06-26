@@ -262,7 +262,7 @@ const org = () => {
 			<>
 				<Head>
 					<title>
-						{`PEOPLES POWER`} || {user?.name}{" "}
+						{`PEOPLE POWER`} || {user?.name}{" "}
 					</title>
 				</Head>
 				<div className="lg:mx-32">

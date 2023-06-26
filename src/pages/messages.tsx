@@ -445,7 +445,7 @@ const messages = () => {
 								<p className="text-xs">{sigUser.description}</p>
 							</div>}
 
-							<p className="text-sm text-center py-1">{typing}</p>
+							<p className="text-sm text-center text-warning py-1">{typing}</p>
 						</div>
 					) : (
 						show &&
@@ -463,7 +463,7 @@ const messages = () => {
 										{
 											show.type === "consumer-to-consumer" ? <div className="text-sm">{show.users[0]._id === active.id ? show.users[1].name : show.users[0].name}</div> : <div className="text-sm">{show.users[0]._id === active._id ? show.users[1].name : show.users[0].name}</div>
 										}
-										<p className="text-sm text-center py-1">{typing}</p>
+										<p className="text-sm text-center text-warning py-1">{typing}</p>
 										<div className="text-xs">
 											<ReactTimeAgo date={new Date(show.updatedAt)} />
 										</div>

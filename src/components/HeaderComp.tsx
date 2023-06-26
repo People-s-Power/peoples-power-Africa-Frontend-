@@ -50,7 +50,7 @@ const Header = (): JSX.Element => {
 	}, [user])
 
 	const { pathname } = useRouter();
-	const text = `PEOPLES POWER`
+	const text = `PEOPLE POWER`
 	// const token = cookie.get(TOKEN_NAME);
 
 	// eslint-disable-next-line no-empty

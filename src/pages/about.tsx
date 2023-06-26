@@ -18,20 +18,20 @@ const AboutPage = () => {
 							<h1 className="text-secondary  fs-1 fw-bold">Who we are</h1>
 
 							{/* <iframe  width="100%" height="900" src="https://docs.google.com/document/d/e/2PACX-1vRx89kPjOl5zLjSUopJKxZocFUoVbBS1DwOhUSC_Hu1lPTZkU1lYUt3MFp8AVyX-PqzIvlsYEk4l-pY/pub?embedded=true"></iframe> */}
-							PEOPLES POWER is a web-based technology and innovative platform that provides a space for individuals to voice their personal or social issues and connect with experts who can offer relevant solutions. The platform creates a forum where people can freely discuss their concerns and feel heard.
-							One of the main benefits of PEOPLES POWER is that it is open to anyone, regardless of their geographical location or financial background. This means that even those who lack easy access to professional help or cannot afford expensive therapy can still receive guidance from experts on the platform. PEOPLES POWER offers a more affordable and accessible solution to people seeking the advice of experts.
+							PEOPLE POWER is a web-based technology and innovative platform that provides a space for individuals to voice their personal or social issues and connect with experts who can offer relevant solutions. The platform creates a forum where people can freely discuss their concerns and feel heard.
+							One of the main benefits of PEOPLE POWER is that it is open to anyone, regardless of their geographical location or financial background. This means that even those who lack easy access to professional help or cannot afford expensive therapy can still receive guidance from experts on the platform. PEOPLE POWER offers a more affordable and accessible solution to people seeking the advice of experts.
 
 							<br />
 							<br />
-							To ensure that those seeking solutions are matched with experts who have the appropriate skills and experience, PEOPLES POWER employs a rigorous vetting process. All experts who are listed on the platform have been carefully screened and verified, giving users peace of mind knowing that they are receiving advice from reputable professionals.
+							To ensure that those seeking solutions are matched with experts who have the appropriate skills and experience, PEOPLE POWER employs a rigorous vetting process. All experts who are listed on the platform have been carefully screened and verified, giving users peace of mind knowing that they are receiving advice from reputable professionals.
 
 							<br />
 							<br />
-							PEOPLES POWER also offers prompt and convenient communication with experts. Users can submit their queries to experts 24/7, and the experts will respond to them as quickly as possible. This ensures that individuals do not have to wait for extended periods before receiving feedback or advice.
+							PEOPLE POWER also offers prompt and convenient communication with experts. Users can submit their queries to experts 24/7, and the experts will respond to them as quickly as possible. This ensures that individuals do not have to wait for extended periods before receiving feedback or advice.
 
 							<br />
 							<br />
-							In conclusion, PEOPLES POWER is an excellent platform for personal and social solutions, providing a revolutionary approach to connecting with experts. With PEOPLES POWER, individuals can receive advice and solutions to their problems, regardless of their location or financial background, with a focus on privacy and convenience. The platform has the potential to help countless people work through their issues and achieve a better quality of life.
+							In conclusion, PEOPLE POWER is an excellent platform for personal and social solutions, providing a revolutionary approach to connecting with experts. With PEOPLE POWER, individuals can receive advice and solutions to their problems, regardless of their location or financial background, with a focus on privacy and convenience. The platform has the potential to help countless people work through their issues and achieve a better quality of life.
 							<br />
 
 						</div>
