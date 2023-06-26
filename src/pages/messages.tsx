@@ -524,7 +524,7 @@ const messages = () => {
 												</Dropdown.Item>
 											)}
 											<Dropdown.Item>
-												<span onClick={() => makeTestimony()}>Make a Testimony</span>
+												<span onClick={() => makeTestimony()}>Celebrate Victory</span>
 											</Dropdown.Item>
 											<Link href={`/report?page=${show?.participants[0] || query.page}`}>
 												<Dropdown.Item>Report User/Ad</Dropdown.Item>

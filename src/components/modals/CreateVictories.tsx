@@ -13,7 +13,7 @@ import NotificationCard from "components/NotificationCard"
 const CreateVictories = ({ open, handelClick, victory }: { open: boolean; handelClick(): void; victory: any }): JSX.Element => {
 	const author = useRecoilValue(UserAtom)
 	const [loading, setLoading] = useState(false)
-	const [body, setBody] = useState(victory?.body || "Congratulations to all who supported our petition ‘’ to achieve its campaign goal and getting a massive victory. Our petition has just won. Let’s keep making the change that we need.")
+	const [body, setBody] = useState(victory?.body || "Congratulations to all who supported our petition to achieve its campaign goal and getting a massive victory. Our petition has just won. Let’s keep making the change that we need.")
 	const router = useRouter()
 	const [notication, setNotication] = useState(false)
 	const [msg, setMsg] = useState("")
@@ -70,7 +70,7 @@ const CreateVictories = ({ open, handelClick, victory }: { open: boolean; handel
 				<Modal.Header>
 					<div className="border-b border-gray-200 p-3 w-full">
 						{
-							router.pathname === "/messages" ? <Modal.Title>Celebrate Trestimony</Modal.Title> : victory === null ? <Modal.Title>Celebrate Victory</Modal.Title> : <Modal.Title>Edit Victory</Modal.Title>
+							victory === null ? <Modal.Title>Celebrate Victory</Modal.Title> : <Modal.Title>Edit Victory</Modal.Title>
 						}
 					</div>
 				</Modal.Header>
@@ -92,7 +92,7 @@ const CreateVictories = ({ open, handelClick, victory }: { open: boolean; handel
 					<div className="flex justify-between text-gray-500">
 						{victory === null ? (
 							<button onClick={handelSubmit} className="p-1 bg-warning text-white rounded-sm w-40">
-								{loading ? "Loading..." : router.pathname === "/messages" ? "Celebrate Testimony" : "Celebrate Victory"}
+								{loading ? "Loading..." : "Celebrate Victory"}
 							</button>
 						) : (
 							<button onClick={handelUpdate} className="p-1 bg-warning text-white rounded-sm w-40">
