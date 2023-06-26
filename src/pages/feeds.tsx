@@ -274,7 +274,7 @@ const HomePage = () => {
 							<div className="text-base font-light">{active?.name}</div>
 							<div className="text-xs px-3">{active?.description?.substring(0, 100) + "..."}</div>
 						</div>
-						<div className="overflow-y-auto h-[500px]">
+						<div className="overflow-y-auto overflow-x-hidden h-[500px]">
 							<div className="border-b border-gray-200 px-3">
 								<a href="https://teamapp-6jfl6.ondigitalocean.app/" target="_blank">
 									<div className="flex justify-between my-2">
@@ -287,7 +287,7 @@ const HomePage = () => {
 								</a>
 								<Link href={"/about#career"}>
 									<div className="flex justify-between my-2">
-										<div className="text-sm my-auto">Become HR Lawyer</div>
+										<div className="text-sm my-auto">Become an Ambassador</div>
 										<div className="text-center cursor-pointer">
 											<div className="bg-gray-100 mx-auto pt-[1px] rounded-full w-6 h-6 text-base font-bold">+</div>
 											<span className="text-xs text-center">start</span>
@@ -302,7 +302,7 @@ const HomePage = () => {
 									</div>
 								</div> */}
 								<div className="flex justify-between my-2">
-									<div className="text-sm my-auto">organisation</div>
+									<div className="text-sm my-auto">Organisation</div>
 									<Link href={"/org/create"}>
 										<div className="text-center cursor-pointer">
 											<div className="bg-gray-100 mx-auto pt-[1px] rounded-full w-6 h-6 text-base font-bold">+</div>
@@ -324,13 +324,15 @@ const HomePage = () => {
 								</div>
 							</div>
 							<div className="text-left sm:p-3">
-								<p className="my-4">My Interests
-									<Link href={"/mycamp/profile"}><span className="cursor-pointer float-right">
+								<div className="flex justify-between">
+									<p className="my-4">My Interests
+									</p><Link href={"/mycamp/profile"}><span className="cursor-pointer">
 										{/* <img src="/images/pencil.png" className="w-6 h-6" alt="" /> */}
-										<button className="bg-transparent p-2 text-warning">
+										<button className="bg-transparent p-2 text-warning rotate-90">
 											<span className="text-warning">&#x270E;</span>
 										</button>
-									</span></Link></p>
+									</span></Link>
+								</div>
 								{author?.interests.map((interst, i) => <p className="text-sm my-3 capitalize cursor-pointer" key={i} onClick={() => filterItemsByInterest(interst)}>{interst}</p>)}
 							</div>
 							<div className="fixed bottom-2 left-60">
@@ -373,12 +375,12 @@ const HomePage = () => {
 						{all.map((single: any, index: number) => {
 							// setType(single.__typename)
 							switch (single.__typename) {
-								// case "Advert":
-								// 	return (
-								// 		<div key={index}>
-								// 			<AdvertsComp advert={single} />
-								// 		</div>
-								// 	)
+								case "Advert":
+									return (
+										<div key={index}>
+											<AdvertsComp advert={single} />
+										</div>
+									)
 								case "Event":
 									return (
 										<div key={index}>
@@ -433,7 +435,7 @@ const HomePage = () => {
 					</div>
 				</section>
 				<aside className="w-[20%] sm:hidden p-2 fixed bg-white right-20">
-					<div className="text-sm">Grow your feed by following persons and organizations that interest you</div>
+					<div className="text-sm">Grow your Support Base by following persons and organizations that interest you</div>
 					{users.slice(0, 4).map((user, index) =>
 						user._id !== author?.id ? (
 							<div key={index}>

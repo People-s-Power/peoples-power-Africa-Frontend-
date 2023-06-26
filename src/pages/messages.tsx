@@ -319,6 +319,7 @@ const messages = () => {
 			socket.on('typing', function (data) {
 				console.log('typing', data);
 				setTypingData(data)
+				setTimeout(() => setTypingData(''), 4000)
 			});
 		}
 	}
@@ -376,7 +377,7 @@ const messages = () => {
 					{messages &&
 						messages.map((item, index) => (
 							<div key={index} className={
-								item.type === "consumer-to-consumer" ? item.unread === true || item.messages[item.messages.length - 1].received === false && item.messages[item.messages.length - 1]?.to === active.id ? "flex p-3 bg-gray-100 cursor-pointer" : "flex p-3 hover:bg-gray-100 w-full cursor-pointer" : item.unread === true || item.messages[item.messages.length - 1].received === false && item.messages[item.messages.length - 1]?.to === active._id ? "flex p-3 bg-gray-100 cursor-pointer" : "flex p-3 hover:bg-gray-100 w-full cursor-pointer"}>
+								item.type === "consumer-to-consumer" ? item.unread === true || item.messages[item.messages.length - 1]?.received === false && item.messages[item.messages.length - 1]?.to === active.id ? "flex p-3 bg-gray-100 cursor-pointer" : "flex p-3 hover:bg-gray-100 w-full cursor-pointer" : item.unread === true || item.messages[item.messages.length - 1].received === false && item.messages[item.messages.length - 1]?.to === active._id ? "flex p-3 bg-gray-100 cursor-pointer" : "flex p-3 hover:bg-gray-100 w-full cursor-pointer"}>
 
 
 								<div onClick={() => { setShow(item); readMessage(item.id, item.messages[item.messages.length - 1]._id); markRead(item.id, item.messages[item.messages.length - 1]._id) }}
@@ -391,7 +392,7 @@ const messages = () => {
 
 									{
 										item.type === "consumer-to-consumer" ? <div className="w-6 my-auto mx-auto">
-											{item.unread === true || item.messages[item.messages.length - 1].received === false && item.messages[item.messages.length - 1]?.to === active.id ? <div className="bg-warning mx-auto w-2 h-2 my-auto rounded-full"></div> : null}
+											{item.unread === true || item.messages[item.messages.length - 1]?.received === false && item.messages[item.messages.length - 1]?.to === active.id ? <div className="bg-warning mx-auto w-2 h-2 my-auto rounded-full"></div> : null}
 										</div> : <div className="w-6 my-auto mx-auto">
 											{item.unread === true || item.messages[item.messages.length - 1].received === false && item.messages[item.messages.length - 1]?.to === active._id ? <div className="bg-warning mx-auto w-2 h-2 my-auto rounded-full"></div> : null}
 										</div>
@@ -406,7 +407,7 @@ const messages = () => {
 											}
 										</div>
 										<div>
-											<div className="text-sm"> <strong>{item.messages[item.messages.length - 1].type === "sponsored" ? "Expert Needed" : item.messages[item.messages.length - 1].type === "advert" ? "Promoted" : null} </strong> {item.messages[item.messages.length - 1].text?.substring(0, 50)} {item.messages[item.messages.length - 1].file ? "file" : ""}</div>
+											<div className="text-sm"> <strong>{item.messages[item.messages.length - 1]?.type === "sponsored" ? "Expert Needed" : item.messages[item.messages.length - 1]?.type === "advert" ? "Promoted" : null} </strong> {item.messages[item.messages.length - 1]?.text?.substring(0, 50)} {item.messages[item.messages.length - 1]?.file ? "file" : ""}</div>
 											<ReactTimeAgo date={new Date(item.updatedAt)} />
 										</div>
 									</div>

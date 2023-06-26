@@ -116,23 +116,23 @@ const Timeline = ({ item }: { item: any }) => {
       <div>
         {(() => {
           switch (item.event) {
-            // case "Created-Advert":
-            //   return <div>
-            //     {data && show === false && <div className="border rounded-md  mb-3">
-            //       <div className="flex m-3 pb-3 border-b border-gray-200">
-            //         <Link href={`user?page=${item.authorId}`}>
-            //           <div className="flex cursor-pointer">
-            //             <img className="rounded-full w-8 h-8 mr-4" src={item.authorImage} alt="" />
-            //             <div className="my-auto text-sm">{item.message}</div>
-            //           </div>
-            //         </Link>
-            //         <HideComp id={item.id} toggle={toggle} />
-            //       </div>
-            //       <AdvertsComp advert={data} timeLine={true} />
-            //     </div>}
-            //     {show && <UnHideComp toggle={toggle} id={item.id} />}
+            case "Created-Advert":
+              return <div>
+                {data && show === false && <div className="border rounded-md  mb-3">
+                  <div className="flex m-3 pb-3 border-b border-gray-200">
+                    <Link href={`user?page=${item.authorId}`}>
+                      <div className="flex cursor-pointer">
+                        <img className="rounded-full w-8 h-8 mr-4" src={item.authorImage} alt="" />
+                        <div className="my-auto text-sm">{item.message}</div>
+                      </div>
+                    </Link>
+                    <HideComp id={item.id} toggle={toggle} />
+                  </div>
+                  <AdvertsComp advert={data} timeLine={true} />
+                </div>}
+                {show && <UnHideComp toggle={toggle} id={item.id} />}
 
-            //   </div>
+              </div>
             case "Created-Victory":
               return (
                 <div>

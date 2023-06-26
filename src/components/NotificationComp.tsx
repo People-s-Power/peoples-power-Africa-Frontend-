@@ -65,12 +65,12 @@ const NotificationComp = ({ item }: { item: any }) => {
 				<div>
 					{(() => {
 						switch (item.event) {
-							// case "Created-Advert":
-							// 	return (
-							// 		<Link href={`Advert?page=${item.itemId}`}>
-							// 			<button className="btn text-warning border border-warning p-2 px-20 my-2">View Advert</button>
-							// 		</Link>
-							// 	)
+							case "Created-Advert":
+								return (
+									<Link href={`Advert?page=${item.itemId}`}>
+										<button className="btn text-warning border border-warning p-2 px-20 my-2">View Advert</button>
+									</Link>
+								)
 							case "Created-Victory":
 								return (
 									<Link href={`/messages?page=${item.authorId}`}>
