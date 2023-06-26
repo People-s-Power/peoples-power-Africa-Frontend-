@@ -311,13 +311,13 @@ const CampComp = ({ post }: { post: any }): JSX.Element => {
 										>
 											Celebrate Victory
 										</Dropdown.Item>
-										<Dropdown.Item
+										{isOwner(post.author._id) ? <Dropdown.Item
 											onClick={() => {
 												handelUpdates(), setUpdate(null)
 											}}
 										>
 											Update
-										</Dropdown.Item>
+										</Dropdown.Item> : null}
 										<Link href={`/report?page=${post?.slug}`}>
 											<Dropdown.Item>Report</Dropdown.Item>
 										</Link>
