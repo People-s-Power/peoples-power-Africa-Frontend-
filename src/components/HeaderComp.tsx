@@ -60,7 +60,7 @@ const Header = (): JSX.Element => {
 		{ title: "Home", link: loggedIn ? `/feeds` : "auth" },
 		{ title: "My Profile", link: loggedIn ? `/user?page=${user.id}` : "auth" },
 		{ title: "Messages", link: "/messages" },
-		{ title: "My Supporters", link: "/connection" },
+		// { title: "My Supporters", link: "/connection" },
 		// { title: "Explore", link: "campaigns" },
 	];
 

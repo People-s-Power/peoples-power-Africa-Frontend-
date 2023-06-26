@@ -43,11 +43,79 @@ const HomePage = () => {
 	})
 
 	const user = useRecoilValue(UserAtom)
-
+	const testimonies: any = [
+		{
+			id: "88uiwhkjhwjknmd",
+			author: "Anitha John",
+			company: "MJS Berhad",
+			job_position: "",
+			body: "I am very excited about this platform that can really protect and preserve every individual's humanity and ensure that every citizen can live a life of dignity and a life that is worthy of a human being.",
+			image: "anitha.jpg"
+		},
+		{
+			id: "88uiwhkjhwjknmd",
+			author: "Roselyn Marshall",
+			job_position: "",
+			company: "Legal Connect",
+			body: "I am sure the common citizen will now have hope. Thanks to the inventor of this wonder tools for social activism. I just can’t wait to have my campaign running and start galvanizing for individual support. With this I can now impact my local community.",
+			image: "rosy.jpg"
+		},
+		{
+			id: "88uiwhkjhwjknmd",
+			author: "G.B Evans",
+			company: "",
+			job_position: "",
+			body: "What an awesome technology. Big thanks to the CEO and before I die in silence it is high time I start voicing out the political challenges bedeviling my community. The underdevelopment, lack of basic amenities and the high level of criminality. I am pretty sure that with this platform I can win supporters who will join voices with me to campaign against these challenges. Kudos to People Power Technology.",
+			image: "john.jpg"
+		}
+	]
 	return (
 		<FrontLayout msg={false}>
 			<Wrapper>
 				<section className="index">
+					<div className="container m-c _index d-flex py-3 flex-column-reverse flex-md-row align-items-md-center">
+						<div className="_index-txt">
+							<h1 className="  mb-3">
+								The <span className=" fw-700 fs-48">World’s Technology</span>{" "}
+								For <span className="fw-700 fs-48">Social</span> Change.{" "}
+								{/* <span className="fw-700 fs-48">Criminal</span> &{" "}
+								<span className="fw-700 fs-48">Social Injustice</span> */}
+							</h1>
+							<p className="mb-5 fs-16">
+								There are so much to talk about: Social policy, Government
+								decisions, Politics, Environment, Empowerment, Development, Crime, Human Right etc.
+							</p>
+							<div
+								className="btn-holder d-flex flex-wrap"
+								style={{ gap: "1rem" }}
+							>
+								<Link href="/auth?mode=signup">
+									<a className="btn btn-warning btn-lg rounded-pill px-4 py-2 text-light font-weight-bolder fs-20 ">
+										Start Pettion
+									</a>
+								</Link>
+								<Link href="/about">
+									<button className="btn btn-lg border-warning font-weight-bold text-warning py-2 px-4 rounded-pill fs-20">
+										Learn More
+									</button>
+								</Link>
+							</div>
+						</div>
+						<div className="lg:block hidden">
+							<Zoom>
+								<div className="_index-img">
+									<Indexsvg />
+								</div>
+							</Zoom>
+						</div>
+					</div>
+					<div className="second-row  d-flex align-items justify-content-evenly">
+						{secondRowContent?.map((e, i) => (
+							<SecondRowComp {...e} key={i} />
+						))}
+					</div>
+				</section>
+				{/* <section className="index">
 					<div className="lg:flex lg:mx-32 my-6 p-4">
 						<div className="lg:w-1/2 my-auto">
 							<div className="mb-3 text-4xl font-thin capitalize">
@@ -73,32 +141,7 @@ const HomePage = () => {
 							</Zoom>
 						</div>
 					</div>
-				</section>
-				<section>
-					<div className="lg:flex text-white">
-						<div className="flex justify-around p-3 bg-[#777777] px-3 lg:w-1/2">
-							<img className="w-40 h-40 my-auto" src="./images/world.png" alt="" />
-							<div className="text-white my-auto">
-								<span className="text-sm text-white">Offer an</span>
-								<p className="text-xl text-white">Expert Service</p>
-							</div>
-						</div>
-						{/* <div className="flex justify-around p-3 bg-[#666666] px-3 lg:w-1/2">
-							<img src="./images/app.png" className="w-28 h-28 my-auto" alt="" />
-							<div className="text-white my-auto">
-								<span className="text-sm text-white">Download Our</span>
-								<p className="text-xl text-white">Mobile App</p>
-							</div>
-						</div> */}
-						<div className="flex justify-around p-3 bg-[#777777] px-3 lg:w-1/2">
-							<div className="text-center my-auto">
-								<span className="text-sm text-white">Become a</span>
-								<p className="text-xl text-white">Virtual Assistant</p>
-							</div>
-							<img className="w-28 h-28 my-auto" src="./images/support.png" alt="" />
-						</div>
-					</div>
-				</section>
+				</section> */}
 				<section className="bg-[#F5F6FA] sm:p-3 py-6">
 					<div className="lg:w-1/2 mx-auto text-center py-8 ">
 						<h3 className="lg:text-3xl text-xl text-[#00401C]">Find An Expert</h3>
@@ -132,7 +175,21 @@ const HomePage = () => {
 						</div>
 					</div>
 				</section>
-
+				<section>
+					<div className="lg:flex my-10">
+						<div className="lg:w-1/2">
+							<img src="/images/camp9.svg" className="lg:w-5/6 w-full mx-auto" alt="" />
+						</div>
+						<div className="lg:w-1/2 my-auto lg:p-0 p-5">
+							<div className="lg:text-3xl text-xl font-bold">Subscribe for our Human Right Applications and Proceedings</div>
+							<div className="text-lg">
+								Our Human Right Application is built and automated to address all forms of human right abuse and with thousands of our Human Right Lawyers and
+								Social Skilled workers across the globe, you can now be able to influence policy makers and compel those in power to respect human right and
+								administer justice through Human Right Proceedings.
+							</div>
+						</div>
+					</div>
+				</section>
 				<section className="bg-[#F5F6FA] py-6">
 					<div className="lg:w-1/2 mx-auto text-center sm:p-3 py-8 ">
 						<h3 className="lg:text-3xl text-xl text-[#00401C]">Hire a Virtual Assistant</h3>
@@ -202,21 +259,6 @@ const HomePage = () => {
 					</div>
 				</section>
 				<div className="p-3 bg-[#00401C] w-full"></div>
-				{/* <section>
-					<div className="lg:flex my-10">
-						<div className="lg:w-1/2">
-							<img src="/images/camp9.svg" className="lg:w-5/6 w-full mx-auto" alt="" />
-						</div>
-						<div className="lg:w-1/2 my-auto lg:p-0 p-5">
-							<div className="lg:text-3xl text-xl font-bold">Subscribe for our Human Right Applications and Proceedings</div>
-							<div className="text-lg">
-								Our Human Right Application is built and automated to address all forms of human right abuse and with thousands of our Human Right Lawyers and
-								Social Skilled workers across the globe, you can now be able to influence policy makers and compel those in power to respect human right and
-								administer justice through Human Right Proceedings.
-							</div>
-						</div>
-					</div>
-				</section>
 				<section className="py-5 community-saying">
 					<div className="_community-saying container">
 						<p className="text-center mb-5 fs-1 fw-bold">What the community says</p>
@@ -224,13 +266,61 @@ const HomePage = () => {
 							<Slider testimonies={testimonies} />
 						</div>
 					</div>
-				</section> */}
+				</section>
 			</Wrapper>
 		</FrontLayout>
 	)
 }
 
 export default HomePage
+const SecondRowComp = ({
+	img,
+	text1,
+	text2,
+	link,
+}: {
+	img: string;
+	text1: string;
+	text2: string;
+	link?: string;
+}): JSX.Element => {
+	return (
+		<div className="arrow second-row-cards">
+			<div className="container _second-row-cards  d-flex flex-column flex-md-row align-items-center">
+				<div>
+					<img src={`/images/${img}`} alt="" />
+				</div>
+				<Link href={link || "/"}>
+					<div className="c-pointer d-flex flex-column align-items-md-start align-items-center">
+						<span className="">{text1}</span>
+						<b className="fs-5">{text2}</b>
+					</div>
+				</Link>
+			</div>
+		</div>
+	);
+};
+
+const secondRowContent = [
+	// {
+	// 	img: "hands.svg",
+	// 	text1: "Download",
+	// 	text2: "Our Mobile App",
+	// 	link: "https://play.google.com/store/apps/details?id=com.gappsy.dashboard.www.android606daa4127835&hl=en",
+	// },
+	{
+		img: "donor.svg",
+		text1: "Suscribe",
+		text2: "Human Right Application",
+		link: "https://teams.peoplespow.com/",
+	},
+	{
+		img: "Bulls eye.svg",
+		text1: "Become",
+		text2: "A Staff",
+		link: "/about#career",
+	},
+];
 
 const Wrapper = styled.div`
 	.c-pointer {

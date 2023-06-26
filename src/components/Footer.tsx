@@ -43,10 +43,15 @@ const Footer = (): JSX.Element => {
 						<ul className="lg:w-2/3 ">
 							{/* <li className="mb-4 fs-4 fw-bold">About us</li> */}
 							<li className="text-[#666666]">
-								PEOPLES POWER is a web-based technology and innovative platform that provides a space for individuals to voice their personal or social issues and connect with experts who can offer relevant solutions. The platform creates a forum where people can freely discuss their concerns and feel heard.
-								One of the main benefits of PEOPLES POWER is that it is open to anyone, regardless of their geographical location or financial background This means that even those who lack easy access to professional help or...<br />
+								<strong>{`PEOPLE'S POWER`}</strong> is a web-based technology for those
+								facing Social injustice and Human Right abuse. It is created
+								to inspire people to cause a change in their local
+								communities. The forum enables one or group to launch a
+								campaign for the change they want be it Social policy,
+								Government policies, Environment, Empowerment, Health,
+								Criminal justice and of course Human Right. <br />
 								<Link href="/about">
-									<a className="text-center text-warning">Learn More</a>
+									<a className="text-center ">Learn More</a>
 								</Link>
 							</li>
 						</ul>

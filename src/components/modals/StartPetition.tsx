@@ -38,6 +38,10 @@ const StartPetition = ({ open, handelClick, data, orgs }: { open: boolean; hande
 
 	const [preview, setPreview] = useState(false)
 	const handelPreview = () => {
+		if (title === "" || category === "" || aim === "" || target === "" || body === "" || previewImages.length === 0) {
+			toast.warn("Please fill in all the fields to continue")
+			return
+		}
 		handelClick()
 		setPreview(!preview)
 	}
@@ -60,7 +64,6 @@ const StartPetition = ({ open, handelClick, data, orgs }: { open: boolean; hande
 		uploadRef.current.value = null;
 
 	}
-
 
 
 	const createPetition = async () => {

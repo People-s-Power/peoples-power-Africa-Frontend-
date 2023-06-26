@@ -19,66 +19,13 @@ import ImageCarousel from "./ImageCarousel"
 const Updates = ({ updates }: { updates: any }): JSX.Element => {
 	const author = useRecoilValue(UserAtom)
 	const router = useRouter()
-	const [content, setContent] = useState("")
 	const [show, setShow] = useState(false)
-	const [more, setMore] = useState(updates.body?.length > 250 ? true : false)
+	const [more, setMore] = useState(updates?.body.length > 250 ? true : false)
 
 	const toggle = val => {
 		setShow(val)
 	}
 
-	const share = async () => {
-		try {
-			const { data } = await axios.post("share", {
-				body: "share",
-				author: author.id,
-				itemId: updates._id,
-			})
-			console.log(data)
-			toast.success("Post has been shared")
-		} catch (err) {
-			console.log(err)
-		}
-	}
-
-	const comment = async (id) => {
-		if (content.length === 0) return
-		try {
-			const { data } = await axios.post(SERVER_URL + "/graphql", {
-				query: print(COMMENT),
-				variables: {
-					authorId: author.id,
-					itemId: id,
-					content: content,
-				},
-			})
-			toast.success("Comment sent")
-			console.log(data)
-		} catch (error) {
-			console.log(error)
-			toast.warn("Oops! Something went wrong")
-		}
-	}
-
-	function liked(id, array) {
-		return array.some((obj) => obj._id === id)
-	}
-	const like = async () => {
-		try {
-			const { data } = await axios.post(SERVER_URL + "/graphql", {
-				query: print(LIKE),
-				variables: {
-					authorId: author.id,
-					itemId: updates._id,
-				},
-			})
-			toast.success("Post liked successfully")
-			console.log(data)
-		} catch (error) {
-			console.log(error)
-			toast.warn("Oops! Something went wrong")
-		}
-	}
 	return (
 		<div>
 			{show === false && <div className="p-3 border mb-3">
@@ -113,7 +60,7 @@ const Updates = ({ updates }: { updates: any }): JSX.Element => {
 				{more ? (
 					<div className="text-sm p-2 leading-loose">
 						{updates.body.slice(0, 250)}{" "}
-						<span className="text-warning underline" onClick={() => setMore(!more)}>
+						<span className="text-warning underline cursor-pointer" onClick={() => setMore(!more)}>
 							..see more
 						</span>
 					</div>
@@ -121,7 +68,7 @@ const Updates = ({ updates }: { updates: any }): JSX.Element => {
 					<div className="text-sm p-2 leading-loose">
 						{updates.body}
 						{updates.body.length > 250 ? (
-							<span className="text-warning underline" onClick={() => setMore(!more)}>
+							<span className="text-warning underline cursor-pointer" onClick={() => setMore(!more)}>
 								see less
 							</span>
 						) : null}

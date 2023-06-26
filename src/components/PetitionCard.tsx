@@ -137,7 +137,7 @@ const PetitionComp = ({ petition, timeLine }: IProps): JSX.Element => {
 				<div className="p-2">
 					<p className="text-lg">{petition.title}</p>
 					<ImageCarousel image={petition.image} />
-					<div className="text-sm p-2 leading-loose">{petition.excerpt}</div>
+					<div className="text-sm p-2 leading-loose">{petition.excerpt}...</div>
 					<div className="my-3 flex justify-end">
 						<Link href={`/campaigns/${petition?.slug}`}>
 							<button className="p-2 ml-auto w-40 bg-warning text-white">View Full Petiton</button>

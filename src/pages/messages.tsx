@@ -245,7 +245,8 @@ const messages = () => {
 				userId: active.id || active._id,
 			}, response => {
 				console.log('delete_message:', response),
-					getDm()
+					// getDm()
+					location.reload();
 			});
 		}
 	}
@@ -640,7 +641,7 @@ const messages = () => {
 								<h5 className="my-4 sm:hidden">Chat with your clients.</h5>
 								<p className="sm:hidden">Respond to Clients Message and Petitions message.</p>
 								{/* <Link href={'/connection?page=followers'}> */}
-								<button className="bg-warning px-4 text-white p-2 my-4 rounded-sm">chat with your clinets</button>
+								<button className="bg-warning px-4 text-white p-2 my-4 rounded-sm">chat with your clients</button>
 								{/* </Link> */}
 							</div>) :
 								<div className="text-center text-gray-400">This user has been blocked {show.blockedBy === active.id || active._id ? <span className="text-warning cursor-pointer" onClick={() => unblockUser(show?.id)}>Unblock</span> : null} </div>

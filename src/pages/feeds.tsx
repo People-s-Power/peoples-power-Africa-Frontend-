@@ -169,7 +169,7 @@ const HomePage = () => {
 			let newArray = []
 			for (let i = 0; i < sortedItems.length; i++) {
 				newArray.push(sortedItems[i])
-				if ((i + 1) % 3 === 0) {
+				if ((i + 1) % 12 === 0) {
 					newArray.push({
 						__typename: "Follow",
 					})
@@ -443,9 +443,9 @@ const HomePage = () => {
 							</div>
 						) : null
 					)}
-					<Link href="/connection">
+					{/* <Link href="/connection">
 						<div className="text-sm text-warning cursor-pointer">view who you followed is following</div>
-					</Link>
+					</Link> */}
 					<div className="p-2">
 						{/* <div className="my-3 text-sm">
 							Grow your feed by following

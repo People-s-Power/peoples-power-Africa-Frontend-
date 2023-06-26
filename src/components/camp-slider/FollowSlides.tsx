@@ -104,7 +104,7 @@ const FollowSlides = () => {
 		<>
 			{users.length > 0 ? (
 				<div className="lg:hidden sm:block">
-					<div className="text-center font-bold text-lg my-3">Grow Your Feed</div>
+					<div className="text-center font-bold text-lg my-3">Grow Your Supporters</div>
 					<SliderTwo {...settings}>
 						{users.map((user, i) =>
 							user._id !== author?.id ? (

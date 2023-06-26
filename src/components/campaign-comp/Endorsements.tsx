@@ -42,13 +42,13 @@ const Endorsements = ({
 		<Wrapper>
 			<div className="wrapper">
 				<div className="top">
-					<img src={endorsement?.author?.image} className="me-2" alt="" />
+					<img src={endorsement?.authorImage} className="me-2" alt="" />
 					<div className=" text-head">
 						<b className="d-block mb-0 name  ">
-							{endorsement?.author?.name}
+							{endorsement?.authorName}
 						</b>
 						<small className="mt-0 date small">
-							<i>{timeago.format(endorsement?.date)}</i>
+							<i>{timeago.format(endorsement?.createdAt)}</i>
 						</small>
 					</div>
 				</div>

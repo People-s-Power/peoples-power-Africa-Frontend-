@@ -164,7 +164,6 @@ export const SINGLE_PETITION = gql`
 			authorId
 			authorImage
 			authorEmail
-			
 			replies{
 				_id
 			content
