@@ -129,7 +129,7 @@ const Updates = ({ updates }: { updates: any }): JSX.Element => {
 				)}
 				{/* <div className="text-sm p-2 leading-loose">{updates.body}</div> */}
 				<div className="w-full relative">
-					<Link href={`/campaigns/${updates?.petition.slug}`}>
+					<Link href={`/campaigns/${updates?.petition?.slug}`}>
 						<button className="p-2 absolute bottom-0 right-0 text-sm text-white bg-warning">
 							View Petition
 						</button>

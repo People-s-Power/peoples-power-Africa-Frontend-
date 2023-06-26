@@ -335,7 +335,7 @@ const HomePage = () => {
 								</div>
 								{author?.interests.map((interst, i) => <p className="text-sm my-3 capitalize cursor-pointer" key={i} onClick={() => filterItemsByInterest(interst)}>{interst}</p>)}
 							</div>
-							<div className="fixed bottom-2 left-60">
+							<div className="">
 								<Link href="/contact">
 									<button className="btn btn-warning px-4 fw-bold my-3 text-light rounded-pill">
 										Get in Touch
