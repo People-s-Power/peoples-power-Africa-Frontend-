@@ -284,52 +284,56 @@ const HomePage = () => {
 											<span className="text-xs text-center">start</span>
 										</div>
 									</div>
-									</a>
-									<Link href={"/about#career"}>
-										<div className="flex justify-between my-2">
-											<div className="text-sm my-auto">Become HR Lawyer</div>
-											<div className="text-center cursor-pointer">
-												<div className="bg-gray-100 mx-auto pt-[1px] rounded-full w-6 h-6 text-base font-bold">+</div>
-												<span className="text-xs text-center">start</span>
-											</div>
+								</a>
+								<Link href={"/about#career"}>
+									<div className="flex justify-between my-2">
+										<div className="text-sm my-auto">Become HR Lawyer</div>
+										<div className="text-center cursor-pointer">
+											<div className="bg-gray-100 mx-auto pt-[1px] rounded-full w-6 h-6 text-base font-bold">+</div>
+											<span className="text-xs text-center">start</span>
 										</div>
-									</Link>
-									{/* <div className="flex justify-between my-2">
+									</div>
+								</Link>
+								{/* <div className="flex justify-between my-2">
 									<div className="text-sm my-auto">Event</div>
 									<div onClick={() => handelEventClick()} className="text-center cursor-pointer">
 										<div className="bg-gray-100 mx-auto pt-[1px] rounded-full w-6 h-6 text-base font-bold">+</div>
 										<span className="text-xs text-center">create</span>
 									</div>
 								</div> */}
-									<div className="flex justify-between my-2">
-										<div className="text-sm my-auto">organisation</div>
-										<Link href={"/org/create"}>
-											<div className="text-center cursor-pointer">
-												<div className="bg-gray-100 mx-auto pt-[1px] rounded-full w-6 h-6 text-base font-bold">+</div>
-												<span className="text-xs text-center">create</span>
-											</div>
-										</Link>
-									</div>
-									<div>
-										{orgs.map((org, i) => (
-											<div key={i} className="flex cursor-pointer my-2" onClick={() => singleOrg(org?._id)}>
-												{isValidUrl(org?.image) ? (
-													<img className="w-8 h-8 rounded-full" src={org?.image} alt="" />
-												) : (
-													<img className="w-8 h-8 opacity-20" src="/images/logo.svg" alt="" />
-												)}
-												<p className="pl-2 mt-2 text-sm">{org?.name}</p>
-											</div>
-										))}
-									</div>
+								<div className="flex justify-between my-2">
+									<div className="text-sm my-auto">organisation</div>
+									<Link href={"/org/create"}>
+										<div className="text-center cursor-pointer">
+											<div className="bg-gray-100 mx-auto pt-[1px] rounded-full w-6 h-6 text-base font-bold">+</div>
+											<span className="text-xs text-center">create</span>
+										</div>
+									</Link>
+								</div>
+								<div>
+									{orgs.map((org, i) => (
+										<div key={i} className="flex cursor-pointer my-2" onClick={() => singleOrg(org?._id)}>
+											{isValidUrl(org?.image) ? (
+												<img className="w-8 h-8 rounded-full" src={org?.image} alt="" />
+											) : (
+												<img className="w-8 h-8 opacity-20" src="/images/logo.svg" alt="" />
+											)}
+											<p className="pl-2 mt-2 text-sm">{org?.name}</p>
+										</div>
+									))}
+								</div>
 							</div>
 							<div className="text-left sm:p-3">
-								<p className="my-4">My Interests <Link href={"/mycamp/profile"}><span className="cursor-pointer float-right">
-									{/* <img src="/images/pencil.png" className="w-6 h-6" alt="" /> */}
-								</span></Link></p>
+								<p className="my-4">My Interests
+									<Link href={"/mycamp/profile"}><span className="cursor-pointer float-right">
+										{/* <img src="/images/pencil.png" className="w-6 h-6" alt="" /> */}
+										<button className="bg-transparent p-2 text-warning">
+											<span className="text-warning">&#x270E;</span>
+										</button>
+									</span></Link></p>
 								{author?.interests.map((interst, i) => <p className="text-sm my-3 capitalize cursor-pointer" key={i} onClick={() => filterItemsByInterest(interst)}>{interst}</p>)}
 							</div>
-							<div className="fixed bottom-2 left-20">
+							<div className="fixed bottom-2 left-60">
 								<Link href="/contact">
 									<button className="btn btn-warning px-4 fw-bold my-3 text-light rounded-pill">
 										Get in Touch
