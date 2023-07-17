@@ -1,8 +1,8 @@
 import gql from "graphql-tag"
 
 export const CREATE_POST = gql`
-	mutation createPost($authorId: ID!, $body: String!, $imageFile: [String!]!, $categories: [String!]!) {
-		createPost(authorId: $authorId, body: $body, imageFile: $imageFile, categories: $categories) {
+	mutation createPost($authorId: ID!, $body: String!, $assets: [AssetInput!]!, $categories: [String!]!) {
+		createPost(authorId: $authorId, body: $body, assets: $assets, categories: $categories) {
 			_id
 			body
 			isPetition
@@ -16,8 +16,8 @@ export const CREATE_POST = gql`
 `
 
 export const UPDATE_POST = gql`
-	mutation updatePost($authorId: ID!, $body: String!, $postId: ID!, $imageFile: [String!]!, $categories: [String!]!) {
-		updatePost(authorId: $authorId, body: $body, postId: $postId, imageFile: $imageFile, categories: $categories) {
+	mutation updatePost($authorId: ID!, $body: String!, $postId: ID!, $assets: [AssetInput!]!, $categories: [String!]!) {
+		updatePost(authorId: $authorId, body: $body, postId: $postId, assets: $assets, categories: $categories) {
 			_id
 			body
 			isPetition
@@ -39,6 +39,10 @@ export const GET_POSTS = gql`
 				author
 				body
 			}
+			asset{
+				url
+				type
+  	  }
 			image
 			likes
 			shares
@@ -58,6 +62,10 @@ export const GET_USER_POSTS = gql`
 			createdAt
 			views
 			image
+			asset{
+				url
+				type
+  	  }
 			likes {
 				_id
 				name
@@ -111,6 +119,10 @@ export const GET_POST = gql`
 			body
 			createdAt
 			image
+			asset{
+				url
+				type
+  	  }
 			likes {
 				_id
 				name

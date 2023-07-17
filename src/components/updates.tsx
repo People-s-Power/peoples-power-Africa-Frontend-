@@ -53,7 +53,7 @@ const Updates = ({ updates }: { updates: any }): JSX.Element => {
 				</div>
 				<div className="text-sm p-2 leading-loose">{updates.petition?.title}</div>
 				<div className="p-2">
-					<ImageCarousel image={updates.image} />
+					<ImageCarousel image={updates.asset} />
 				</div>
 				<div className="font-bold text-lg">Petition Update</div>
 

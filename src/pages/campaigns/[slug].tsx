@@ -27,8 +27,18 @@ import AddUpdates from "components/modals/AddUpdates"
 // });
 
 export interface Update {
+	asset: Asset
 	body: string
 	image: string
+}
+export class Asset {
+	url: string;
+	type: AssetEnum;
+}
+
+export enum AssetEnum {
+	image = 'image',
+	video = 'video'
 }
 
 const SingleCampaignPage = (): JSX.Element => {
@@ -100,8 +110,16 @@ const SingleCampaignPage = (): JSX.Element => {
 										<h1 className="m-0 p-0 text-warning fw-bold mb-3 fs-4">Explore Petition</h1>
 										<div className="grid grid-flow-col auto-cols-auto grid-flow-row auto-rows-auto gap-1">
 											{
-												camp?.image?.slice(0, 4).map((image, index) =>
-													<img key={index} className="w-full h-80 rounded-md object-cover" src={image} alt="" />
+												camp?.asset?.slice(0, 4).map((image, index) =>
+													image.type === 'image' ? <img key={index} className="w-full h-80 rounded-md object-cover" src={image.url} alt="" />
+														: <video
+															src={image.url}
+															autoPlay muted
+															key={index}
+															className="embed-responsive-item w-full object-cover h-80"
+														>
+															<source src={image.url} type="video/mp4" />
+														</video>
 												)
 											}
 										</div>
@@ -139,7 +157,17 @@ const SingleCampaignPage = (): JSX.Element => {
 											{update.map((item, i) => (
 												<div key={i}>
 													<div className="text-lg my-1">
-														<img src={item.image[0]} className="w-full h-80 rounded-md object-cover" alt="" />
+														{
+															item?.asset[0]?.type === 'image' ?
+																<img src={item.asset[0]?.url} className="w-full h-80 rounded-md object-cover" alt="" />
+																: <video
+																	src={item.asset[0]?.url}
+																	autoPlay muted
+																	className="embed-responsive-item w-full object-cover h-80"
+																>
+																	<source src={item.asset[0]?.url} type="video/mp4" />
+																</video>
+														}
 														<div className="text-sm">
 															{item.body}
 														</div>
@@ -188,7 +216,7 @@ const SingleCampaignPage = (): JSX.Element => {
 											user?.id === endorse.author.id ? (
 												<div key={i}>
 													<div>
-														Thank you {user.firstName} for endorsing this campaign. Let's now make this campaign get to other supporters on PEOPLE POWER by
+														Thank you {user.firstName} for endorsing this campaign. Let's now make this campaign get to other supporters on Peoples Power by
 														promoting it.
 													</div>
 													<Link href={`/promote?slug=${camp.slug}`}>

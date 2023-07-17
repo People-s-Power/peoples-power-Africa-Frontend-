@@ -9,6 +9,10 @@ export const GET_CAMPAIGN = gql`
 			status
 			body
 			image
+			asset{
+				url
+				type
+  	  }
 			promoted
 			aim
 			createdAt
@@ -32,6 +36,10 @@ export const GET_CAMPAIGNS = gql`
 			slug
 			views
 			image
+			asset{
+				url
+				type
+  	  }
 			createdAt
 			category
 			promoted
@@ -94,6 +102,10 @@ export const MY_CAMPAIGN = gql`
 			status
 			body
 			slug
+			asset{
+				url
+				type
+  	  }
 			promoted
 			category
 			views

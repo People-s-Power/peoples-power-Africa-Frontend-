@@ -28,21 +28,20 @@ const AddUpdates = ({ open, handelClick, petition, update }: { open: boolean; ha
 
 	const handleImage = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const files = e.target.files
+		const reader = new FileReader()
 
-		if (files && files.length <= 6) {
-			const fileArray = Array.from(files);
-
-			fileArray.forEach((file) => {
-				const reader = new FileReader();
-				reader.readAsDataURL(file);
-				reader.onload = () => {
-					setFilePreview((prev) => [...prev, reader.result]);
-				};
-			});
-		} else {
+		if (files && files.length > 0) {
+			reader.readAsDataURL(files[0])
+			reader.onloadend = () => {
+				if (reader.result) {
+					const type = files[0].name.substr(files[0].name.length - 3)
+					setFilePreview([...previewImages, {
+						url: reader.result as string,
+						type: type === "mp4" ? "video" : "image"
+					}])
+				}
+			}
 		}
-		uploadRef.current.value = null;
-
 	}
 
 	const handleDelSelected = (index) => {
@@ -62,7 +61,7 @@ const AddUpdates = ({ open, handelClick, petition, update }: { open: boolean; ha
 			const { data } = await axios.post("petition/update", {
 				petitionId: petition._id,
 				body: body,
-				image: previewImages,
+				assets: previewImages,
 				authorId: author.id,
 			})
 			// toast.success("Updates added successfulluy")
@@ -83,7 +82,7 @@ const AddUpdates = ({ open, handelClick, petition, update }: { open: boolean; ha
 			const { data } = await axios.put("petition/update", {
 				updateId: update._id,
 				body: body,
-				image: previewImages,
+				assets: previewImages,
 				authorId: author.id,
 			})
 			toast.success("Updates edited successfulluy")
@@ -124,20 +123,37 @@ const AddUpdates = ({ open, handelClick, petition, update }: { open: boolean; ha
 					<input type="file" ref={uploadRef} multiple={true} className="d-none" onChange={handleImage} />
 					{previewImages.length > 0 && (
 						<div className="flex flex-wrap my-4 w-full">
-							{previewImages.map((url, index) => (
-								<div className="w-[100px] h-[100px] m-[3px]" key={index}>
-									<img
-										src={url}
-										alt={`Preview ${index}`}
-										className=" object-cover w-full h-full"
-									/>
-									<div
-										className="flex  cursor-pointer text-[red] justify-center items-center"
-										onClick={() => handleDelSelected(index)}
-									>
-										Delete
+							{previewImages.map((image, index) => (
+								image.type === 'image' ?
+									<div className="w-[100px] h-[100px] m-[3px]" key={index}>
+										<img
+											src={image.url}
+											alt={`Preview ${index}`}
+											className=" object-cover w-full h-full"
+										/>
+										<div
+											className="flex  cursor-pointer text-[red] justify-center items-center"
+											onClick={() => handleDelSelected(index)}
+										>
+											Delete
+										</div>
 									</div>
-								</div>
+									: <div className="w-[100px] h-[100px] m-[3px]" key={index}>
+										<video
+											src={image.url}
+											width="500"
+											autoPlay muted
+											className="embed-responsive-item w-full object-cover h-full"
+										>
+											<source src={image.url} type="video/mp4" />
+										</video>
+										<div
+											className="flex  cursor-pointer text-[red] justify-center items-center"
+											onClick={() => handleDelSelected(index)}
+										>
+											Delete
+										</div>
+									</div>
 							))}
 						</div>
 					)}

@@ -121,7 +121,7 @@ const EventsCard = ({ event, timeLine }: IProps) => {
 					<div className="text-sm my-1">{event.author.description}</div>
 				</div>
 				<div className="text-xl my-3">{event.name}</div>
-				<ImageCarousel image={event.image} />
+				<ImageCarousel image={event.asset} />
 				<div className="p-3 text-sm my-auto">
 					<div>
 						{event.author.name} created event for {event.startDate} AT {event.time}

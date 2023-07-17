@@ -51,7 +51,7 @@ const EventCard = ({ event }: { event: any }): JSX.Element => {
                 </div>
             </div>
             <div className=' rounded-md shadow-sm'>
-                <ImageCarousel image={event.image} />
+                <ImageCarousel image={event.asset} />
                 <div className='my-auto w-full p-4' >
                     <div className='text-xl my-3'>{event.name}</div>
                     <div className='text-sm'>

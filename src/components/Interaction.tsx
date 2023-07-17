@@ -25,7 +25,7 @@ import StartPetition from "./modals/StartPetition"
 import CreateVictories from "./modals/CreateVictories"
 import { useRouter } from "next/router"
 import { DELETE_VICTORIES } from "apollo/queries/victories"
-import { LIKE_COMMENT, LIKE_REPLY, REMOVE_COMMENT, REPLY_COMMENT } from "apollo/queries/commentsQuery"
+import { LIKE_COMMENT, LIKE_REPLY, REMOVE_COMMENT, REPLY_COMMENT, EDIT_COMMENT, REMOVE_REPLY, EDIT_REPLY } from "apollo/queries/commentsQuery"
 
 const CampComp = ({ post }: { post: any }): JSX.Element => {
 	const router = useRouter()
@@ -55,6 +55,7 @@ const CampComp = ({ post }: { post: any }): JSX.Element => {
 	const [open, setOpen] = useState(false)
 	const [update, setUpdate] = useState(null)
 	const [victories, setVictories] = useState(null)
+	const [single, setSingle] = useState(null)
 
 	useQuery(GET_ORGANIZATIONS, {
 		variables: { ID: author?.id },
@@ -157,6 +158,7 @@ const CampComp = ({ post }: { post: any }): JSX.Element => {
 				{
 					authorName: author.name,
 					authorImage: author.image,
+					authorId: author.id,
 					content: content,
 					_id: data.data.comment._id,
 					createdAt: new Date(),
@@ -218,7 +220,25 @@ const CampComp = ({ post }: { post: any }): JSX.Element => {
 		}
 	}
 
-
+	const editComment = async () => {
+		try {
+			setLoading(true)
+			const { data } = await axios.post(SERVER_URL + "/graphql", {
+				query: print(EDIT_COMMENT),
+				variables: {
+					authorId: author.id,
+					commentId: single._id,
+					content: content
+				},
+			})
+			console.log(data)
+			setLoading(false)
+			setContent("")
+			setSingle(null)
+		} catch (err) {
+			console.log(err)
+		}
+	}
 
 	const deleteComment = async (index) => {
 		try {
@@ -231,6 +251,8 @@ const CampComp = ({ post }: { post: any }): JSX.Element => {
 				},
 			})
 			console.log(data)
+			allComment.splice(index, 1)
+			// setAllComment(newComment)
 		}
 		catch (err) {
 			console.log(err)
@@ -311,13 +333,15 @@ const CampComp = ({ post }: { post: any }): JSX.Element => {
 										>
 											Celebrate Victory
 										</Dropdown.Item>
-										{isOwner(post.author._id) ? <Dropdown.Item
-											onClick={() => {
-												handelUpdates(), setUpdate(null)
-											}}
-										>
-											Update
-										</Dropdown.Item> : null}
+										{isOwner(post.author._id) ?
+											<Dropdown.Item
+												onClick={() => {
+													handelUpdates(), setUpdate(null)
+												}}
+											>
+												Update
+											</Dropdown.Item>
+											: null}
 										<Link href={`/report?page=${post?.slug}`}>
 											<Dropdown.Item>Report</Dropdown.Item>
 										</Link>
@@ -401,7 +425,7 @@ const CampComp = ({ post }: { post: any }): JSX.Element => {
 							placeholder={post.__typename === "Petition" ? "What is your reason for endorsing this Petition?" : "Write a comment"}
 						/>
 						<div className="absolute top-4 right-6">
-							{loading ? <Loader /> : <img src="./images/send.png" onClick={(e) => commentBtn(post._id)} className="w-6 h-6 cursor-pointer" alt="" />}
+							{loading ? <Loader /> : <img src="./images/send.png" onClick={(e) => single === null ? commentBtn(post._id) : editComment()} className="w-6 h-6 cursor-pointer" alt="" />}
 						</div>
 					</div>
 					{allComment?.length > 0
@@ -418,7 +442,7 @@ const CampComp = ({ post }: { post: any }): JSX.Element => {
 											<ReactTimeAgo date={new Date(comment.createdAt)} />{" "}
 										</div>
 									</div>
-									<RepliesComp comment={comment} deleteComment={() => deleteComment(index)} />
+									<RepliesComp comment={comment} setSingle={() => { setSingle(comment), setContent(single?.content) }} deleteComment={() => deleteComment(index)} />
 								</div>
 							</div>
 						))
@@ -446,13 +470,14 @@ const CampComp = ({ post }: { post: any }): JSX.Element => {
 
 export default CampComp
 
-export function RepliesComp({ comment, deleteComment }: any) {
+export function RepliesComp({ comment, deleteComment, setSingle }: any) {
 	const [reply, setReply] = useState("")
 	const [loading2, setLoading2] = useState(false)
 	const author = useRecoilValue(UserAtom)
 	const [replies, setReplies] = useState(false)
 	const [commentLikes, setCommentLikes] = useState(comment?.likes?.length)
 	const [commmentReplies, setCommentReplies] = useState(comment?.replies)
+	const [single, setNewSingle] = useState(null)
 
 	const replyBtn = async (comment) => {
 		try {
@@ -468,6 +493,7 @@ export function RepliesComp({ comment, deleteComment }: any) {
 			setCommentReplies([{
 				authorName: author.name,
 				authorImage: author.image,
+				authorId: author.id,
 				content: reply,
 				createdAt: new Date(),
 			}, ...commmentReplies])
@@ -480,22 +506,6 @@ export function RepliesComp({ comment, deleteComment }: any) {
 		}
 	}
 
-	// const deleteReply = async (index) => {
-	// 	try {
-	// 		const { data } = await axios.post(SERVER_URL + "/graphql", {
-	// 			query: print(REMOVE_COMMENT),
-	// 			variables: {
-	// 				authorId: author.id,
-	// 				commentId: post.comment[index]._id,
-	// 				replyId: post._id
-	// 			},
-	// 		})
-	// 		console.log(data)
-	// 	}
-	// 	catch (err) {
-	// 		console.log(err)
-	// 	}
-	// }
 	const likeComment = async (comment) => {
 		try {
 			const { data } = await axios.post(SERVER_URL + "/graphql", {
@@ -530,11 +540,58 @@ export function RepliesComp({ comment, deleteComment }: any) {
 		}
 	}
 
+	const removeReply = async (index) => {
+		try {
+			const { data } = await axios.post(SERVER_URL + "/graphql", {
+				query: print(REMOVE_REPLY),
+				variables: {
+					authorId: author.id,
+					commentId: comment._id,
+					replyId: commmentReplies[index]._id,
+				},
+			})
+			console.log(data)
+			commmentReplies.splice(index, 1)
+			// setCommentReplies(newComment)
+		}
+		catch (err) {
+			console.log(err)
+		}
+	}
+
+	const editReply = async () => {
+		try {
+			setLoading2(true)
+			const { data } = await axios.post(SERVER_URL + "/graphql", {
+				query: print(EDIT_REPLY),
+				variables: {
+					authorId: author.id,
+					commentId: comment._id,
+					replyId: single._id,
+					content: reply
+				},
+			})
+			setLoading2(false)
+			setNewSingle(null)
+			setReply("")
+			console.log(data)
+		}
+		catch (err) {
+			console.log(err)
+		}
+	}
+
+
 	return (
 		<div>
 			<div className="flex my-1 text-sm">
-				<div className="cursor-pointer" onClick={() => setReplies(!replies)}><span className="mr-1">{commmentReplies.length}</span> Reply</div>
+				<div className="cursor-pointer" onClick={() => setReplies(!replies)}><span className="mr-1">{commmentReplies?.length}</span> Reply</div>
 				<div onClick={(e) => likeComment(comment)} className="mx-4 cursor-pointer"><span className="mx-1">{commentLikes}</span> Likes</div>
+				{
+					author.id === comment.authorId ? <div onClick={() => setSingle()} className="cursor-pointer mr-4">
+						Edit
+					</div> : null
+				}
 				{
 					author.id === comment.authorId ? <div onClick={() => deleteComment()} className="cursor-pointer text-red-500">
 						Delete
@@ -555,7 +612,7 @@ export function RepliesComp({ comment, deleteComment }: any) {
 							placeholder={"Reply comment"}
 						/>
 						<div className="absolute top-4 right-6">
-							{loading2 ? <Loader /> : <img src="./images/send.png" onClick={(e) => replyBtn(comment)} className="w-6 h-6 cursor-pointer" alt="" />}
+							{loading2 ? <Loader /> : <img src="./images/send.png" onClick={(e) => { single === null ? replyBtn(comment) : editReply() }} className="w-6 h-6 cursor-pointer" alt="" />}
 						</div>
 					</div>
 					{commmentReplies?.length > 0 ?
@@ -575,6 +632,16 @@ export function RepliesComp({ comment, deleteComment }: any) {
 									<div className="flex my-1 text-sm">
 										{/* <div onClick={() => setReplies(!replies)}><span className="mr-1">{comment.replies?.length}</span> Reply</div> */}
 										<div onClick={(e) => likeReply(comment, index)} className="cursor-pointer"><span className="mx-1">{reply.likes?.length}</span> Likes</div>
+										{
+											author.id === reply.authorId ? <div onClick={() => { setReply(reply.content), setNewSingle(reply) }} className="cursor-pointer mx-4">
+												Edit
+											</div> : null
+										}
+										{
+											author.id === reply.authorId ? <div onClick={() => removeReply(index)} className="cursor-pointer text-red-500">
+												Delete
+											</div> : null
+										}
 									</div>
 								</div>
 							</div>

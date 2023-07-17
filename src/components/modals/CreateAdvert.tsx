@@ -33,19 +33,20 @@ const CreateAdvert = ({ open, handelClick, advert }: { open: boolean; handelClic
 	const handleImage = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const files = e.target.files
 
-		if (files && files.length <= 6) {
-			const fileArray = Array.from(files);
+		const reader = new FileReader()
 
-			fileArray.forEach((file) => {
-				const reader = new FileReader();
-				reader.readAsDataURL(file);
-				reader.onload = () => {
-					setFilePreview((prev) => [...prev, reader.result]);
-				};
-			});
-		} else {
+		if (files && files.length > 0) {
+			reader.readAsDataURL(files[0])
+			reader.onloadend = () => {
+				if (reader.result) {
+					const type = files[0].name.substr(files[0].name.length - 3)
+					setFilePreview([...previewImages, {
+						url: reader.result as string,
+						type: type === "mp4" ? "video" : "image"
+					}])
+				}
+			}
 		}
-		uploadRef.current.value = null;
 
 	}
 
@@ -62,7 +63,7 @@ const CreateAdvert = ({ open, handelClick, advert }: { open: boolean; handelClic
 					link: link,
 					duration: duration,
 					email: email,
-					imageFile: previewImages,
+					assets: previewImages,
 				},
 			})
 			setMsg("Advert Created Successfully!")
@@ -97,7 +98,7 @@ const CreateAdvert = ({ open, handelClick, advert }: { open: boolean; handelClic
 					link: link,
 					duration: duration,
 					email: email,
-					imageFile: previewImages,
+					assets: previewImages,
 					advertId: advert._id,
 				},
 			})
@@ -145,20 +146,37 @@ const CreateAdvert = ({ open, handelClick, advert }: { open: boolean; handelClic
 				</div>
 				{previewImages.length > 0 && (
 					<div className="flex flex-wrap my-4 w-full">
-						{previewImages.map((url, index) => (
-							<div className="w-[100px] h-[100px] m-[3px]" key={index}>
-								<img
-									src={url}
-									alt={`Preview ${index}`}
-									className=" object-cover w-full h-full"
-								/>
-								<div
-									className="flex  cursor-pointer text-[red] justify-center items-center"
-									onClick={() => handleDelSelected(index)}
-								>
-									Delete
+						{previewImages.map((image, index) => (
+							image.type === 'image' ?
+								<div className="w-[100px] h-[100px] m-[3px]" key={index}>
+									<img
+										src={image.url}
+										alt={`Preview ${index}`}
+										className=" object-cover w-full h-full"
+									/>
+									<div
+										className="flex  cursor-pointer text-[red] justify-center items-center"
+										onClick={() => handleDelSelected(index)}
+									>
+										Delete
+									</div>
 								</div>
-							</div>
+								: <div className="w-[100px] h-[100px] m-[3px]" key={index}>
+									<video
+										src={image.url}
+										width="500"
+										autoPlay muted
+										className="embed-responsive-item w-full object-cover h-full"
+									>
+										<source src={image.url} type="video/mp4" />
+									</video>
+									<div
+										className="flex  cursor-pointer text-[red] justify-center items-center"
+										onClick={() => handleDelSelected(index)}
+									>
+										Delete
+									</div>
+								</div>
 						))}
 					</div>
 				)}

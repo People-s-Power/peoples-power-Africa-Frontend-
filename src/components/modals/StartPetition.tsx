@@ -18,7 +18,7 @@ const StartPetition = ({ open, handelClick, data, orgs }: { open: boolean; hande
 	const author = useRecoilValue(UserAtom)
 	const [active, setActive] = useState<any>(null)
 	const [id, setId] = useState(data?._id || "")
-	const [previewImages, setFilePreview] = useState(data?.image || []);
+	const [previewImages, setFilePreview] = useState(data?.asset || []);
 	const router = useRouter()
 	const [aim, setAim] = useState(data?.aim || "")
 	const [target, setTarget] = useState(data?.target || "")
@@ -38,32 +38,28 @@ const StartPetition = ({ open, handelClick, data, orgs }: { open: boolean; hande
 
 	const [preview, setPreview] = useState(false)
 	const handelPreview = () => {
-		if (title === "" || category === "" || aim === "" || target === "" || body === "" || previewImages.length === 0) {
-			toast.warn("Please fill in all the fields to continue")
-			return
-		}
 		handelClick()
 		setPreview(!preview)
 	}
 
 	const handleImage = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const files = e.target.files
+		const reader = new FileReader()
 
-		if (files && files.length <= 6) {
-			const fileArray = Array.from(files);
-
-			fileArray.forEach((file) => {
-				const reader = new FileReader();
-				reader.readAsDataURL(file);
-				reader.onload = () => {
-					setFilePreview((prev) => [...prev, reader.result]);
-				};
-			});
-		} else {
+		if (files && files.length > 0) {
+			reader.readAsDataURL(files[0])
+			reader.onloadend = () => {
+				if (reader.result) {
+					const type = files[0].name.substr(files[0].name.length - 3)
+					setFilePreview([...previewImages, {
+						url: reader.result as string,
+						type: type === "mp4" ? "video" : "image"
+					}])
+				}
+			}
 		}
-		uploadRef.current.value = null;
-
 	}
+
 
 
 	const createPetition = async () => {
@@ -72,7 +68,7 @@ const StartPetition = ({ open, handelClick, data, orgs }: { open: boolean; hande
 			const { data } = await axios.post("/petition", {
 				title: title,
 				category: category,
-				image: previewImages,
+				assets: previewImages,
 				aim: aim,
 				target: target,
 				body: body,
@@ -101,7 +97,7 @@ const StartPetition = ({ open, handelClick, data, orgs }: { open: boolean; hande
 			const { data } = await axios.put("https://apiv5-xacq2.ondigitalocean.app/api/v5/petition", {
 				title: title,
 				category: category,
-				image: previewImages,
+				assets: previewImages,
 				aim: aim,
 				target: target,
 				body: body,
@@ -164,7 +160,7 @@ const StartPetition = ({ open, handelClick, data, orgs }: { open: boolean; hande
 										<div className="text-sm my-auto">{active?.name}</div>
 									</div>
 									<div className="my-auto">
-										<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="#18C73E" className="bi bi-caret-down-fill" viewBox="0 0 16 16">
+										<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="#F7A607" className="bi bi-caret-down-fill" viewBox="0 0 16 16">
 											<path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
 										</svg>
 									</div>
@@ -192,20 +188,37 @@ const StartPetition = ({ open, handelClick, data, orgs }: { open: boolean; hande
 					</div>
 					{previewImages.length > 0 && (
 						<div className="flex flex-wrap my-4 w-full">
-							{previewImages.map((url, index) => (
-								<div className="w-[100px] h-[100px] m-[3px]" key={index}>
-									<img
-										src={url}
-										alt={`Preview ${index}`}
-										className=" object-cover w-full h-full"
-									/>
-									<div
-										className="flex  cursor-pointer text-[red] justify-center items-center"
-										onClick={() => handleDelSelected(index)}
-									>
-										Delete
+							{previewImages.map((image, index) => (
+								image.type === 'image' ?
+									<div className="w-[100px] h-[100px] m-[3px]" key={index}>
+										<img
+											src={image.url}
+											alt={`Preview ${index}`}
+											className=" object-cover w-full h-full"
+										/>
+										<div
+											className="flex  cursor-pointer text-[red] justify-center items-center"
+											onClick={() => handleDelSelected(index)}
+										>
+											Delete
+										</div>
 									</div>
-								</div>
+									: <div className="w-[100px] h-[100px] m-[3px]" key={index}>
+										<video
+											src={image.url}
+											width="500"
+											autoPlay muted
+											className="embed-responsive-item w-full object-cover h-full"
+										>
+											<source src={image.url} type="video/mp4" />
+										</video>
+										<div
+											className="flex  cursor-pointer text-[red] justify-center items-center"
+											onClick={() => handleDelSelected(index)}
+										>
+											Delete
+										</div>
+									</div>
 							))}
 						</div>
 					)}
@@ -282,20 +295,37 @@ const StartPetition = ({ open, handelClick, data, orgs }: { open: boolean; hande
 						<div className="my-4 w-full">
 							{previewImages.length > 0 && (
 								<div className="flex flex-wrap my-2 w-full">
-									{previewImages.map((url, index) => (
-										<div className="w-[100px] h-[100px] m-[3px]" key={index}>
-											<img
-												src={url}
-												alt={`Preview ${index}`}
-												className=" object-cover w-full h-full"
-											/>
-											<div
-												className="flex  cursor-pointer text-[red] justify-center items-center"
-												onClick={() => handleDelSelected(index)}
-											>
-												Delete
+									{previewImages.map((image, index) => (
+										image.type === 'image' ?
+											<div className="w-[100px] h-[100px] m-[3px]" key={index}>
+												<img
+													src={image.url}
+													alt={`Preview ${index}`}
+													className=" object-cover w-full h-full"
+												/>
+												<div
+													className="flex  cursor-pointer text-[red] justify-center items-center"
+													onClick={() => handleDelSelected(index)}
+												>
+													Delete
+												</div>
 											</div>
-										</div>
+											: <div className="w-[100px] h-[100px] m-[3px]" key={index}>
+												<video
+													src={image.url}
+													width="500"
+													autoPlay muted
+													className="embed-responsive-item w-full object-cover h-full"
+												>
+													<source src={image.file} type="video/mp4" />
+												</video>
+												<div
+													className="flex  cursor-pointer text-[red] justify-center items-center"
+													onClick={() => handleDelSelected(index)}
+												>
+													Delete
+												</div>
+											</div>
 									))}
 								</div>
 							)}

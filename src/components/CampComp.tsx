@@ -104,7 +104,7 @@ const CampComp: React.FC<IProps> = ({ post, open, openPetition, timeLine }: IPro
 						</div>
 					)}
 					<div className="p-2">
-						<ImageCarousel image={post.image} />
+						<ImageCarousel image={post.asset} />
 						{author?.id === post.author?._id ? (
 							<div className="text-gray-400 p-1">Hello {author.name}, you can  resolve your complaint speedily by finding an expert or converting your complaint to a petition
 								<button className="border border-warning p-1 mt-1 mr-4 text-black rounded-md bg-white" onClick={() => open()}>Find Expert</button>

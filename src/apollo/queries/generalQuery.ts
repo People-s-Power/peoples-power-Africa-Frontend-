@@ -12,6 +12,10 @@ export const GET_ALL = gql`
 				link
 				action
 				image
+				asset{
+      url
+      type
+    }
 				likes {
 					name
 				}
@@ -52,6 +56,10 @@ export const GET_ALL = gql`
 				_id
 				body
 				image
+				asset{
+      url
+      type
+    }
 				likes {
 					name
 					_id
@@ -102,6 +110,10 @@ export const GET_ALL = gql`
 				}
 				body
 				category
+				asset{
+      url
+      type
+    }
 				createdAt
 				__typename
 				endorsements {
@@ -152,6 +164,10 @@ export const GET_ALL = gql`
 				body
 				createdAt
 				image
+				asset{
+      url
+      type
+    }
 				likes {
 					_id
 					name
@@ -194,9 +210,17 @@ export const GET_ALL = gql`
 			updates {
 				body
 				_id
+				asset{
+					url
+					type
+				}
 				petition {
 					_id
 					title
+					asset{
+						url
+						type
+					}
 					image
 					excerpt
 					aim
@@ -317,6 +341,10 @@ export const GET_ALL = gql`
 
 			events {
 				_id
+				asset{
+					url
+					type
+				}
 				audience
 				author {
 					_id
@@ -501,11 +529,19 @@ mutation unhide($authorId: ID!, $itemId: ID!){
 export const UPDATES = gql`
 	query getUpdate($id: ID!) {
 		getUpdate(id: $id) {
-			body
+				body
 				_id
+				asset{
+					url
+					type
+				}
 				petition {
 					_id
 					title
+					asset{
+						url
+						type
+					}
 					image
 					excerpt
 					aim
@@ -522,16 +558,15 @@ export const UPDATES = gql`
 						authorId
 						authorImage
 						authorEmail
-						date
+						
 						replies{
 							_id
-							 _id
 						content
 						authorName
 						authorId
 						authorImage
 						authorEmail
-						date
+						createdAt
 						}
 						likes
 						createdAt
@@ -564,21 +599,19 @@ export const UPDATES = gql`
 						authorId
 						authorImage
 						authorEmail
-						date
+						
 						replies{
 							_id
-							 _id
 						content
 						authorName
 						authorId
 						authorImage
 						authorEmail
-						date
+						createdAt
 						}
 						likes
 						createdAt
 					}
-
 					category
 					region
 					author {
@@ -596,16 +629,16 @@ export const UPDATES = gql`
 					authorId
 					authorImage
 					authorEmail
-					date
+					
 					replies{
 						_id
-						 _id
 					content
 					authorName
 					authorId
 					authorImage
 					authorEmail
-					date
+					createdAt
+					likes
 					}
 					likes
 					createdAt
@@ -625,6 +658,6 @@ export const UPDATES = gql`
 					image
 				}
 				__typename
-		}
+			}
 	}
 `

@@ -39,7 +39,6 @@ const CreatePost = ({
 	const [msg, setMsg] = useState("")
 	const [link, setLink] = useState("")
 	const [openFindExpart, setOpenFindExpart] = useState(false)
-	const [type, setType] = useState("image")
 
 	const handleImage = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const files = e.target.files
@@ -50,8 +49,10 @@ const CreatePost = ({
 			reader.onloadend = () => {
 				if (reader.result) {
 					const type = files[0].name.substr(files[0].name.length - 3)
-					setFilePreview([...filesPreview, reader.result as string])
-					setType(type === "mp4" ? "video" : "image")
+					setFilePreview([...filesPreview, {
+						url: reader.result as string,
+						type: type === "mp4" ? "video" : "image"
+					}])
 				}
 			}
 		}
@@ -72,7 +73,7 @@ const CreatePost = ({
 				variables: {
 					authorId: active.id || active._id,
 					body: body,
-					imageFile: filesPreview,
+					assets: filesPreview,
 					categories: [category],
 				},
 			})
@@ -99,7 +100,7 @@ const CreatePost = ({
 					authorId: active._id,
 					body: body,
 					postId: post._id,
-					imageFile: filesPreview,
+					assets: filesPreview,
 					categories: [category],
 				},
 			})
@@ -157,7 +158,7 @@ const CreatePost = ({
 											<div className="text-sm my-auto">{active?.name}</div>
 										</div>
 										<div className="my-auto">
-											<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="#18C73E" className="bi bi-caret-down-fill" viewBox="0 0 16 16">
+											<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="#F7A607" className="bi bi-caret-down-fill" viewBox="0 0 16 16">
 												<path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
 											</svg>
 										</div>
@@ -191,7 +192,7 @@ const CreatePost = ({
 										<div className="text-sm my-auto">{active?.name}</div>
 									</div>
 									<div className="my-auto">
-										<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="#18C73E" className="bi bi-caret-down-fill" viewBox="0 0 16 16">
+										<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="#F7A607" className="bi bi-caret-down-fill" viewBox="0 0 16 16">
 											<path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
 										</svg>
 									</div>
@@ -214,7 +215,7 @@ const CreatePost = ({
 				</Modal.Body>
 				<div className="z-40">
 					<Dropdown placement="topStart" title={<div className="text-sm text-warning">{category}</div>}>
-						<Dropdown.Item onClick={() => setCategory("Human right awareness")}>Human right awareness</Dropdown.Item>
+						{/* <Dropdown.Item onClick={() => setCategory("Human right awareness")}>Human right awareness</Dropdown.Item>
 						<Dropdown.Item onClick={() => setCategory("Social Policy")}>Social Policy</Dropdown.Item>
 						<Dropdown.Item onClick={() => setCategory("Criminal Justice")}>Criminal Justice</Dropdown.Item>
 						<Dropdown.Item onClick={() => setCategory("Human Right Action")}>Human Right Action</Dropdown.Item>
@@ -223,16 +224,48 @@ const CreatePost = ({
 						<Dropdown.Item onClick={() => setCategory("Health")}>Health</Dropdown.Item>
 						<Dropdown.Item onClick={() => setCategory("Politics")}>Politics</Dropdown.Item>
 						<Dropdown.Item onClick={() => setCategory("Disability")}>Disability</Dropdown.Item>
-						<Dropdown.Item onClick={() => setCategory("Equality")}>Equality</Dropdown.Item>
+						<Dropdown.Item onClick={() => setCategory("Equality")}>Equality</Dropdown.Item> */}
 					</Dropdown>
 				</div>
 				<Modal.Footer>
 					<input type="file" ref={uploadRef} className="d-none" onChange={handleImage} />
-					<div className="flex">
-						{filesPreview.map((file, index) =>
-							type === "image" ? (
+					<div className="flex my-4">
+						{filesPreview.map((image, index) => (
+							image.type === 'image' ?
+								<div className="w-[100px] h-[100px] m-[3px]" key={index}>
+									<img
+										src={image.url}
+										alt={`Preview ${index}`}
+										className=" object-cover w-full h-full"
+									/>
+									<div
+										className="flex  cursor-pointer text-[red] justify-center items-center"
+										onClick={() => clearFile(index)}
+									>
+										Delete
+									</div>
+								</div>
+								: <div className="w-[100px] h-[100px] m-[3px]" key={index}>
+									<video
+										src={image.url}
+										width="500"
+										autoPlay muted
+										className="embed-responsive-item w-full object-cover h-full"
+									>
+										<source src={image.file} type="video/mp4" />
+									</video>
+									<div
+										className="flex  cursor-pointer text-[red] justify-center items-center"
+										onClick={() => clearFile(index)}
+									>
+										Delete
+									</div>
+								</div>
+						))}
+						{/* {filesPreview.map((file, index) =>
+							file.type === "image" ? (
 								<div key={index} className="relative w-20 h-20 mx-1">
-									<img src={file} className="w-20 h-20" alt="" />
+									<img src={file.url} className="w-20 h-20" alt="" />
 									<div className="absolute top-1 cursor-pointer right-1 w-4 h-4 rounded-full bg-danger text-sm text-center text-white">
 										<div className="mx-auto text-xs my-auto text-white" onClick={() => clearFile(index)}>
 											x
@@ -240,11 +273,11 @@ const CreatePost = ({
 									</div>
 								</div>
 							) : (
-								<video key={index} src={file} width="500" controls={true} className="w-full object-cover h-52 my-3">
-									<source src={file} type="video/mp4" />
+								<video key={index} src={file.url} width="500" autoPlay muted className="w-full object-cover h-52 my-3">
+									<source src={file.url} type="video/mp4" />
 								</video>
 							)
-						)}
+						)} */}
 					</div>
 
 					<div className="flex sm:flex-wrap justify-between text-gray-500">
