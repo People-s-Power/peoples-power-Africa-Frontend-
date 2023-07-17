@@ -24,6 +24,7 @@ import { theme } from "utils/theme"
 import { getIP } from "utils"
 import Cookies from "js-cookie"
 import Script from "next/script"
+import { GoogleOAuthProvider } from '@react-oauth/google';
 
 import TimeAgo from "javascript-time-ago"
 
@@ -82,13 +83,15 @@ function MyApp({ Component, pageProps }: AppProps): JSX.Element {
 			<ApolloProvider client={client}>
 				<ThemeProvider theme={theme}>
 					<RecoilRoot>
-						<Layout>
-							<Component {...pageProps} />
-						</Layout>
+						<GoogleOAuthProvider clientId="887697567363-9ok08i91989vf3naqcdh7f2qg8558k1m.apps.googleusercontent.com">
+							<Layout>
+								<Component {...pageProps} />
+							</Layout>
+						</GoogleOAuthProvider>
 					</RecoilRoot>
 				</ThemeProvider>
 			</ApolloProvider>
-			
+
 		</Fragment>
 	)
 }
@@ -138,6 +141,6 @@ const Layout = ({ children }: { children: React.ReactChild }) => {
 	// 	}
 	// 	setIp()
 	// }, [])
-	
+
 	return <Fragment>{children}</Fragment>
 }

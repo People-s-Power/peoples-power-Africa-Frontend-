@@ -14,7 +14,7 @@ const UserMenu = (): JSX.Element => {
 	const logout = async () => {
 		Cookies.remove(TOKEN_NAME);
 		Cookies.remove("user_id");
-		router.push(`/auth`)
+		router.push(`/`)
 		localStorage.clear()
 	};
 
