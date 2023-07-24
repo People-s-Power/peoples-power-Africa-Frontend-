@@ -15,6 +15,7 @@ const Header = (): JSX.Element => {
 	const user = useRecoilValue(UserAtom);
 	const [menu, setMenu] = useState(false);
 	const [count, setCount] = useState(0);
+	const [messageCount, setMessageCount] = useState(0)
 	// const socket = io(SERVER_URL, {
 	// 	query: {
 	// 		user_id: user?.id,
@@ -49,6 +50,21 @@ const Header = (): JSX.Element => {
 		}
 	}, [user])
 
+	useEffect(() => {
+
+		socket.emit('unread_count', user?.id, response =>
+			// console.log('unread_count:', response),
+			setMessageCount(response)
+		);
+
+		// socket.emit('unread_count', {
+		// 	user_id: user?.id
+		// }, (response) => {
+		// 	console.log('unread_count:', response)
+		// 	setMessageCount(response)
+		// });
+	}, [user])
+
 	const { pathname } = useRouter();
 	const text = `PEOPLE POWER`
 	// const token = cookie.get(TOKEN_NAME);
@@ -59,8 +75,8 @@ const Header = (): JSX.Element => {
 	const navItems = (loggedIn: boolean) => [
 		{ title: "Home", link: loggedIn ? `/feeds` : "auth" },
 		{ title: "My Profile", link: loggedIn ? `/user?page=${user.id}` : "auth" },
-		{ title: "Messages", link: "/messages" },
-		// { title: "My Supporters", link: "/connection" },
+		// { title: "Messages", link: "/messages" },
+		// { title: "My Connection", link: "/connection" },
 		// { title: "Explore", link: "campaigns" },
 	];
 
@@ -71,14 +87,21 @@ const Header = (): JSX.Element => {
 					<div className="navbar-brand d-flex justify-content-between align-items-center justify-content-md-start min">
 						<Link href="/home">
 							<a className="navbar-brand">
-								<img src="/images/logo.svg" className="rounded-full" alt="" loading="lazy" />
+								<img src="/images/lolo.jpeg" className="rounded-full" alt="" loading="lazy" />
 								<h6>{text}</h6>
 							</a>
 						</Link>
 						<div className="flex d-md-none">
 							{
-								user && <Link href={'/messages'}>
-									<img className=" w-8 h-8 my-auto" src="/images/chat-icon.png" alt="" />
+								user &&
+								<Link href={'/messages'}>
+									<div className="notify-bell pt-3 group cursor-pointer relative">
+
+										{messageCount > 0 && (
+											<div className="text-white text-[8px] absolute text-center px-1 bg-red-500 h-[15px] font-semibold top-3 right-2 rounded-full">{messageCount > 100 ? "99+" : messageCount}</div>
+										)}
+										<img className=" w-8 h-8 my-auto" src="/images/chat-icon.png" alt="" />
+									</div>
 								</Link>
 							}
 							<menu
@@ -182,7 +205,21 @@ const Header = (): JSX.Element => {
 
 										</div>
 									</Link>
-									<div className='p-1'></div>
+									{/* <div className='p-1'></div> */}
+									<Link href="/messages">
+										<div
+											className='notify-bell pt-3 group cursor-pointer relative'
+
+										>
+											{/* <img src="/images/ci_notification-outline-dot.svg" alt="" /> */}
+											{messageCount > 0 && (
+												<div className="text-white text-[8px] absolute text-center px-1 bg-red-500 h-[15px] font-semibold top-3 right-2 rounded-full">{messageCount > 100 ? "99+" : messageCount}</div>
+											)}
+											<svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" fill="currentColor" className="bi bi-chat-dots-fill" viewBox="0 0 16 16">
+												<path d="M16 8c0 3.866-3.582 7-8 7a9.06 9.06 0 0 1-2.347-.306c-.584.296-1.925.864-4.181 1.234-.2.032-.352-.176-.273-.362.354-.836.674-1.95.77-2.966C.744 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7zM5 8a1 1 0 1 0-2 0 1 1 0 0 0 2 0zm4 0a1 1 0 1 0-2 0 1 1 0 0 0 2 0zm3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2z" />
+											</svg>
+										</div>
+									</Link>
 									<UserMenu />
 								</div>
 							)}
@@ -249,6 +286,19 @@ const Header = (): JSX.Element => {
 
 								</div>
 							</Link>
+							{/* <Link href="/messages">
+								<div
+									className='notify-bell pt-3 group cursor-pointer relative'
+
+								>
+									{messageCount > 0 && (
+										<div className="text-white text-[8px] absolute text-center px-1 bg-red-500 h-[15px] font-semibold top-3 right-2 rounded-full">{messageCount > 100 ? "99+" : messageCount}</div>
+									)}
+									<svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" fill="currentColor" className="bi bi-chat-dots-fill" viewBox="0 0 16 16">
+										<path d="M16 8c0 3.866-3.582 7-8 7a9.06 9.06 0 0 1-2.347-.306c-.584.296-1.925.864-4.181 1.234-.2.032-.352-.176-.273-.362.354-.836.674-1.95.77-2.966C.744 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7zM5 8a1 1 0 1 0-2 0 1 1 0 0 0 2 0zm4 0a1 1 0 1 0-2 0 1 1 0 0 0 2 0zm3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2z" />
+									</svg>
+								</div>
+							</Link> */}
 						</div>
 					)}
 				</menu>

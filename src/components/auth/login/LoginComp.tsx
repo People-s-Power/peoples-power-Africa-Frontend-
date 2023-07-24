@@ -60,8 +60,8 @@ const LoginComp = ({
 	return (
 		<div>
 			<h4 className="text-center">Login with</h4>
-			<div className="flex center w-[88px] m-auto">
-				<Facebook onSuccess={() => onSuccess()} />
+			<div className="flex justify-center center w-[88px] m-auto">
+				{/* <Facebook onSuccess={() => onSuccess()} /> */}
 				<GoogleAuthComp onSuccess={() => onSuccess()} />
 			</div>
 			<form onSubmit={handleLogin}>

@@ -11,10 +11,14 @@ import "react-toastify/dist/ReactToastify.css"
 import { useRecoilValue } from "recoil"
 import { UserAtom } from "atoms/UserAtom"
 import NotificationCard from "components/NotificationCard"
+import Select from "react-select"
 
 const CreateAdvert = ({ open, handelClick, advert }: { open: boolean; handelClick(): void; advert: any }): JSX.Element => {
 	const [previewImages, setFilePreview] = useState(advert?.image || []);
-
+	const [countries, setCountries] = useState([])
+	const [cities, setCities] = useState([])
+	const [country, setCountry] = useState("")
+	const [city, setCity] = useState("")
 	const uploadRef = useRef<HTMLInputElement>(null)
 	const [caption, setCaption] = useState(advert?.caption || "")
 	const [link, setLink] = useState(advert?.link || "")
@@ -29,6 +33,31 @@ const CreateAdvert = ({ open, handelClick, advert }: { open: boolean; handelClic
 	const [msg, setMsg] = useState("")
 	const [link2, setLink2] = useState("")
 
+	useEffect(() => {
+		// Get countries
+		// getUsers()
+		axios
+			.get(window.location.origin + "/api/getCountries")
+			.then((res) => {
+				const calculated = res.data.map((country: any) => ({ label: country, value: country }))
+				setCountries(calculated)
+			})
+			.catch((err) => console.log(err))
+	}, [])
+
+	useEffect(() => {
+		// Get countries
+		// getUsers()
+		if (country) {
+			axios
+				.get(`${window.location.origin}/api/getState?country=${country}`)
+				.then((res) => {
+					const calculated = res.data.map((state: any) => ({ label: state, value: state }))
+					setCities(calculated)
+				})
+				.catch((err) => console.log(err))
+		}
+	}, [country])
 
 	const handleImage = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const files = e.target.files
@@ -64,6 +93,8 @@ const CreateAdvert = ({ open, handelClick, advert }: { open: boolean; handelClic
 					duration: duration,
 					email: email,
 					assets: previewImages,
+					country: country,
+					state: city
 				},
 			})
 			setMsg("Advert Created Successfully!")
@@ -100,6 +131,8 @@ const CreateAdvert = ({ open, handelClick, advert }: { open: boolean; handelClic
 					email: email,
 					assets: previewImages,
 					advertId: advert._id,
+					country: country,
+					state: city
 				},
 			})
 			setMsg("Advert Edited Successfully!")
@@ -207,7 +240,22 @@ const CreateAdvert = ({ open, handelClick, advert }: { open: boolean; handelClic
 						<div className="text-sm my-1">Phone number</div>
 						<input type="number" className="w-full border border-gray-700 text-sm" />
 					</div> */}
-
+				</div>
+				<div className="lg:flex my-2 justify-between">
+					<div className="w-[45%] text-xs">
+						<div className="my-1">Country</div>
+						<div>
+							{/* <input onChange={(e) => setCountry(e.target.value)} type="text" className="rounded-sm" placeholder="Nigeria" /> */}
+							<Select options={countries} onChange={(e: any) => setCountry(e?.value)} />
+						</div>
+					</div>
+					<div className="w-[45%] text-xs">
+						<div className="my-1">City</div>
+						<div>
+							{/* <input onChange={(e) => setCity(e.target.value)} type="text" className="rounded-sm" placeholder="Lagis" /> */}
+							<Select options={cities} onChange={(e: any) => setCity(e?.value)} />
+						</div>
+					</div>
 				</div>
 				<div className="flex justify-between mt-2">
 					<div className="w-[45%] text-sm">
