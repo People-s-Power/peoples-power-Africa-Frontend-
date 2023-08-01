@@ -376,10 +376,9 @@ const messages = () => {
 					)}
 					<input type="text" className="p-2 rounded-md w-full" onChange={(e) => search(e.target.value)} placeholder="Search Messages" />
 					{messages &&
-						messages.map((item, index) => (
+						messages.map((item, index) => item.type !== "consumer-to-consumer" && (
 							<div key={index} className={
 								item.type === "consumer-to-consumer" ? item.unread === true || item.messages[item.messages.length - 1]?.received === false && item.messages[item.messages.length - 1]?.to === active.id ? "flex p-3 bg-gray-100 cursor-pointer" : "flex p-3 hover:bg-gray-100 w-full cursor-pointer" : item.unread === true || item.messages[item.messages.length - 1].received === false && item.messages[item.messages.length - 1]?.to === active._id ? "flex p-3 bg-gray-100 cursor-pointer" : "flex p-3 hover:bg-gray-100 w-full cursor-pointer"}>
-
 
 								<div onClick={() => { setShow(item); readMessage(item.id, item.messages[item.messages.length - 1]?._id); markRead(item.id, item.messages[item.messages.length - 1]?._id) }}
 									className={"w-full flex"}

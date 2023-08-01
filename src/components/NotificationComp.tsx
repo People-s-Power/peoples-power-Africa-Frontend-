@@ -50,6 +50,7 @@ const NotificationComp = ({ item }: { item: any }) => {
 		}
 	}
 	return (
+		item.event !== "Created-Post" &&
 		<div onMouseEnter={() => readNotication(item.id)} className="border-b mx-auto border-gray-200 lg:w-[60%] p-3 flex">
 			<img src={item.authorImage} className="w-16 h-16 rounded-full my-auto" alt="" />
 

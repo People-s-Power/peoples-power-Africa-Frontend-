@@ -292,8 +292,8 @@ const SecondRowComp = ({
 				</div>
 				<Link href={link || "/"}>
 					<div className="c-pointer d-flex flex-column align-items-md-start align-items-center">
-						<span className="">{text1}</span>
-						<b className="fs-5">{text2}</b>
+						<span className="text-white">{text1}</span>
+						<b className="fs-5 text-white">{text2}</b>
 					</div>
 				</Link>
 			</div>

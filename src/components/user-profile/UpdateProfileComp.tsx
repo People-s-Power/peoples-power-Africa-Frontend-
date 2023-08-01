@@ -8,6 +8,7 @@ import router from "next/router"
 
 import { ToastContainer, toast } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
+import Select from "react-select"
 
 const INTERESTS = [
 	"human right awareness",
@@ -25,6 +26,10 @@ const UpdateProfileComp = (): JSX.Element => {
 	const user = useRecoilValue(UserAtom)
 	const [loading, setLoading] = useState(false)
 	const [description, setDescription] = useState("")
+	const [countries, setCountries] = useState([])
+	const [cities, setCities] = useState([])
+	const [country, setCountry] = useState("")
+	const [city, setCity] = useState("")
 	const [info, setInfo] = useState<Partial<IUser>>(user)
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
 		const { name, value } = e.target
@@ -37,18 +42,41 @@ const UpdateProfileComp = (): JSX.Element => {
 		console.log(user);
 		if (!info) setInfo(user)
 	}, [])
+	useEffect(() => {
+		// Get countries
+		axios
+			.get(window.location.origin + "/api/getCountries")
+			.then((res) => {
+				const calculated = res.data.map((country: any) => ({ label: country, value: country }))
+				setCountries(calculated)
+			})
+			.catch((err) => console.log(err))
+	}, [])
+
+	useEffect(() => {
+		// Get countries
+		if (country) {
+			axios
+				.get(`${window.location.origin}/api/getState?country=${country}`)
+				.then((res) => {
+					const calculated = res.data.map((state: any) => ({ label: state, value: state }))
+					setCities(calculated)
+				})
+				.catch((err) => console.log(err))
+		}
+	}, [country])
 
 	const handleSubmit = async (e: React.FormEvent & any) => {
 		e.preventDefault()
 		setLoading(true)
 		try {
 			const newInterests = [...e.target.interests].map(intr => intr.checked).reduce((acc, cur, curIdx) => {
-				if(cur) {
+				if (cur) {
 					acc.push(INTERESTS[curIdx]);
 				}
 				return acc;
 			}, []);
-			const { data } = await axios.put("/user/update", {...info, interests: newInterests})
+			const { data } = await axios.put("/user/update", { ...info, country, state: city, interests: newInterests })
 			console.log(data);
 			setLoading(false)
 			toast.success("Profile Updates Successfully!")
@@ -138,21 +166,16 @@ const UpdateProfileComp = (): JSX.Element => {
 					<label className="form-label fw-bold" htmlFor="country">
 						Country
 					</label>
-					<input type="text" className="form-control" name="country" placeholder={user?.country} value={info?.country} onChange={handleChange} />
+					<Select options={countries} onChange={(e: any) => setCountry(e?.value)} />
+
+					{/* <input type="text" className="form-control" name="country" placeholder={user?.country} value={info?.country} onChange={handleChange} /> */}
 				</div>
 
 				<div className="col">
 					<label className="form-label fw-bold" htmlFor="city">
 						City
 					</label>
-					<input
-						type="text"
-						name="city"
-						className="form-control"
-						value={info?.city}
-						onChange={handleChange}
-						// id="city"
-					/>
+					<Select options={cities} onChange={(e: any) => setCity(e?.value)} />
 				</div>
 			</div>
 
