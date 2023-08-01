@@ -129,7 +129,7 @@ const Footer = (): JSX.Element => {
 					|
 					<Link href="/">
 						<a>
-							&nbsp; &copy;{new Date().getFullYear()} {`PEOPLE POWER`}, All rights
+							&nbsp; &copy;{new Date().getFullYear()} {`Theplaint.org`}, All rights
 							reserved.
 						</a>
 					</Link>

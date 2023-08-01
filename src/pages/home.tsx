@@ -65,7 +65,7 @@ const HomePage = () => {
 			author: "G.B Evans",
 			company: "",
 			job_position: "",
-			body: "What an awesome technology. Big thanks to the CEO and before I die in silence it is high time I start voicing out the political challenges bedeviling my community. The underdevelopment, lack of basic amenities and the high level of criminality. I am pretty sure that with this platform I can win supporters who will join voices with me to campaign against these challenges. Kudos to People Power Technology.",
+			body: "What an awesome technology. Big thanks to the CEO and before I die in silence it is high time I start voicing out the political challenges bedeviling my community. The underdevelopment, lack of basic amenities and the high level of criminality. I am pretty sure that with this platform I can win supporters who will join voices with me to campaign against these challenges. Kudos to Theplaint.org Technology.",
 			image: "john.jpg"
 		}
 	]
@@ -122,7 +122,7 @@ const HomePage = () => {
 								<strong className="text-4xl">your No. 1 Technology For</strong> <br /> all your <strong className="text-4xl">complaint</strong>
 							</div>
 							<p className="mb-5 text-[#666666] lg:w-[80%]">
-								What are your personal and Social Complaints? PEOPLE POWER is your no. 1 platform for personal and social solution. Post your Complaint for people to get in touch and have your issues resolved.
+								What are your personal and Social Complaints? Theplaint.org is your no. 1 platform for personal and social solution. Post your Complaint for people to get in touch and have your issues resolved.
 							</p>
 							<div className="btn-holder d-flex flex-wrap" style={{ gap: "1rem" }}>
 								<Link href="/?mode=signup">
@@ -286,7 +286,7 @@ const SecondRowComp = ({
 }): JSX.Element => {
 	return (
 		<div className="arrow second-row-cards">
-			<div className="container _second-row-cards  d-flex flex-column flex-md-row align-items-center">
+			<div className="container _second-row-cards d-flex flex-column flex-md-row align-items-center">
 				<div>
 					<img src={`/images/${img}`} alt="" />
 				</div>

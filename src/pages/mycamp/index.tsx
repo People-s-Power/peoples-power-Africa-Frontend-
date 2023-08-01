@@ -114,7 +114,7 @@ const MyCamp: NextPage = (): JSX.Element => {
 		<FrontLayout showFooter={false}>
 			<>
 				<Head>
-					<title>{`PEOPLE POWER`} || My campaign</title>
+					<title>{`Theplaint.org`} || My campaign</title>
 				</Head>
 				<Wrapper className="my-camp bg-white ">
 					<div className="container">

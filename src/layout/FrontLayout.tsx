@@ -17,7 +17,7 @@ const FrontLayout: React.FC<IProps> = ({
 	showHeader,
 	msg
 }: IProps): JSX.Element => {
-	const text = `PEOPLE POWER`
+	const text = `Theplaint.org`
 	const [show, setShow] = useState(msg)
 
 	useEffect(() => {

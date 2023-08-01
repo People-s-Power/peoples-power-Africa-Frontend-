@@ -73,10 +73,10 @@ function MyApp({ Component, pageProps }: AppProps): JSX.Element {
 				<meta charSet="utf-8" />
 				<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"></meta>
 				<meta name="keywords" content="human right, activist, campaign, Nigeria" />
-				<title>{`PEOPLE POWER`}</title>
+				<title>{`Theplaint.org`}</title>
 				<meta
 					name="description"
-					content="PEOPLE POWER is a web-based technology and innovative platform that provides a space for individuals to voice their personal or social issues and connect with experts who can offer relevant solutions. The platform creates a forum where people can freely discuss their concerns and feel heard."
+					content="Theplaint.org is a web-based technology and innovative platform that provides a space for individuals to voice their personal or social issues and connect with experts who can offer relevant solutions. The platform creates a forum where people can freely discuss their concerns and feel heard."
 				/>
 				<Script src="../scripts/wisernotify.js"></Script>
 			</Head>

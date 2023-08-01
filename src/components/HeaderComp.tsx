@@ -66,7 +66,7 @@ const Header = (): JSX.Element => {
 	}, [user])
 
 	const { pathname } = useRouter();
-	const text = `PEOPLE POWER`
+	const text = `Theplaint.org`
 	// const token = cookie.get(TOKEN_NAME);
 
 	// eslint-disable-next-line no-empty
