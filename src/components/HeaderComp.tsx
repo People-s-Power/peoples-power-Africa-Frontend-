@@ -5,6 +5,8 @@ import React, { useState, useEffect } from "react";
 import { useRecoilValue } from "recoil";
 import UserMenu from "./user-profile/UserMenu";
 import { Dropdown } from 'rsuite';
+import Cookies from "js-cookie"
+
 // import { SERVER_URL } from "utils/constants"
 // import { io } from "socket.io-client"
 import { socket } from "pages/_app"
@@ -20,12 +22,14 @@ const Header = (): JSX.Element => {
 	const [count, setCount] = useState(0);
 	const [messageCount, setMessageCount] = useState(0)
 	const [countries, setCountries] = useState([])
-	const [country, setCountry] = useState("")
+	const [country, setCountry] = useState(user?.country)
+
 	// const socket = io(SERVER_URL, {
 	// 	query: {
 	// 		user_id: user?.id,
 	// 	},
 	// })
+
 	const token = cookie.get(TOKEN_NAME)
 
 	useEffect(() => {
@@ -109,12 +113,13 @@ const Header = (): JSX.Element => {
 			<nav className="navbar sticky-top text-xs">
 				<div className="container header">
 					<div className="navbar-brand d-flex justify-content-between align-items-center justify-content-md-start min">
-						<Link href="/home">
-							<a className="navbar-brand">
-								<img src="/images/lolo.jpeg" className="rounded-full" alt="" loading="lazy" />
-								<h5>{text}</h5>
-							</a>
-						</Link>
+						{/* <Link href="/home"> */}
+						<a className="navbar-brand">
+							<img src="/images/lolo.jpeg" className="rounded-full" alt="" loading="lazy" />
+							<h5>{text}</h5>
+						</a>
+						{/* </Link> */}
+
 						<div className="flex d-md-none">
 							{
 								user &&
@@ -200,6 +205,25 @@ const Header = (): JSX.Element => {
 								</Dropdown.Item>
 							</Dropdown>
 						</li>
+						{user?.country === "Nigeria" && <li>
+							<div
+								// href={"/org/create"}
+								className="cursor-pointer sm:hidden"
+								onClick={() => {
+									const url = new URL("https://teamapp-6jfl6.ondigitalocean.app/home")
+									url.searchParams.set("u_refer", Cookies.get("__ed_KEY") as string)
+									window.open(url.toString(), "__blank")
+								}}
+							>
+								<div className="bg-transparent my-2 flex justify-between">
+									<div className="my-auto  w-1/2">Human Right Action</div>
+									{/* <div className="text-center cursor-pointer">
+										<div className="bg-gray-100 mx-auto pt-[1px] rounded-full w-6 h-6 text-base font-bold">+</div>
+										<div className="text-xs"> add </div>
+									</div> */}
+								</div>
+							</div>
+						</li>}
 						<li className="nav-item">
 							{!user ? (
 								<Link href="/">
@@ -208,8 +232,21 @@ const Header = (): JSX.Element => {
 									</button>
 								</Link>
 							) : (
-
 								<div className='flex'>
+									<Link href="/messages">
+										<div
+											className='notify-bell pt-3 group cursor-pointer relative'
+
+										>
+											{/* <img src="/images/ci_notification-outline-dot.svg" alt="" /> */}
+											{messageCount > 0 && (
+												<div className="text-white text-[8px] absolute text-center px-1 bg-red-500 h-[15px] font-semibold top-3 right-2 rounded-full">{messageCount > 100 ? "99+" : messageCount}</div>
+											)}
+											<svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" fill="currentColor" className="bi bi-chat-dots-fill" viewBox="0 0 16 16">
+												<path d="M16 8c0 3.866-3.582 7-8 7a9.06 9.06 0 0 1-2.347-.306c-.584.296-1.925.864-4.181 1.234-.2.032-.352-.176-.273-.362.354-.836.674-1.95.77-2.966C.744 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7zM5 8a1 1 0 1 0-2 0 1 1 0 0 0 2 0zm4 0a1 1 0 1 0-2 0 1 1 0 0 0 2 0zm3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2z" />
+											</svg>
+										</div>
+									</Link>
 									<Link href="/notifications">
 										<div
 											className='notify-bell pt-3 group cursor-pointer relative'
@@ -230,20 +267,7 @@ const Header = (): JSX.Element => {
 										</div>
 									</Link>
 									{/* <div className='p-1'></div> */}
-									<Link href="/messages">
-										<div
-											className='notify-bell pt-3 group cursor-pointer relative'
 
-										>
-											{/* <img src="/images/ci_notification-outline-dot.svg" alt="" /> */}
-											{messageCount > 0 && (
-												<div className="text-white text-[8px] absolute text-center px-1 bg-red-500 h-[15px] font-semibold top-3 right-2 rounded-full">{messageCount > 100 ? "99+" : messageCount}</div>
-											)}
-											<svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" fill="currentColor" className="bi bi-chat-dots-fill" viewBox="0 0 16 16">
-												<path d="M16 8c0 3.866-3.582 7-8 7a9.06 9.06 0 0 1-2.347-.306c-.584.296-1.925.864-4.181 1.234-.2.032-.352-.176-.273-.362.354-.836.674-1.95.77-2.966C.744 11.37 0 9.76 0 8c0-3.866 3.582-7 8-7s8 3.134 8 7zM5 8a1 1 0 1 0-2 0 1 1 0 0 0 2 0zm4 0a1 1 0 1 0-2 0 1 1 0 0 0 2 0zm3 1a1 1 0 1 0 0-2 1 1 0 0 0 0 2z" />
-											</svg>
-										</div>
-									</Link>
 									<div className="mr-6 my-auto">
 										<Select options={countries} onChange={(e: any) => setCountry(e?.value)} />
 									</div>
@@ -315,7 +339,25 @@ const Header = (): JSX.Element => {
 							<div className="mr-6 my-auto">
 								<Select options={countries} onChange={(e: any) => setCountry(e?.value)} />
 							</div>
-							
+							{user?.country === "Nigeria" && <li>
+								<div
+									// href={"/org/create"}
+									className="cursor-pointer sm:hidden"
+									onClick={() => {
+										const url = new URL("https://teamapp-6jfl6.ondigitalocean.app/home")
+										url.searchParams.set("u_refer", Cookies.get("__ed_KEY") as string)
+										window.open(url.toString(), "__blank")
+									}}
+								>
+									<div className="bg-transparent my-2 flex justify-between">
+										<div className="my-auto  w-1/2">Human Right Action</div>
+										{/* <div className="text-center cursor-pointer">
+										<div className="bg-gray-100 mx-auto pt-[1px] rounded-full w-6 h-6 text-base font-bold">+</div>
+										<div className="text-xs"> add </div>
+									</div> */}
+									</div>
+								</div>
+							</li>}
 							{/* <Link href="/messages">
 								<div
 									className='notify-bell pt-3 group cursor-pointer relative'

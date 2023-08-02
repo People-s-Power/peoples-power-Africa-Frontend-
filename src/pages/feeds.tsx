@@ -276,7 +276,14 @@ const HomePage = () => {
 						</div>
 						<div className="overflow-y-auto overflow-x-hidden h-[400px]">
 							<div className="border-b border-gray-200 px-3">
-								<a href="https://teamapp-6jfl6.ondigitalocean.app/" target="_blank">
+								<div className="flex justify-between my-2">
+									<div className="text-sm my-auto">Start Petition</div>
+									<div onClick={() => handelPetition()} className="text-center cursor-pointer">
+										<div className="bg-gray-100 mx-auto pt-[1px] rounded-full w-6 h-6 text-base font-bold">+</div>
+										<span className="text-xs text-center">start</span>
+									</div>
+								</div>
+								{/* <a href="https://teamapp-6jfl6.ondigitalocean.app/" target="_blank">
 									<div className="flex justify-between my-2">
 										<div className="text-sm my-auto">Human Right Action</div>
 										<div onClick={() => { }} className="text-center cursor-pointer">
@@ -284,7 +291,7 @@ const HomePage = () => {
 											<span className="text-xs text-center">start</span>
 										</div>
 									</div>
-								</a>
+								</a> */}
 								<Link href={"/about#career"}>
 									<div className="flex justify-between my-2">
 										<div className="text-sm my-auto">Become an Ambassador</div>

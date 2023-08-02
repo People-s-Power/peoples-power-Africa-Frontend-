@@ -302,7 +302,7 @@ const user = () => {
 						{`Theplaint.org`} || {user?.name}{" "}
 					</title>
 				</Head>
-				<div className="lg:mx-40">
+				<div className="lg:mx-52">
 					<div className="rounded-md ">
 						<div className="relative ">
 							<div>
@@ -397,7 +397,7 @@ const user = () => {
 											Products
 										</button>
 									</div>
-									<div
+									{/* <div
 										// href={"/org/create"}
 										className="cursor-pointer sm:hidden"
 										onClick={() => {
@@ -413,7 +413,7 @@ const user = () => {
 												<div className="text-xs"> add </div>
 											</div>
 										</div>
-									</div>
+									</div> */}
 									<Link href={"/org/create"}>
 										<div className="bg-transparent my-2 flex sm:hidden justify-between">
 											<div className="my-auto w-1/2">Organization</div>

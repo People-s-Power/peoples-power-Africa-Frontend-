@@ -80,6 +80,10 @@ const CreateAdvert = ({ open, handelClick, advert }: { open: boolean; handelClic
 	}
 
 	const handleSubmit = async () => {
+		if (message === "" || caption === "" || action === "" || link === "" || duration == "" || email === "" || country === "" || city === "") {
+			toast.warn("Please fill all fields!")
+			return
+		}
 		setLoading(true)
 		try {
 			const { data } = await axios.post(SERVER_URL + "/graphql", {

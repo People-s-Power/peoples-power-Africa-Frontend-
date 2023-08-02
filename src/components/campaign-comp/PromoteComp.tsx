@@ -436,6 +436,7 @@ const PromoteForm = ({ campaign, view, endorse, message }: { campaign: any; view
 						</div>
 					</Modal.Body>
 					<Modal.Footer>
+						<button className="p-2 rounded-md bg-gray-200 mr-10" onClick={() => router.back()}>Back</button>
 						<button className="p-2 bg-warning text-white rounded-md" onClick={() => continuePayment()}>Continue</button>
 					</Modal.Footer>
 				</Modal>

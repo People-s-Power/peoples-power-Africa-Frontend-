@@ -81,7 +81,7 @@ Start your Complaint…`)
 		// { value: "leadership development", label: "Leadership development" },
 		{ value: "law", label: "Law" },
 		// { value: "information technology", label: "Information technology" },
-		{ value: "others", label: "Others" },
+		// { value: "others", label: "Others" },
 	]
 	const subCategory = [
 		{ value: "human right awareness", label: "Human right awareness" },
