@@ -205,24 +205,12 @@ const Header = (): JSX.Element => {
 								</Dropdown.Item>
 							</Dropdown>
 						</li>
-						{user?.country === "Nigeria" && <li>
-							<div
-								// href={"/org/create"}
-								className="cursor-pointer sm:hidden"
-								onClick={() => {
-									const url = new URL("https://teamapp-6jfl6.ondigitalocean.app/home")
-									url.searchParams.set("u_refer", Cookies.get("__ed_KEY") as string)
-									window.open(url.toString(), "__blank")
-								}}
-							>
-								<div className="bg-transparent my-2 flex justify-between">
-									<div className="my-auto  w-1/2">Human Right Action</div>
-									{/* <div className="text-center cursor-pointer">
-										<div className="bg-gray-100 mx-auto pt-[1px] rounded-full w-6 h-6 text-base font-bold">+</div>
-										<div className="text-xs"> add </div>
-									</div> */}
-								</div>
-							</div>
+						{user?.country === "Nigeria" && <li className="nav-item pt-2" onClick={() => {
+							const url = new URL("https://teamapp-6jfl6.ondigitalocean.app/home")
+							url.searchParams.set("u_refer", Cookies.get("__ed_KEY") as string)
+							window.open(url.toString(), "__blank")
+						}}>
+							<a className="nav-link">Human Right Action</a>
 						</li>}
 						<li className="nav-item">
 							{!user ? (

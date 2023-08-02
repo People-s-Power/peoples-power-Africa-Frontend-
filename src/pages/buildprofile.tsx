@@ -151,7 +151,7 @@ function Buildprofile(): React.ReactElement {
 			})
 			console.log(data)
 			toast.success("Profile Updates Successfully!")
-			router.push(`/`)
+			router.push(`/feeds`)
 		} catch (error) {
 			console.log(error)
 			toast.warn("Oops an error occured!")
