@@ -31,6 +31,7 @@ const UpdateProfileComp = (): JSX.Element => {
 	const [country, setCountry] = useState("")
 	const [city, setCity] = useState("")
 	const [info, setInfo] = useState<Partial<IUser>>(user)
+	const [countryIndex, setCountryIndex] = useState(0)
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
 		const { name, value } = e.target
 		setInfo({
@@ -38,10 +39,12 @@ const UpdateProfileComp = (): JSX.Element => {
 			[name]: value,
 		})
 	}
+
 	useEffect(() => {
 		console.log(user);
 		if (!info) setInfo(user)
 	}, [])
+
 	useEffect(() => {
 		// Get countries
 		axios
@@ -65,6 +68,8 @@ const UpdateProfileComp = (): JSX.Element => {
 				.catch((err) => console.log(err))
 		}
 	}, [country])
+
+	const isLargeNumber = (element) => element.value === user?.country;
 
 	const handleSubmit = async (e: React.FormEvent & any) => {
 		e.preventDefault()
@@ -166,8 +171,7 @@ const UpdateProfileComp = (): JSX.Element => {
 					<label className="form-label fw-bold" htmlFor="country">
 						Country
 					</label>
-					<Select options={countries} onChange={(e: any) => setCountry(e?.value)} />
-
+					{countries.length !== 0 && user !== undefined ? <Select defaultValue={countries[countries?.findIndex(isLargeNumber)]} options={countries} onChange={(e: any) => setCountry(e?.value)} /> : null}
 					{/* <input type="text" className="form-control" name="country" placeholder={user?.country} value={info?.country} onChange={handleChange} /> */}
 				</div>
 

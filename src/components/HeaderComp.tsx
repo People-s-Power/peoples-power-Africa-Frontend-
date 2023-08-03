@@ -54,6 +54,7 @@ const Header = (): JSX.Element => {
 	const updateCountry = async () => {
 		const { data } = await axios.put("/user/update", { country })
 	}
+	const isLargeNumber = (element) => element.value === user?.country;
 
 	useEffect(() => {
 		updateCountry()
@@ -257,7 +258,7 @@ const Header = (): JSX.Element => {
 									{/* <div className='p-1'></div> */}
 
 									<div className="mr-6 my-auto">
-										<Select options={countries} onChange={(e: any) => setCountry(e?.value)} />
+										{countries.length !== 0 && user !== undefined ? <Select defaultValue={countries[countries?.findIndex(isLargeNumber)]} options={countries} onChange={(e: any) => setCountry(e?.value)} /> : null}
 									</div>
 									<UserMenu />
 								</div>
@@ -325,8 +326,7 @@ const Header = (): JSX.Element => {
 								</div>
 							</Link>
 							<div className="mr-6 my-auto">
-								<Select options={countries} onChange={(e: any) => setCountry(e?.value)} />
-							</div>
+								{countries.length !== 0 && user !== undefined ? <Select defaultValue={countries[countries?.findIndex(isLargeNumber)]} options={countries} onChange={(e: any) => setCountry(e?.value)} /> : null}							</div>
 							{user?.country === "Nigeria" && <li>
 								<div
 									// href={"/org/create"}
