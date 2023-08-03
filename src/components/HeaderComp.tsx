@@ -52,7 +52,9 @@ const Header = (): JSX.Element => {
 	}, [])
 
 	const updateCountry = async () => {
-		const { data } = await axios.put("/user/update", { country })
+		await axios.put("/user/update", { country }).then(() => {
+			window.location.reload()
+		})
 	}
 	const isLargeNumber = (element) => element.value === user?.country;
 
