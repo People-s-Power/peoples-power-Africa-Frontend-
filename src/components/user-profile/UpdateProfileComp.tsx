@@ -31,7 +31,6 @@ const UpdateProfileComp = (): JSX.Element => {
 	const [country, setCountry] = useState("")
 	const [city, setCity] = useState("")
 	const [info, setInfo] = useState<Partial<IUser>>(user)
-	const [countryIndex, setCountryIndex] = useState(0)
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
 		const { name, value } = e.target
 		setInfo({
@@ -52,6 +51,7 @@ const UpdateProfileComp = (): JSX.Element => {
 			.then((res) => {
 				const calculated = res.data.map((country: any) => ({ label: country, value: country }))
 				setCountries(calculated)
+				setCountry(user?.country)
 			})
 			.catch((err) => console.log(err))
 	}, [])
@@ -70,6 +70,9 @@ const UpdateProfileComp = (): JSX.Element => {
 	}, [country])
 
 	const isLargeNumber = (element) => element.value === user?.country;
+
+	const getUserState = (element) => element.value === user?.state;
+
 
 	const handleSubmit = async (e: React.FormEvent & any) => {
 		e.preventDefault()
@@ -179,7 +182,8 @@ const UpdateProfileComp = (): JSX.Element => {
 					<label className="form-label fw-bold" htmlFor="city">
 						City
 					</label>
-					<Select options={cities} onChange={(e: any) => setCity(e?.value)} />
+					{cities.length !== 0 && user !== undefined ? <Select defaultValue={cities[cities?.findIndex(getUserState)]} options={cities} onChange={(e: any) => setCity(e?.value)} />
+						: null}
 				</div>
 			</div>
 

@@ -2,7 +2,7 @@ import { UserAtom } from "atoms/UserAtom";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useState, useEffect } from "react";
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import UserMenu from "./user-profile/UserMenu";
 import { Dropdown } from 'rsuite';
 import Cookies from "js-cookie"
@@ -18,6 +18,7 @@ import update from "pages/org/update";
 
 const Header = (): JSX.Element => {
 	const user = useRecoilValue(UserAtom);
+	const setUser = useSetRecoilState(UserAtom);
 	const [menu, setMenu] = useState(false);
 	const [count, setCount] = useState(0);
 	const [messageCount, setMessageCount] = useState(0)
@@ -52,13 +53,27 @@ const Header = (): JSX.Element => {
 	}, [])
 
 	const updateCountry = async () => {
-		await axios.put("/user/update", { country })
-			.then(() => {
-				window.location.reload()
+		try {
+			const { data } = await axios.put("/user/update", { country: country })
+			console.log(data)
+			getUser()
+			// window.location.reload()
+		} catch (error) {
+			console.log(error)
+		}
+	}
+
+	const getUser = () => {
+		axios
+			.get(`/user/single/${user.id}`)
+			.then(function (response) {
+				console.log(response.data.user)
+				setUser(response.data.user)
 			})
 	}
 
 	const isLargeNumber = (element) => element.value === user?.country;
+
 
 	// useEffect(() => {
 	// 	updateCountry()
