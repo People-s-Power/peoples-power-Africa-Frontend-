@@ -57,7 +57,7 @@ const Header = (): JSX.Element => {
 			const { data } = await axios.put("/user/update", { country: country })
 			console.log(data)
 			getUser()
-			// window.location.reload()
+			window.location.reload()
 		} catch (error) {
 			console.log(error)
 		}
