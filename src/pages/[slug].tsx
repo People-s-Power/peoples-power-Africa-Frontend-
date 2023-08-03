@@ -128,7 +128,7 @@ const Single = () => {
     else if (router.query.slug === "Petition") {
       petition()
     }
-  }, [])
+  })
 
   return (
     <FrontLayout showFooter={false}>
