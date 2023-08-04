@@ -34,7 +34,7 @@ export const CampaignShareMenuList = ({
           </button>
         </li>
         <li className="dropdown-menu-item mb-2 ">
-          <FacebookShareButton url={`${BASEURL}/${camp?.__typename}?page=${camp?._id}`}>
+          <FacebookShareButton url={camp.__typename === 'Petition' ? `${BASEURL}/campaigns/${camp.slug}` : `${BASEURL}/${camp?.__typename}?page=${camp?._id}`}>
             <button className="btn py-0 ">
               <i className="fab fa-facebook-f text-facebook me-2"></i>
               Facebook
@@ -42,14 +42,14 @@ export const CampaignShareMenuList = ({
           </FacebookShareButton>
         </li>
         <li className="dropdown-menu-item mb-2 ">
-          <TwitterShareButton url={`${BASEURL}/${camp?.__typename}?page=${camp?._id}`}>
+          <TwitterShareButton url={camp.__typename === 'Petition' ? `${BASEURL}/campaigns/${camp.slug}` : `${BASEURL}/${camp?.__typename}?page=${camp?._id}`}>
             <button className="btn py-0 ">
               <i className="fab fa-twitter text-twitter me-2"></i> Twitter
             </button>
           </TwitterShareButton>
         </li>
         <li className="dropdown-menu-item mb-2 ">
-          <WhatsappShareButton url={`${BASEURL}/${camp?.__typename}?page=${camp?._id}`}>
+          <WhatsappShareButton url={camp.__typename === 'Petition' ? `${BASEURL}/campaigns/${camp.slug}` : `${BASEURL}/${camp?.__typename}?page=${camp?._id}`}>
             <button className="btn py-0 ">
               <i className="fab fa-whatsapp text-whatsapp me-2 "></i>
               Whatsapp

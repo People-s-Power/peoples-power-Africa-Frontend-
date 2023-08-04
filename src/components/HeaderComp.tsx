@@ -23,7 +23,7 @@ const Header = (): JSX.Element => {
 	const [count, setCount] = useState(0);
 	const [messageCount, setMessageCount] = useState(0)
 	const [countries, setCountries] = useState([])
-	const [country, setCountry] = useState(user?.country)
+	const [country, setCountry] = useState("")
 
 	// const socket = io(SERVER_URL, {
 	// 	query: {
@@ -52,9 +52,9 @@ const Header = (): JSX.Element => {
 			.catch((err) => console.log(err))
 	}, [])
 
-	const updateCountry = async () => {
+	const updateCountry = async (value) => {
 		try {
-			const { data } = await axios.put("/user/update", { country: country })
+			const { data } = await axios.put("/user/update", { country: value })
 			console.log(data)
 			getUser()
 			window.location.reload()
@@ -277,7 +277,7 @@ const Header = (): JSX.Element => {
 									{/* <div className='p-1'></div> */}
 
 									<div className="mr-6 my-auto">
-										{countries.length !== 0 && user !== undefined ? <Select defaultValue={countries[countries?.findIndex(isLargeNumber)]} options={countries} onChange={(e: any) => { setCountry(e?.value), updateCountry() }} /> : null}
+										{countries.length !== 0 && user !== undefined ? <Select defaultValue={countries[countries?.findIndex(isLargeNumber)]} options={countries} onChange={(e: any) => { setCountry(e?.value), updateCountry(e?.value) }} /> : null}
 									</div>
 									<UserMenu />
 								</div>
@@ -345,7 +345,7 @@ const Header = (): JSX.Element => {
 								</div>
 							</Link>
 							<div className="mr-6 my-auto">
-								{countries.length !== 0 && user !== undefined ? <Select defaultValue={countries[countries?.findIndex(isLargeNumber)]} options={countries} onChange={(e: any) => { setCountry(e?.value), updateCountry() }} /> : null}
+								{countries.length !== 0 && user !== undefined ? <Select defaultValue={countries[countries?.findIndex(isLargeNumber)]} options={countries} onChange={(e: any) => { setCountry(e?.value), updateCountry(e?.value) }} /> : null}
 							</div>
 							{user?.country === "Nigeria" && <li>
 								<div
