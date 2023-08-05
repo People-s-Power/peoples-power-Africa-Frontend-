@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Fragment } from 'react';
 import { useRouter } from 'next/router';
 import FrontLayout from 'layout/FrontLayout';
 import AdvertsComp from 'components/AdvertsCard';
@@ -15,12 +15,86 @@ import { GET_POST } from 'apollo/queries/postQuery';
 import { EVENT } from 'apollo/queries/eventQuery';
 import { print } from "graphql"
 import { UPDATES } from 'apollo/queries/generalQuery';
-import { SINGLE_PETITION_ID } from 'apollo/queries/petitionQuery';
+import { SINGLE_PETITION, SINGLE_PETITION_ID } from 'apollo/queries/petitionQuery';
+import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
+import { ICampaign } from 'types/Applicant.types';
+import Head from "next/head"
 
-const Single = () => {
+
+export const getServerSideProps: GetServerSideProps<{ repo: ICampaign }> = async (ctx) => {
+  const slug = ctx?.query?.slug
+  const page = ctx?.query?.page
+
+  if (slug === "Advert") {
+    const { data } = await axios.post(SERVER_URL + "/graphql", {
+      query: print(ADVERT),
+      variables: {
+        advertId: page,
+      },
+    })
+    return {
+      props: {
+        repo: data.data.advert
+      },
+    }
+  } else if (slug === "Victory") {
+    const { data } = await axios.post(SERVER_URL + "/graphql", {
+      query: print(VICTORY),
+      variables: {
+        id: page,
+      },
+    })
+    return {
+      props: {
+        repo: data.data.victory
+      },
+    }
+  } else if (slug === "Post") {
+    const { data } = await axios.post(SERVER_URL + "/graphql", {
+      query: print(GET_POST),
+      variables: {
+        id: page,
+      },
+    })
+    return {
+      props: {
+        repo: data.data.getPost
+      },
+    }
+  }
+  else if (slug === "Event") {
+    const { data } = await axios.post(SERVER_URL + "/graphql", {
+      query: print(EVENT),
+      variables: {
+        eventId: page,
+      },
+    })
+    console.log(data)
+    return {
+      props: {
+        repo: data.data.event
+      },
+    }
+  }
+  else if (slug === "Update") {
+    const { data } = await axios.post(SERVER_URL + "/graphql", {
+      query: print(UPDATES),
+      variables: {
+        id: page,
+      },
+    })
+    return {
+      props: {
+        repo: data.data.getUpdate
+      },
+    }
+  }
+}
+
+const Single = ({ repo, }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const router = useRouter();
   const [single, setData] = useState<any>(null)
-  // console.log(router);
+  console.log(repo);
 
 
   const fetchAdvert = async () => {
@@ -110,6 +184,7 @@ const Single = () => {
       console.log(e.response)
     }
   }
+
   useEffect(() => {
     // console.log(router.query)
     if (router.query.slug === "Advert") {
@@ -131,51 +206,57 @@ const Single = () => {
   })
 
   return (
-    <FrontLayout showFooter={false}>
-      <div className='lg:w-1/2 sm:p-6 mx-auto'>
-        {(() => {
-          switch (router.query.slug) {
-            case "Advert":
-              return (
-                <div>
-                  {single !== null ? <AdvertsComp advert={single} /> : null}
-                </div>
-              )
-            case "Event":
-              return (
-                <div>
-                  {single !== null ? <EventsCard event={single} /> : null}
-                </div>
-              )
-            case "Petition":
-              return (
-                <div>
-                  {single !== null ? <PetitionComp petition={single} /> : null}
-                </div>
-              )
-            case "Victory":
-              return (
-                <div>
-                  {single !== null ? <VictoryCard post={single} /> : null}
-                </div>
-              )
-            case "Post":
-              return (
-                <div>
-                  {single && <CampComp post={single} />}
-                </div>
-              )
-            case "Update":
-              return (
-                <div>
-                  {single && <Updates updates={single} />}
-                </div>
-              )
-          }
-        })()}
-      </div>
-    </FrontLayout>
-
+    <Fragment>
+      <Head>
+        <title>{repo?.__typename} || {repo?.title || repo?.body || repo?.caption || repo?.name}</title>
+        <meta name="description" content={repo?.body} />
+        {/* <meta name="image" content={repo?.asset[0]} /> */}
+      </Head>
+      <FrontLayout showFooter={false}>
+        <div className='lg:w-1/2 sm:p-6 mx-auto'>
+          {(() => {
+            switch (router.query.slug) {
+              case "Advert":
+                return (
+                  <div>
+                    {single !== null ? <AdvertsComp advert={single} /> : null}
+                  </div>
+                )
+              case "Event":
+                return (
+                  <div>
+                    {single !== null ? <EventsCard event={single} /> : null}
+                  </div>
+                )
+              case "Petition":
+                return (
+                  <div>
+                    {single !== null ? <PetitionComp petition={single} /> : null}
+                  </div>
+                )
+              case "Victory":
+                return (
+                  <div>
+                    {single !== null ? <VictoryCard post={single} /> : null}
+                  </div>
+                )
+              case "Post":
+                return (
+                  <div>
+                    {single && <CampComp post={single} />}
+                  </div>
+                )
+              case "Update":
+                return (
+                  <div>
+                    {single && <Updates updates={single} />}
+                  </div>
+                )
+            }
+          })()}
+        </div>
+      </FrontLayout>
+    </Fragment>
   );
 };
 

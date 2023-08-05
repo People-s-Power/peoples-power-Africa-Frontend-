@@ -4,7 +4,6 @@ import { apollo } from "apollo"
 import axios from "axios"
 import { UserAtom } from "atoms/UserAtom"
 import LoginModal from "components/auth/login/modal/LoginModal"
-import { CampaignShareMenuList } from "components/campaign-comp/CampaignTable"
 import EndorseCampaignComp from "components/campaign-comp/EndorseCampaignComp"
 import Endorsements from "components/campaign-comp/Endorsements"
 import FrontLayout from "layout/FrontLayout"
@@ -19,12 +18,16 @@ import Link from "next/link"
 import router, { useRouter } from "next/router"
 import { SINGLE_PETITION } from "apollo/queries/petitionQuery"
 import AddUpdates from "components/modals/AddUpdates"
+import type { InferGetServerSidePropsType, GetServerSideProps } from 'next'
+import { SERVER_URL } from "utils/constants"
+import { print } from "graphql"
 
 // const io = socket(SERVER_URL, {
 // 	extraHeaders: {
 // 		authorization: Cookies.get("token") || "",
 // 	},
 // });
+
 
 export interface Update {
 	asset: Asset
@@ -41,8 +44,24 @@ export enum AssetEnum {
 	video = 'video'
 }
 
-const SingleCampaignPage = (): JSX.Element => {
-	// console.log(camp)
+
+export const getServerSideProps: GetServerSideProps<{ repo: ICampaign }> = async (ctx) => {
+	const slug = ctx?.query?.slug
+	const { data } = await axios.post(SERVER_URL + "/graphql", {
+		query: print(SINGLE_PETITION),
+		variables: {
+			slug
+		},
+	})
+	return {
+		props: {
+			repo: data.data.getPetition
+		},
+	};
+}
+
+const SingleCampaignPage = ({ repo, }: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element => {
+	console.log(repo)
 	const [endorsements, setEndorsements] = useState<IEndorsement[]>([])
 	const [isLiked, setIsLiked] = useState(false)
 	const [showEndorsement, setShowEndorsement] = useState(false)
@@ -59,7 +78,7 @@ const SingleCampaignPage = (): JSX.Element => {
 		client: apollo,
 		variables: { slug: query.slug },
 		onCompleted: (data) => {
-			console.log(data)
+			// console.log(data)
 			setCamp(data.getPetition)
 			setEndorsements(data.getPetition.comments)
 			setUpdate(data.getPetition.updates)
@@ -67,6 +86,7 @@ const SingleCampaignPage = (): JSX.Element => {
 		},
 		onError: (err) => console.log(err),
 	})
+
 
 	// const handleLike = async () => {
 	// 	// io.emit("likeCampaign", { id: camp?.id });
@@ -96,8 +116,9 @@ const SingleCampaignPage = (): JSX.Element => {
 	return (
 		<Fragment>
 			<Head>
-				<title>Petition || {camp?.title}</title>
-				<meta name="description" content={camp?.body} />
+				<title>Petition || {repo?.title}</title>
+				<meta name="description" content={repo?.body} />
+				{/* <link rel="icon" type="image/png" href={repo?.asset[0]}/> */}
 			</Head>
 			<FrontLayout showFooter={false}>
 				<Wrapper className="single-camp py-4 ">
@@ -242,6 +263,7 @@ const SingleCampaignPage = (): JSX.Element => {
 }
 
 export default SingleCampaignPage
+
 
 const Wrapper = styled.div`
 	.camp-image {

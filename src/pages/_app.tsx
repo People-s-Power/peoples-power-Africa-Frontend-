@@ -74,6 +74,7 @@ function MyApp({ Component, pageProps }: AppProps): JSX.Element {
 				<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"></meta>
 				<meta name="keywords" content="human right, activist, campaign, Nigeria" />
 				<title>{`Theplaint.org`}</title>
+				<link rel="icon" type="image/png" href="/images/logo.png"/>
 				<meta
 					name="description"
 					content="Theplaint.org is a web-based technology and innovative platform that provides a space for individuals to voice their personal or social issues and connect with experts who can offer relevant solutions. The platform creates a forum where people can freely discuss their concerns and feel heard."
