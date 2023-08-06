@@ -34,7 +34,7 @@ function Buildprofile(): React.ReactElement {
 	const [description, setDescription] = useState("")
 	const [myInterest, setMyInterest] = useState<string[]>([])
 	const user = useRecoilValue(UserAtom)
-
+	const [loading, setLoading] = useState(false)
 
 	const getUsers = async () => {
 		try {
@@ -141,6 +141,7 @@ function Buildprofile(): React.ReactElement {
 	}
 	const handleSubmit = async () => {
 		try {
+			setLoading(true)
 			const { data } = await axios.put("/user/update", {
 				name: user.name,
 				phone: user.phone,
@@ -154,6 +155,7 @@ function Buildprofile(): React.ReactElement {
 			router.push(`/feeds`)
 		} catch (error) {
 			console.log(error)
+			setLoading(false)
 			toast.warn("Oops an error occured!")
 		}
 	}
@@ -321,7 +323,7 @@ function Buildprofile(): React.ReactElement {
 										<div className="text-center mx-auto my-8">
 											<Button onClick={onPrevious}>Previous</Button>
 											<button className="p-2 bg-warning text-white rounded-sm" onClick={handleSubmit}>
-												Finish
+												{loading ? "Loading..." : "Finish"}
 											</button>
 										</div>
 									</div>

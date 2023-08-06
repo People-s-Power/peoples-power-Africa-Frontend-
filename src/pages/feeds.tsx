@@ -382,12 +382,12 @@ const HomePage = () => {
 						{all.map((single: any, index: number) => {
 							// setType(single.__typename)
 							switch (single.__typename) {
-								case "Advert":
-									return (
-										<div key={index}>
-											<AdvertsComp advert={single} />
-										</div>
-									)
+								// case "Advert":
+								// 	return (
+								// 		<div key={index}>
+								// 			<AdvertsComp advert={single} />
+								// 		</div>
+								// 	)
 								case "Event":
 									return (
 										<div key={index}>

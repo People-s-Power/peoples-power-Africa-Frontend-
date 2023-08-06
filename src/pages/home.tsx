@@ -312,13 +312,13 @@ const secondRowContent = [
 		img: "donor.svg",
 		text1: "Suscribe",
 		text2: "Human Right Application",
-		link: "https://teams.peoplespow.com/",
+		link: "",
 	},
 	{
 		img: "Bulls eye.svg",
 		text1: "Become",
 		text2: "A Staff",
-		link: "/about#career",
+		link: "",
 	},
 ];
 

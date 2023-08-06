@@ -43,7 +43,7 @@ const Footer = (): JSX.Element => {
 						<ul className="lg:w-2/3 ">
 							{/* <li className="mb-4 fs-4 fw-bold">About us</li> */}
 							<li className="text-[#666666]">
-								<strong>{`PEOPLE'S POWER`}</strong> is a web-based technology for those
+								<strong>{`Theplaint.org`}</strong> is a web-based technology for those
 								facing Social injustice and Human Right abuse. It is created
 								to inspire people to cause a change in their local
 								communities. The forum enables one or group to launch a
