@@ -34,14 +34,6 @@ const Header = (): JSX.Element => {
 	const token = cookie.get(TOKEN_NAME)
 
 	useEffect(() => {
-		const route = window.location.pathname
-		// console.log(route)
-		if (route === '/about' || '/campaigns' || '/events' || '/contact') {
-			return
-		}
-	}, [])
-
-	useEffect(() => {
 		// Get countries
 		axios
 			.get(window.location.origin + "/api/getCountries")
@@ -79,9 +71,22 @@ const Header = (): JSX.Element => {
 	// 	updateCountry()
 	// }, [country])
 
+	// useEffect(() => {
+	// 	const route = window.location.pathname
+	// 	if (route === '/about' || '/campaigns' || '/events' || '/contact') {
+	// 		return
+	// 	}
+	// }, [])
+
 	useEffect(() => {
-		if (token === undefined && window.location.pathname !== "/home" && user === null) {
-			window.location.href = `/home`
+		const route = window.location.pathname
+
+		if (token === undefined && user === null) {
+			if (route === "/about" || route === "/campaigns" || route === "/events" || route === "/contact" || route === "/home") {
+				console.log(true)
+			} else {
+				window.location.href = "/home"
+			}
 		}
 	}, [])
 

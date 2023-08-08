@@ -16,7 +16,17 @@ const CampaignCard = ({ camp }: { camp: any }): JSX.Element => {
 	return (
 		<div className="lg:w-[23%] my-2 overflow-hidden bg-[#FBFBFB] rounded-md w-full">
 			<a className="text-decoration-none link-dark">
-				<img src={camp?.image[0]} className="card-image h-52 w-full" alt={camp?.title} />
+				{/* <img src={camp?.asset[0]} className="card-image h-52 w-full" alt={camp?.title} /> */}
+				{
+					camp?.asset[0]?.type === 'image' ? <img className="card-image h-52 w-full object-cover" src={camp?.asset[0].url} alt="" />
+						: <video
+							src={camp?.asset[0]?.url}
+							autoPlay muted
+							className="embed-responsive-item w-full object-cover h-52 card-image"
+						>
+							<source src={camp?.asset[0]?.url} type="video/mp4" />
+						</video>
+				}
 				<div className="card-body p-3">
 					<p className="card-title fs-5 fw-bold text-[#4F4F4F] capitalize">
 						{camp?.title?.length > 30

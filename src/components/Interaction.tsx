@@ -323,11 +323,11 @@ const CampComp = ({ post }: { post: any }): JSX.Element => {
 											</Dropdown.Item>
 										) : null}
 										{isOwner(post.author._id) ? <Dropdown.Item onClick={handelEventClick}>Edit</Dropdown.Item> : null}
-										{isOwner(post.author._id) ? (
+										{/* {isOwner(post.author._id) ? (
 											<Dropdown.Item>
 												<span onClick={() => promote(post._id)}>Promote</span>
 											</Dropdown.Item>
-										) : null}
+										) : null} */}
 									</div>
 								)
 							case "Petition":
