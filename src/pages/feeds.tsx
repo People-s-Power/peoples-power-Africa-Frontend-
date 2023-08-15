@@ -406,12 +406,12 @@ const HomePage = () => {
 											<VictoryCard post={single} orgs={orgs} />
 										</div>
 									)
-								// case "Post":
-								// 	return (
-								// 		<div key={index}>
-								// 			<CampComp open={() => handelOpenFindExpart()} post={single} openPetition={() => handelPetition()} />
-								// 		</div>
-								// 	)
+								case "Post":
+									return (
+										<div key={index}>
+											<CampComp open={() => handelOpenFindExpart()} post={single} openPetition={() => handelPetition()} />
+										</div>
+									)
 								case "Update":
 									return (
 										<div key={index}>

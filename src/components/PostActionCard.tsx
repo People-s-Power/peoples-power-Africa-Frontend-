@@ -56,10 +56,10 @@ export default function PostActionCard({
 					<img className="w-6 h-6 my-auto" src="/images/home/icons/fe_sitemap.svg" alt="" />
 					<div className="my-auto text-sm ml-3">Events</div>
 				</div>
-				{/* <div className="flex  cursor-pointer" onClick={() => handelPetition()}>
+				<div className="flex  cursor-pointer" onClick={() => handelClick()}>
 					<img className="w-6 h-6 my-auto" src="/images/home/icons/tabler_article.svg" alt="" />
-					<div className="my-auto text-sm ml-3">Start Petition</div>
-				</div> */}
+					<div className="my-auto text-sm ml-3">Make a Post</div>
+				</div>
 			</div>
 
 			{count > 0 && (

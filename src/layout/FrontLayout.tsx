@@ -3,7 +3,7 @@ import React, { Fragment, ReactChild, useState, useEffect } from "react";
 import HeaderComp from "../components/HeaderComp";
 import PropTypes from "prop-types";
 import MessagePopup from "components/MessagePopup";
-
+import ChatWidget from 'components/ChatWidget';
 interface IProps {
 	showFooter?: boolean;
 	children: ReactChild;
@@ -30,6 +30,7 @@ const FrontLayout: React.FC<IProps> = ({
 		<Fragment>
 			<title>{text}</title>
 			<div className="front">
+				<ChatWidget />
 				{showHeader === false ? null : <HeaderComp />}
 				<div className="children">{children}</div>
 				{showFooter && <Footer />}
