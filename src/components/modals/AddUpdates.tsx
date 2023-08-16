@@ -8,8 +8,9 @@ import { useRecoilValue } from "recoil"
 import { UserAtom } from "atoms/UserAtom"
 import { UPDATE_POST } from "apollo/queries/postQuery"
 import NotificationCard from "components/NotificationCard"
+import { ICampaign } from "types/Applicant.types"
 
-const AddUpdates = ({ open, handelClick, petition, update }: { open: boolean; handelClick(): void; petition: any; update: any }): JSX.Element => {
+const AddUpdates = ({ open, handelClick, petition, update }: { open: boolean; handelClick(): void; petition: ICampaign; update: any }): JSX.Element => {
 	const author = useRecoilValue(UserAtom)
 	const [loading, setLoading] = useState(false)
 	const [previewImages, setFilePreview] = useState(update?.image || []);
