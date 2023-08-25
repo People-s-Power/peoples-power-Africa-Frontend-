@@ -42,6 +42,8 @@ const PetitionComp = ({ petition, timeLine }: IProps): JSX.Element => {
 
 	const [show, setShow] = useState(false)
 
+	// console.log(petition)
+
 	const toggle = val => {
 		setShow(val)
 	}

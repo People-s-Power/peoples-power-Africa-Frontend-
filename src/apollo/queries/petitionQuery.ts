@@ -281,3 +281,10 @@ export const SINGLE_PETITION_ID = gql`
 		}
 	}
 `
+export const DELETE_PETITION = gql`
+mutation deletePetition($_id: ID!) {
+		deletePetition(_id: $_id) {
+			_id
+		}
+	}
+`

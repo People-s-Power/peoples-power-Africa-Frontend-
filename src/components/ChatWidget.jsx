@@ -1,8 +1,21 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { UserAtom } from "atoms/UserAtom"
+import { useRecoilValue } from "recoil"
 
-class ChatWidget extends React.Component {
+const ChatWidget = () => {
+  const author = useRecoilValue(UserAtom)
+  const crypto = require("crypto");
 
-  componentDidMount() {
+  const key = "nj4Rk7eeLMDVGMuRWokrcLxE";
+  // const message = "some-unique-identifier";
+
+  // Generate the HMAC
+  const identifierHash = crypto
+    .createHmac("sha256", key)
+    .update("the-plaint-org")
+    .digest("hex");
+
+  useEffect(() => {
     // Add Chatwoot Settings
     window.chatwootSettings = {
       hideMessageBubble: false,
@@ -11,7 +24,6 @@ class ChatWidget extends React.Component {
       type: 'standard', // [standard, expanded_bubble]
     };
 
-    // Paste the script from inbox settings except the <script> tag
     (function (d, t) {
       var BASE_URL = "https://app1.chatcloud.ai";
       var g = d.createElement(t), s = d.getElementsByTagName(t)[0];
@@ -22,16 +34,15 @@ class ChatWidget extends React.Component {
       g.onload = function () {
         window.chatcloudSDK.run({
           websiteToken: 'upiFuPTagEtjLCngpGwg9t7c',
-          baseUrl: BASE_URL
+          baseUrl: BASE_URL,
+          identifier_hash: identifierHash,
         })
       }
     })(document, "script");
-  }
+  }, [])
 
 
-  render() {
-    return null;
-  }
+  return null;
 }
 
 export default ChatWidget;

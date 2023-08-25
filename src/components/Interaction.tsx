@@ -27,6 +27,7 @@ import { useRouter } from "next/router"
 import { DELETE_VICTORIES } from "apollo/queries/victories"
 import { LIKE_COMMENT, LIKE_REPLY, REMOVE_COMMENT, REPLY_COMMENT, EDIT_COMMENT, REMOVE_REPLY, EDIT_REPLY } from "apollo/queries/commentsQuery"
 import { CampaignShareMenuList } from "./campaign-comp/Share"
+import { DELETE_PETITION } from "apollo/queries/petitionQuery"
 
 const CampComp = ({ post }: { post: any }): JSX.Element => {
 	const router = useRouter()
@@ -108,6 +109,20 @@ const CampComp = ({ post }: { post: any }): JSX.Element => {
 	}
 	const promote = (slug) => {
 		router.push(`/promote?slug=${slug}&view=true`)
+	}
+
+	const deletePetition = async () => {
+		try {
+			const { data } = await axios.post(SERVER_URL + "/graphql", {
+				query: print(DELETE_PETITION),
+				variables: {
+					_id: post._id,
+				},
+			})
+			console.log(data)
+		} catch (error) {
+			console.log(error)
+		}
 	}
 
 	const comment = async (e, id) => {
@@ -352,6 +367,9 @@ const CampComp = ({ post }: { post: any }): JSX.Element => {
 										<Link href={`/report?page=${post?.slug}`}>
 											<Dropdown.Item>Report</Dropdown.Item>
 										</Link>
+										<Dropdown.Item>
+											<span onClick={() => deletePetition()}>Delete</span>
+										</Dropdown.Item>
 										<Dropdown.Item>
 											<span onClick={() => promote(post._id)}>Promote</span>
 										</Dropdown.Item>
