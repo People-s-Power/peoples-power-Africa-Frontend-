@@ -88,6 +88,7 @@ export const SignupCom = ({
 			console.log({ error });
 		}
 	};
+	
 	return (
 		<div className="form lg:w-1/2 mx-auto">
 			<h4 className="text-center">Sign Up</h4>

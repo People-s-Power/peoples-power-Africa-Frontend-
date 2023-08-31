@@ -1,8 +1,8 @@
 import { gql } from "@apollo/client"
 
 export const GET_ALL = gql`
-	mutation timeline($authorId: ID!) {
-		timeline(authorId: $authorId) {
+	mutation timeline($authorId: ID!, $page: Int, $limit: Int) {
+		timeline(authorId: $authorId, page: $page, limit: $limit) {
 			adverts {
 				_id
 				caption

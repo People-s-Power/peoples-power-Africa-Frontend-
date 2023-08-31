@@ -120,15 +120,17 @@ const HomePage = () => {
 	}
 
 	async function getData(hstag = "") {
-		// console.log(active)
+		// console.log(active._id)
+
 		try {
 			setLoading(true)
+			setAll([])
 			let feed = []
 			let notification = []
 			await socket.emit(
 				"notifications",
 				{
-					userId: active.id || active._id,
+					userId: active._id || active.id,
 					page: 1,
 					limit: 80,
 				},
@@ -139,21 +141,23 @@ const HomePage = () => {
 				}
 			)
 
-			await axios.get(`share/feed/${active.id || active._id}`).then(function (response) {
-				feed = response.data
-				// console.log(response.data)
-			})
+
 
 			const { data } = await axios.post(SERVER_URL + "/graphql", {
 				query: print(GET_ALL),
 				variables: {
-					authorId: active.id || active._id,
+					authorId: active._id || active.id,
+					page: 1, limit: 50
 				},
 			})
-			// console.log(data)
+
+			// await axios.get(`share/feed/${active._id || active.id}`).then(function (response) {
+			// 	feed = response.data
+			// 	// console.log(response.data)
+			// })
 
 			const general = [
-				...feed,
+				// ...feed,
 				...notification,
 				...data.data.timeline.adverts,
 				...data.data.timeline.updates,
@@ -189,6 +193,7 @@ const HomePage = () => {
 			setLoading(false)
 		} catch (err) {
 			console.log(err)
+			// getData()
 			setLoading(false)
 		}
 	}
@@ -229,7 +234,7 @@ const HomePage = () => {
 			<div
 				onClick={() => {
 					setActive(author)
-					getData()
+					// getData()
 				}}
 				className="flex m-1 cursor-pointer"
 			>
@@ -241,7 +246,7 @@ const HomePage = () => {
 					<div
 						onClick={() => {
 							setActive(org)
-							getData()
+							// getData()
 						}}
 						key={index}
 						className="flex m-1 cursor-pointer"
