@@ -118,7 +118,7 @@ const SingleCampaignPage = ({ repo, }: InferGetServerSidePropsType<typeof getSer
 			<Head>
 				<title>Petition || {repo?.title}</title>
 				<meta name="description" content={repo?.body} />
-				{/* <link rel="icon" type="image/png" href={repo?.asset[0]}/> */}
+				<link rel="icon" type="image/png" href={repo?.asset[0]} />
 			</Head>
 			<FrontLayout showFooter={false}>
 				<Wrapper className="single-camp py-4 ">
