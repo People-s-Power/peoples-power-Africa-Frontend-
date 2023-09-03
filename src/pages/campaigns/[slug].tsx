@@ -118,7 +118,8 @@ const SingleCampaignPage = ({ repo, }: InferGetServerSidePropsType<typeof getSer
 			<Head>
 				<title>Petition || {repo?.title}</title>
 				<meta name="description" content={repo?.body} />
-				<link rel="icon" type="image/png" href={repo?.asset[0]} />
+				<meta property="og:image" content={repo?.asset[0]} />
+				<meta name="twitter:card" content={repo?.asset[0]} />
 			</Head>
 			<FrontLayout showFooter={false}>
 				<Wrapper className="single-camp py-4 ">
@@ -266,23 +267,23 @@ export default SingleCampaignPage
 
 
 const Wrapper = styled.div`
-	.camp-image {
-		width: 100%;
-		max-height: 30rem;
-		object-fit: cover;
+					.camp-image {
+						width: 100%;
+					max-height: 30rem;
+					object-fit: cover;
 	}
-	.mde-textarea-wrapper {
-		.mde-text {
-			background-color: inherit;
-			border: 0;
-			outline: 0;
-			-webkit-box-shadow: 0;
-			-moz-box-shadow: 0;
-			box-shadow: 0;
-			resize: none;
+					.mde-textarea-wrapper {
+		.mde - text {
+						background - color: inherit;
+					border: 0;
+					outline: 0;
+					-webkit-box-shadow: 0;
+					-moz-box-shadow: 0;
+					box-shadow: 0;
+					resize: none;
 		}
 	}
-	#text {
-		display: none;
+					#text {
+						display: none;
 	}
-`
+					`

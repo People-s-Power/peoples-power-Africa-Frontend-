@@ -210,9 +210,8 @@ const Single = ({ repo, }: InferGetServerSidePropsType<typeof getServerSideProps
       <Head>
         <title>{repo?.__typename} || {repo?.title || repo?.body || repo?.caption || repo?.name}</title>
         <meta name="description" content={repo?.body} />
-        <link rel="icon" type="image/png" href={repo.asset[0]} />
-
-        {/* <meta name="image" content={repo?.asset[0]} /> */}
+        <meta property="og:image" content={repo?.asset[0]} />
+        <meta name="twitter:card" content={repo?.asset[0]} />
       </Head>
       <FrontLayout showFooter={false}>
         <div className='lg:w-1/2 sm:p-6 mx-auto'>
