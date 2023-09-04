@@ -117,9 +117,17 @@ const SingleCampaignPage = ({ repo, }: InferGetServerSidePropsType<typeof getSer
 		<Fragment>
 			<Head>
 				<title>Petition || {repo?.title}</title>
-				<meta name="description" content={repo?.body} />
-				<meta property="og:image" content={repo?.asset[0]} />
-				<meta name="twitter:card" content={repo?.asset[0]} />
+				
+				<meta property="og:type" content="website" />
+        <meta property="og:title" content={repo?.__typename || repo?.title || repo?.body || repo?.caption || repo?.name} />
+        <meta property="og:description" content={repo?.body} />
+        <meta property="og:image" content={repo?.asset[0]} />
+        <meta property="og:url" content="https://theplaint.org" />
+        <meta property="og:site_name" content={repo?.__typename || repo?.title || repo?.body || repo?.caption || repo?.name} />
+
+        <meta name="twitter:title" content={repo?.__typename || repo?.title || repo?.body || repo?.caption || repo?.name} />
+        <meta name="twitter:description" content={repo?.body} />
+        <meta name="twitter:image" content={repo?.asset[0]} />
 			</Head>
 			<FrontLayout showFooter={false}>
 				<Wrapper className="single-camp py-4 ">
