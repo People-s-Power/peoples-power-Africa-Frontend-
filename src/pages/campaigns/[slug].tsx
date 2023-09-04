@@ -61,7 +61,7 @@ export const getServerSideProps: GetServerSideProps<{ repo: ICampaign }> = async
 }
 
 const SingleCampaignPage = ({ repo, }: InferGetServerSidePropsType<typeof getServerSideProps>): JSX.Element => {
-	console.log(repo)
+	// console.log(repo)
 	const [endorsements, setEndorsements] = useState<IEndorsement[]>([])
 	const [isLiked, setIsLiked] = useState(false)
 	const [showEndorsement, setShowEndorsement] = useState(false)
@@ -125,7 +125,7 @@ const SingleCampaignPage = ({ repo, }: InferGetServerSidePropsType<typeof getSer
 
 
 				<meta property="og:type" content="website" />
-				<meta property="og:title" content={repo.__typename + '||' + repo.title || repo.body || repo.caption || repo.name} />
+				<meta property="og:title" content={repo.title || repo.body || repo.caption || repo.name} />
 				<meta property="og:description" content={repo.body} />
 				<meta property="og:image" content={repo.asset[0].url} />
 				<meta property="og:url" content="https://theplaint.org" />
