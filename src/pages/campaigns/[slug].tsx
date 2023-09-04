@@ -74,19 +74,24 @@ const SingleCampaignPage = ({ repo, }: InferGetServerSidePropsType<typeof getSer
 	const [single, setSingle] = useState(null)
 	const [likes, setLikes] = useState([])
 
-	useQuery(SINGLE_PETITION, {
-		client: apollo,
-		variables: { slug: query.slug },
-		onCompleted: (data) => {
-			// console.log(data)
-			setCamp(data.getPetition)
-			setEndorsements(data.getPetition.comments)
-			setUpdate(data.getPetition.updates)
-			setLikes(data.getPetition.likes)
-		},
-		onError: (err) => console.log(err),
-	})
-
+	// useQuery(SINGLE_PETITION, {
+	// 	client: apollo,
+	// 	variables: { slug: query.slug },
+	// 	onCompleted: (data) => {
+	// 		// console.log(data)
+	// 		setCamp(data.getPetition)
+	// 		setEndorsements(data.getPetition.comments)
+	// 		setUpdate(data.getPetition.updates)
+	// 		setLikes(data.getPetition.likes)
+	// 	},
+	// 	onError: (err) => console.log(err),
+	// })
+	useEffect(() => {
+		setCamp(repo)
+		setEndorsements(repo.comments)
+		setUpdate(repo.updates)
+		setLikes(repo.likes)
+	}, [])
 
 	// const handleLike = async () => {
 	// 	// io.emit("likeCampaign", { id: camp?.id });
@@ -116,18 +121,20 @@ const SingleCampaignPage = ({ repo, }: InferGetServerSidePropsType<typeof getSer
 	return (
 		<Fragment>
 			<Head>
-				<title>Petition || {repo?.title}</title>
+				<title>Petition || {repo.title}</title>
+
 
 				<meta property="og:type" content="website" />
-				<meta property="og:title" content={repo?.__typename + '||' + repo?.title || repo?.body || repo?.caption || repo?.name} />
-				<meta property="og:description" content={repo?.body} />
-				<meta property="og:image" content={repo?.asset[0].url} />
+				<meta property="og:title" content={repo.__typename + '||' + repo.title || repo.body || repo.caption || repo.name} />
+				<meta property="og:description" content={repo.body} />
+				<meta property="og:image" content={repo.asset[0].url} />
 				<meta property="og:url" content="https://theplaint.org" />
-				<meta property="og:site_name" content={repo?.__typename + '||' + repo?.title || repo?.body || repo?.caption || repo?.name}  />
+				<meta property="og:site_name" content={repo.__typename + '||' + repo.title || repo.body || repo.caption || repo.name} />
 
-				<meta name="twitter:title" content={repo?.__typename + '||' + repo?.title || repo?.body || repo?.caption || repo?.name}  />
-				<meta name="twitter:description" content={repo?.body} />
-				<meta name="twitter:image" content={repo?.asset[0].url} />
+				<meta name="twitter:title" content={repo.__typename + '||' + repo.title || repo.body || repo.caption || repo.name} />
+				<meta name="twitter:description" content={repo.body} />
+				<meta name="twitter:image" content={repo.asset[0].url} />
+
 			</Head>
 			<FrontLayout showFooter={false}>
 				<Wrapper className="single-camp py-4 ">
