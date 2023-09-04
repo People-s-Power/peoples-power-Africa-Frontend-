@@ -211,13 +211,13 @@ const Single = ({ repo, }: InferGetServerSidePropsType<typeof getServerSideProps
         <title>{repo.__typename} || {repo.title || repo.body || repo.caption || repo.name}</title>
 
         <meta property="og:type" content="website" />
-        <meta property="og:title" content={repo.__typename + ' || ' + repo.title || repo.body || repo.caption || repo.name} />
+        <meta property="og:title" content={repo.__typename + ' || ' + repo?.title || repo?.body || repo?.caption || repo?.name} />
         <meta property="og:description" content={repo.body} />
         <meta property="og:image" content={repo.asset[0].url} />
         <meta property="og:url" content="https://theplaint.org" />
-        <meta property="og:site_name" content={repo.__typename + ' || ' + repo.title || repo.body || repo.caption || repo.name} />
+        <meta property="og:site_name" content={repo.__typename + ' || ' + repo?.title || repo?.body || repo?.caption || repo?.name} />
 
-        <meta name="twitter:title" content={repo.__typename + ' || ' + repo.title || repo.body || repo.caption || repo.name} />
+        <meta name="twitter:title" content={repo.__typename + ' || ' + repo?.title || repo?.body || repo?.caption || repo?.name} />
         <meta name="twitter:description" content={repo.body} />
         <meta name="twitter:image" content={repo.asset[0].url} />
 

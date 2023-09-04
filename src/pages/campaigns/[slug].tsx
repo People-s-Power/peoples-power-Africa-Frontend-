@@ -123,7 +123,6 @@ const SingleCampaignPage = ({ repo, }: InferGetServerSidePropsType<typeof getSer
 			<Head>
 				<title>Petition || {repo.title}</title>
 
-
 				<meta property="og:type" content="website" />
 				<meta property="og:title" content={repo.title || repo.body || repo.caption || repo.name} />
 				<meta property="og:description" content={repo.body} />
