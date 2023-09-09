@@ -165,9 +165,10 @@ export const GET_ALL = gql`
 				createdAt
 				image
 				asset{
-      url
-      type
-    }
+					url
+					type
+    		}
+				categories
 				likes {
 					_id
 					name

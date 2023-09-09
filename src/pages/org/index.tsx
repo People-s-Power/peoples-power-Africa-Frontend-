@@ -423,12 +423,12 @@ const org = () => {
 														<VictoryCard post={single} />
 													</div>
 												)
-											// case "Post":
-											// 	return (
-											// 		<div key={index}>
-											// 			<CampComp post={single} />
-											// 		</div>
-											// 	)
+											case "Post":
+												return (
+													<div key={index}>
+														<CampComp post={single} />
+													</div>
+												)
 											case "Update":
 												return (
 													<div key={index}>

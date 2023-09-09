@@ -180,9 +180,21 @@ const HomePage = () => {
 				}
 			}
 			if (hstag) {
+				// newArray = newArray.filter((feedItem) => {
+				// 	if (Object.prototype.hasOwnProperty.call(feedItem, "category")) {
+				// 		if (feedItem.category.toLowerCase() === hstag.toLowerCase()) return true;
+				// 		return false;
+				// 	}
+				// 	return false;
+				// })
 				newArray = newArray.filter((feedItem) => {
 					if (Object.prototype.hasOwnProperty.call(feedItem, "category")) {
 						if (feedItem.category.toLowerCase() === hstag.toLowerCase()) return true;
+						return false;
+					}
+					if (Object.prototype.hasOwnProperty.call(feedItem, "categories")) {
+						// console.log(feedItem)
+						if (feedItem.categories[0].toLowerCase() === hstag.toLowerCase()) return true;
 						return false;
 					}
 					return false;
