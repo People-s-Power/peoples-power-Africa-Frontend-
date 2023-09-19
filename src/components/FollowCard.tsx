@@ -43,7 +43,7 @@ const FollowCard = ({ user, active }: IProps) => {
       </Link>
       {/* <div className="w-16 h-[1px] bg-gray-200"></div> */}
       <div className="text-xs text-gray-700 my-3">{user.followers.length} Followers</div>
-      <p className='text-xs my-2'>{user.description}</p>
+      <p className='text-xs my-2'>{user.description.slice(0, 80)}</p>
       {
         active === 'followers' ? <Link href={`/messages?page=${user._id}`}>
           <div className="text-xs border border-warning lg:p-3 p-2 sm:text-xs text-gray-900 my-6 text-center rounded-full cursor-pointer">Send message</div>

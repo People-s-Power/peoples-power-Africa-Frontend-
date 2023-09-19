@@ -151,13 +151,17 @@ const HomePage = () => {
 				},
 			})
 
-			// await axios.get(`share/feed/${active._id || active.id}`).then(function (response) {
-			// 	feed = response.data
-			// 	// console.log(response.data)
-			// })
+			await axios.get(`share/feed/${active._id || active.id}`).then(function (response) {
+				response.data.map(single => {
+					feed.push({...single, __typename: "Share"})
+				})
+				console.log(feed)
+				// feed = response.data
+				// console.log(response.data)
+			})
 
 			const general = [
-				// ...feed,
+				...feed,
 				...notification,
 				...data.data.timeline.adverts,
 				...data.data.timeline.updates,
@@ -447,12 +451,12 @@ const HomePage = () => {
 											<Timeline item={single} />
 										</div>
 									)
-								// default:
-								// 	return (
-								// 		<div key={index}>
-								// 			<Shared shared={single} />
-								// 		</div>
-								// 	)
+								default:
+									return (
+										<div key={index}>
+											<Shared shared={single} />
+										</div>
+									)
 							}
 						})}
 						{/* <CampComp /> */}

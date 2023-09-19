@@ -127,8 +127,8 @@ const connection = () => {
 										<div className="ml-4 my-auto">
 											<div className="lg:text-xl text-lg py-2 ">{user.name}
 											</div>
-											<div className="text-xs text-gray-700 my-1">{user.followers.length} Followers</div>
-											<p className='text-xs my-2'>{user.description}</p>
+											<div className="text-xs text-gray-700 my-1">{user.followers?.length} Followers</div>
+											<p className='text-xs my-2'>{user.description.slice(0, 80)}</p>
 										</div>
 									</div>
 									{/* <Link href={`/messages?page=${user._id}`}>
@@ -185,8 +185,8 @@ function Following({ user, getFollowing }) {
 							Unfollow
 						</p>}
 					</div>
-					<div className="text-xs text-gray-700 my-1">{user.followers.length} Followers</div>
-					<p className='text-xs my-2'>{user.description}</p>
+					<div className="text-xs text-gray-700 my-1">{user.followers?.length} Followers</div>
+					<p className='text-xs my-2'>{user.description.slice(0, 80)}</p>
 				</div>
 			</div>
 			{/* <Link href={`/messages?page=${user._id}`}>
