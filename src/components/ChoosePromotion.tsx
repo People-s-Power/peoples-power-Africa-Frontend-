@@ -8,30 +8,30 @@ import styled from "styled-components";
 
 
 
-const PromoteModalComp = ({show,onHide}:{show:boolean,onHide():void}): JSX.Element => {
+const PromoteModalComp = ({ show, onHide }: { show: boolean, onHide(): void }): JSX.Element => {
   const user = useRecoilValue(UserAtom);
 
   const { query } = useRouter();
 
   return (
-    <Wrapper className='modal-container'>
-      
+    <>
+
       <Modal open={show} onClose={onHide} backdrop={true}>
-            <Modal.Header closeButton></Modal.Header>
-            <Modal.Body>
-              <p className='fw-bold'>
-                {user?.firstName}, please choose which you wish to promote.
-              </p>
-              <Button
-                className='btn btn-warning mr-3'
-                onClick={() =>
-                  router.push(`/promote?slug=${query?.slug}&view=true`)
-                }
-                
-                >
-                Promote Views
-              </Button>
-              {/* <Button
+        <Modal.Header closeButton></Modal.Header>
+        <Modal.Body>
+          <p className='fw-bold'>
+            {user?.firstName}, please choose which you wish to promote.
+          </p>
+          <Button
+            className='btn btn-warning mr-3'
+            onClick={() =>
+              router.push(`/promote?slug=${query?.slug}&view=true`)
+            }
+
+          >
+            Promote Views
+          </Button>
+          {/* <Button
                 className='btn btn-warning mr-3'
                 onClick={() =>
                   router.push(`/promote?slug=${query?.slug}&message=true`)
@@ -40,17 +40,17 @@ const PromoteModalComp = ({show,onHide}:{show:boolean,onHide():void}): JSX.Eleme
                 >
                 Promote to Inbox
               </Button> */}
-              <Button
-                className='btn btn-warning'
-                onClick={() =>
-                  router.push(`/promote?slug=${query?.slug}&endorse=true`)
-                }
-                >
-                Promote endorsement
-              </Button>
-            </Modal.Body>
-            <Modal.Footer>
-              {/* <Button
+          <Button
+            className='btn btn-warning'
+            onClick={() =>
+              router.push(`/promote?slug=${query?.slug}&endorse=true`)
+            }
+          >
+            Promote endorsement
+          </Button>
+        </Modal.Body>
+        <Modal.Footer>
+          {/* <Button
                 className='btn btn-warning'
                 onClick={() =>
                   router.push(`/promote?slug=${query?.slug}&view=true`)
@@ -59,12 +59,12 @@ const PromoteModalComp = ({show,onHide}:{show:boolean,onHide():void}): JSX.Eleme
                 Promote Now
               </Button> */}
 
-              <Button  onClick={()=>router.push(`/campaigns/share?slug=${query?.slug}`)}>
-                Not now
-              </Button>
-            </Modal.Footer>
-          </Modal>
-    </Wrapper>
+          <Button onClick={() => router.push(`/campaigns/share?slug=${query?.slug}`)}>
+            Not now
+          </Button>
+        </Modal.Footer>
+      </Modal>
+    </>
   );
 };
 
