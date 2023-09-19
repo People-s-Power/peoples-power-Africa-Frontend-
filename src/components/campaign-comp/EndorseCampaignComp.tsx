@@ -9,6 +9,9 @@ import { useRouter } from "next/router"
 import Link from "next/link"
 import { apollo } from "apollo"
 import axios from "axios"
+import { COMMENT } from "apollo/queries/generalQuery"
+import { SERVER_URL } from "utils/constants"
+import { print } from "graphql"
 
 // const CREATE_ENDORSEMENT = gql`
 // 	mutation CreateEndorsement($input: EndorsementInput) {
@@ -30,18 +33,34 @@ const EndorseCampaignComp = ({ camp }: { camp: ICampaign }): JSX.Element => {
 
 	const handleSubmit = async () => {
 		setLoading(true)
-		axios
-			.post("/endorsement", {
-				body: body,
-				petition: id,
+		try {
+			const { data } = await axios.post(SERVER_URL + "/graphql", {
+				query: print(COMMENT),
+				variables: {
+					authorId: user.id,
+					itemId: id,
+					content: body,
+				},
 			})
-			.then(function (response) {
-				console.log(response)
-				router.push(`/promote?slug=${camp.slug}`)
-			})
-			.catch(function (error) {
-				console.log(error)
-			})
+			console.log(data)
+			router.push(`/promote?slug=${camp.slug}`)
+		} catch (error) {
+			console.log(error)
+
+		}
+
+		// axios
+		// .post("/endorsement", {
+		// 	body: body,
+		// 	petition: id,
+		// })
+		// 	.then(function (response) {
+		// 	console.log(response)
+		// 	router.push(`/promote?slug=${camp.slug}`)
+		// })
+		// .catch(function (error) {
+		// 	console.log(error)
+		// })
 
 		// if (!body) return;
 		// try {

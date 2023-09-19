@@ -217,6 +217,7 @@ export interface IViews {
 }
 
 export interface IEndorsement extends Document {
+	authorId: any
 	author: IUser
 	body: string
 	campaign: ICampaign | string

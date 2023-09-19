@@ -21,6 +21,7 @@ import ReactTimeAgo from "react-time-ago"
 import { SINGLE_PETITION } from "apollo/queries/petitionQuery"
 import { Modal } from "rsuite"
 import Select from "react-select"
+import ImageCarousel from "components/ImageCarousel"
 
 export const GET_CAMPAIGN = gql`
 	query ($slug: String) {
@@ -119,7 +120,8 @@ const PromoteComp = (): JSX.Element => {
 							<div>
 								<div className="card">
 									<div className="card-Image">
-										<img src={campaign?.image} className="w-full h-1/2 object-cover" alt="" />
+										<ImageCarousel image={campaign?.asset} />
+										{/* <img src={campaign?.asset[0].url} className="w-full h-1/2 object-cover" alt="" /> */}
 									</div>
 									<div className="card-body">
 										<h4 className="fw-bold">{campaign?.title}</h4>
