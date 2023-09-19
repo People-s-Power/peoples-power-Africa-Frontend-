@@ -7,7 +7,7 @@ const { publicRuntimeConfig } = getConfig();
 const Footer = (): JSX.Element => {
 	return (
 		<footer className="footer text-xs">
-			<Wrapper>
+			<>
 				<div className=" mb-4 inner _footer">
 					<section className="socials d-flex justify-content-center mb-4 py-3 ">
 						<div className="_socials d-flex justify-content-between">
@@ -134,7 +134,7 @@ const Footer = (): JSX.Element => {
 						</a>
 					</Link>
 				</div>
-			</Wrapper>
+			</>
 		</footer>
 	);
 };
