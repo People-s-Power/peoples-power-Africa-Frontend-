@@ -10,12 +10,12 @@ const cardComp = ({ camp }: { camp: ICampaign }): JSX.Element => {
 		<>
 			<div className="col">
 				<div className="card rounded h-100 bg-white border-0">
-					<CardImg className="card-img">
+					{/* <CardImg className="card-img"> */}
 						<img
 							src={camp?.image ? camp.image : "/images/Rectangle.png"}
 							alt=""
 						/>
-					</CardImg>
+					{/* </CardImg> */}
 
 					<div className="card-body">
 						<Link href={`/campaigns/${camp?.slug}`}>

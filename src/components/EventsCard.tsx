@@ -30,6 +30,7 @@ const EventsCard = ({ event, timeLine }: IProps) => {
 	const [following, setFollowing] = useState(false)
 	const [show, setShow] = useState(false)
 	const [interestedIn, setInterested] = useState(event.interested);
+	const [more, setMore] = useState(event.description?.length > 250 ? true : false)
 
 	const toggle = val => {
 		setShow(val)
@@ -118,7 +119,7 @@ const EventsCard = ({ event, timeLine }: IProps) => {
 							{following ? <span>Following</span> : <span onClick={() => follow(event.author._id)} className="cursor-pointer">+ Follow</span>}
 						</div> : <HideComp id={event._id} toggle={toggle} />}
 					</div>
-					<div className="text-sm my-1">{event.author.description}</div>
+					<div className="text-sm my-1">{event.author.description?.slice(0, 100)} {event.author.description?.length > 100 && '...'}</div>
 				</div>
 				<div className="text-xl my-3">{event.name}</div>
 				<ImageCarousel image={event.asset} />
@@ -126,7 +127,24 @@ const EventsCard = ({ event, timeLine }: IProps) => {
 					<div>
 						{event.author.name} created event for {event.startDate} AT {event.time}
 					</div>
-					<div className="text-xl my-3">{event.description}</div>
+					{/* <div className="text-xl my-3">{event.description}</div> */}
+					{more ? (
+						<div className="text-base py-2 leading-loose">
+							{event.description.slice(0, 250)}{" "}
+							<span className="text-warning underline" onClick={() => setMore(!more)}>
+								..see more
+							</span>
+						</div>
+					) : (
+						<div className="text-base py-2 leading-loose">
+							{event.description}
+							{event.description.length > 250 ? (
+								<span className="text-warning underline" onClick={() => setMore(!more)}>
+									see less
+								</span>
+							) : null}
+						</div>
+					)}
 					<div className="text-sm mb-2">{event.type}</div>
 
 					{event.interested?.length >= 2 ? <div className="flex my-6">
