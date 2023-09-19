@@ -71,9 +71,9 @@ const CampComp = ({ post }: { post: any }): JSX.Element => {
 	})
 
 	function isOwner(id) {
-		return id === author.id || orgs.some((obj) => obj._id === id)
+		return id === author?.id || orgs.some((obj) => obj._id === id)
 	}
-	author.orgOperating.map((org) => {
+	author?.orgOperating.map((org) => {
 		useQuery(GET_ORGANIZATION, {
 			variables: { ID: org },
 			client: apollo,
@@ -88,7 +88,7 @@ const CampComp = ({ post }: { post: any }): JSX.Element => {
 	})
 	// }
 	useEffect(() => {
-		setLiked(post.likes?.some((obj) => obj._id === author.id))
+		setLiked(post.likes?.some((obj) => obj._id === author?.id))
 	}, [])
 
 	const like = async () => {

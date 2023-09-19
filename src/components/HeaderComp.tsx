@@ -82,7 +82,7 @@ const Header = (): JSX.Element => {
 		const route = window.location.pathname
 
 		if (token === undefined && user === null) {
-			if (route === "/about" || route === "/campaigns" || route === "/events" || route === "/contact" || route === "/home") {
+			if (route === "/about" || route.includes("/campaigns") || route.includes("Advert") || route.includes("Victory") || route.includes("Post") || route.includes("Event") || route.includes("Update") || route === "/events" || route === "/contact" || route === "/home") {
 				console.log(true)
 			} else {
 				window.location.href = "/home"
