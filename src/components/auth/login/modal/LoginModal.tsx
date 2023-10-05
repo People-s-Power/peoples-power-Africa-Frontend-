@@ -20,7 +20,7 @@ const LoginModal = ({
 				{isLogin ? (
 					<LoginComp onSuccess={() => window.location.reload()} />
 				) : (
-					<SignupCom onSucess={(d) => console.log(d)} />
+					<SignupCom text="Sign Up" onSucess={(d) => console.log(d)} />
 				)}
 				<div className="text-center">
 					<button
