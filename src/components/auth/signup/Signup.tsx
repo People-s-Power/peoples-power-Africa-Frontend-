@@ -35,7 +35,7 @@ const RegisterComp = (): JSX.Element => {
 					{/* <Facebook onSuccess={() => (window.location.href = "/mycamp")} /> */}
 					<GoogleAuthComp onSuccess={() => (window.location.href = "/buildprofile")} />
 				</div>
-				<SignupCom onSucess={(d) => console.log(d)} />
+				<SignupCom text="Sign up" onSucess={(d) => console.log(d)} />
 			</div>
 			<Link href="/?mode=login">
 				<a className="text-decoration-none text-center d-block">
@@ -50,8 +50,10 @@ export default RegisterComp;
 
 export const SignupCom = ({
 	onSucess,
+	text
 }: {
 	onSucess(data?: any): void;
+	text: String
 }): JSX.Element => {
 	// const router = useRouter()
 	const [loading, setLoading] = useState(false);
@@ -164,7 +166,7 @@ export const SignupCom = ({
 					disabled={loading}
 					className="btn btn-warning d-block w-100 text-white fw-bold py-2"
 				>
-					{loading ? <Loader content="Loading...." /> : "Sign up"}
+					{loading ? <Loader content="Loading...." /> : text}
 				</button>
 			</form>
 			<ToastContainer />

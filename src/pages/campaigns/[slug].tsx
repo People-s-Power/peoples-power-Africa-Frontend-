@@ -282,8 +282,8 @@ const SingleCampaignPage = ({ repo, }: InferGetServerSidePropsType<typeof getSer
 											</div>
 										) : null :
 											<div className="">
-												<h4 className="text-xl text-center my-4">Sign this Petition</h4>
-												<SignupCom onSucess={(d) => endorse(d.id)} />
+												{/* <h4 className="text-xl text-center my-4">Sign this Petition</h4> */}
+												<SignupCom text="Sign this Petition" onSucess={(d) => endorse(d.id)} />
 											</div>
 									}
 									<div className="mb-3 w-100">

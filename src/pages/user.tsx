@@ -361,6 +361,7 @@ const user = () => {
 										</div> : <div className="text-sm text-warning mt-2">Following</div>
 									}
 								</div>
+
 								<div className="mt-auto z-10">
 									{
 										author?.id === query.page ? <div className="font-black text-lg">
@@ -379,6 +380,9 @@ const user = () => {
 										// </div>
 									}
 								</div>
+							</div>
+							<div className="my-2">
+								{query.page !== author?.id && <Link href={`/report?page=${query.page}`}>Report</Link>}
 							</div>
 						</div>
 					</div>

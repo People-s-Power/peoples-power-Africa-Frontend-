@@ -149,6 +149,8 @@ const HomePage = () => {
 				},
 			})
 
+			console.log(data)
+
 			await axios.get(`share/feed/${active._id || active.id}`).then(function (response) {
 				response.data.map(single => {
 					feed.push({...single, __typename: "Share"})

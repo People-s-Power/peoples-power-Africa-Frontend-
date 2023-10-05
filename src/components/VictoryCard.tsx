@@ -16,6 +16,7 @@ import HideComp from "./HideComp"
 import StartPetition from "./modals/StartPetition"
 import FindExpartModal from "./modals/FindExpartModal"
 import UnHideComp from "./UnHideComp"
+import ImageCarousel from "./ImageCarousel"
 
 interface IProps {
 	post: any;
@@ -91,7 +92,8 @@ const Victory = ({ post, timeLine, orgs }: IProps): JSX.Element => {
 				</div>
 				<div className="text-sm p-2 leading-loose">{post.body}</div>
 				<div className="p-2">
-					<img src={post?.asset[0].url} className="w-full h-80 rounded-md object-cover" alt="" />
+					<ImageCarousel image={post.asset} />
+					{/* <img src={post?.asset[0].url} className="w-full h-80 rounded-md object-cover" alt="" /> */}
 				</div>
 				<div className="text-sm leading-loose p-2">
 					Do you think you have a personal or social concern? Find an expert who will help you resolve it or start writing your own petition and share your victory or testimony later
