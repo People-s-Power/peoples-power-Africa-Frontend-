@@ -134,7 +134,7 @@ const PetitionComp = ({ petition, timeLine }: IProps): JSX.Element => {
 							{following ? <span>Following</span> : <span onClick={() => follow(petition.author._id)} className="cursor-pointer">+ Follow</span>}
 						</div> : <HideComp id={petition._id} toggle={toggle} />}
 					</div>
-					<div className="text-sm my-1">{petition.author.description?.slice(0, 100)} {petition.author.description?.length > 100 && '...'}</div>
+					<div className="text-sm my-1">{petition.author.description?.slice(0, 70)} {petition.author.description?.length > 100 && '...'}</div>
 				</div>
 				<div className="p-2">
 					<p className="text-lg">{petition.title}</p>

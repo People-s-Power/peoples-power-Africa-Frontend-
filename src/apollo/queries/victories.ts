@@ -45,8 +45,8 @@ export const MY_VICTORIES = gql`
 	}
 `
 export const CREATE_VICTORIES = gql`
-	mutation createVictory($authorId: ID!, $body: String!, $imageFile: [String!]!) {
-		createVictory(authorId: $authorId, body: $body, imageFile: $imageFile) {
+	mutation createVictory($authorId: ID!, $body: String!, $assets: [AssetInput!]!) {
+		createVictory(authorId: $authorId, body: $body, assets: $assets) {
 			_id
 			body
 			__typename
@@ -55,8 +55,8 @@ export const CREATE_VICTORIES = gql`
 `
 
 export const UPDATE_VICTORIES = gql`
-	mutation updateVictory($authorId: ID!, $body: String!, $imageFile: [String!]!, $victoryId: String!) {
-		updateVictory(authorId: $authorId, body: $body, imageFile: $imageFile, victoryId: $victoryId) {
+	mutation updateVictory($authorId: ID!, $body: String!, $assets: [AssetInput!]!, $victoryId: String!) {
+		updateVictory(authorId: $authorId, body: $body, assets: $assets, victoryId: $victoryId) {
 			_id
 			body
 			__typename

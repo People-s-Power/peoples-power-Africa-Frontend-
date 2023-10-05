@@ -326,7 +326,7 @@ function Buildprofile(): React.ReactElement {
 											(People and organizations with similar insterests or location with you)
 										</div>
 										<div className="flex flex-wrap justify-between">
-											{users.slice(0, 12).map((user, index) => (
+											{users.slice(0, 15).map((user, index) => (
 												<FollowCard key={index} user={user} />
 												// <div key={index} className="lg:w-[25%] sm:w-1/2 lg:p-6 p-2">
 												// 	<img src={user.image} className="w-20 h-20 rounded-full" alt="" />

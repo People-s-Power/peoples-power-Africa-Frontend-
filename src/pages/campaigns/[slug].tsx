@@ -87,7 +87,7 @@ const SingleCampaignPage = ({ repo, }: InferGetServerSidePropsType<typeof getSer
 	// 	onError: (err) => console.log(err),
 	// })
 	useEffect(() => {
-		// console.log(repo)
+		console.log(repo)
 		setCamp(repo)
 		setEndorsements(repo.comments)
 		setUpdate(repo.updates)
@@ -249,25 +249,47 @@ const SingleCampaignPage = ({ repo, }: InferGetServerSidePropsType<typeof getSer
 										))}
 										{/* <EndorseCampaignComp camp={camp} /> */}
 									</div>
-									{camp?.author?._id === user?.id ? null : endorsements.length >= 1 ? (
-										endorsements.map((endorse, i) =>
-											user?.id === endorse?.authorId ? (
-												<div key={i}>
-													<div>
-														Thank you {user.firstName} for endorsing this campaign. Let's now make this campaign get to other supporters on Peoples Power by
-														promoting it.
+
+									{
+										camp?.author?._id === user?.id ? null : endorsements.length >= 1 ? (
+											<div>
+												{endorsements.map((endorse, i) =>
+													user?.id === endorse?.authorId ? (
+														<div key={i}>
+															<div>
+																Thank you {user.firstName} for endorsing this campaign. Let's now make this campaign get to other supporters on Peoples Power by
+																promoting it.
+															</div>
+															<Link href={`/promote?slug=${camp.slug}`}>
+																<a className="btn btn-warning btn-sm  rounded-pill px-3 fw-bold my-3 text-center mx-auto">Promote Campaign</a>
+															</Link>
+														</div>
+													) : <EndorseCampaignComp camp={camp} />
+												)}
+											</div>
+										) : <EndorseCampaignComp camp={camp} />
+									}
+
+									{/* {camp?.author?._id === user?.id ?
+										null : endorsements.length >= 1 ? (
+											endorsements.map((endorse, i) =>
+												user?.id === endorse?.authorId ? (
+													<div key={i}>
+														<div>
+															Thank you {user.firstName} for endorsing this campaign. Let's now make this campaign get to other supporters on Peoples Power by
+															promoting it.
+														</div>
+														<Link href={`/promote?slug=${camp.slug}`}>
+															<a className="btn btn-warning btn-sm  rounded-pill px-3 fw-bold my-3 text-center mx-auto">Promote Campaign</a>
+														</Link>
 													</div>
-													<Link href={`/promote?slug=${camp.slug}`}>
-														<a className="btn btn-warning btn-sm  rounded-pill px-3 fw-bold my-3 text-center mx-auto">Promote Campaign</a>
-													</Link>
-												</div>	
-											) : null
-										)
-									) : (
-										<div>
-											<EndorseCampaignComp camp={camp} />
-										</div>
-									)}
+												) : null
+											)
+										) : (
+											<div>
+												<EndorseCampaignComp camp={camp} />
+											</div>
+										)} */}
 								</aside>
 							</main>
 						</div>

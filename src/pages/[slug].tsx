@@ -149,7 +149,7 @@ const Single = ({ repo, }: InferGetServerSidePropsType<typeof getServerSideProps
           eventId: router.query.page,
         },
       })
-      // console.log(data)
+      console.log(data)
       setData(data.data.event)
     } catch (e) {
       console.log(e.response)

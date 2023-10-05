@@ -84,7 +84,7 @@ const CampComp: React.FC<IProps> = ({ post, open, openPetition, timeLine }: IPro
 								{following ? <span>Following</span> : <span onClick={() => follow(post.author._id)} className="cursor-pointer"><span className="px-1 sm:hidden">+</span> Follow</span>}
 							</div> : <HideComp id={post._id} toggle={toggle} />}
 						</div>
-						<div className="text-sm my-1">{post.author.description?.slice(0, 100)} {post.author.description?.length > 100 && '...'}</div>
+						<div className="text-sm my-1">{post.author.description?.slice(0, 70)} {post.author.description?.length > 100 && '...'}</div>
 					</div>
 					{more ? (
 						<div className="text-sm p-2 leading-loose">

@@ -27,7 +27,10 @@ const CreateVictories = ({ open, handelClick, victory }: { open: boolean; handel
 				variables: {
 					authorId: author.id,
 					body: body,
-					imageFile: ["https://media.tenor.com/AyG5njrbcGIAAAAM/animated-cute.gif"],
+					assets: [{
+						type: "image",
+						url: "https://media.tenor.com/AyG5njrbcGIAAAAM/animated-cute.gif"
+					}],
 				},
 			})
 			console.log(data)
@@ -50,7 +53,10 @@ const CreateVictories = ({ open, handelClick, victory }: { open: boolean; handel
 					victoryId: victory._id,
 					authorId: author.id,
 					body: body,
-					imageFile: ["https://media.tenor.com/AyG5njrbcGIAAAAM/animated-cute.gif"],
+					assets: [{
+						type: "image",
+						url: "https://media.tenor.com/AyG5njrbcGIAAAAM/animated-cute.gif"
+					}],
 				},
 			})
 			console.log(data)

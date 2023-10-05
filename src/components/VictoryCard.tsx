@@ -87,11 +87,11 @@ const Victory = ({ post, timeLine, orgs }: IProps): JSX.Element => {
 							{following ? <span>Following</span> : <span onClick={() => follow(post.author._id)} className="cursor-pointer">+ Follow</span>}
 						</div> : <HideComp id={post._id} />}
 					</div>
-					<div className="text-sm my-1">{post.author.description?.slice(0, 100)} {post.author.description?.length > 100 && '...'}</div>
+					<div className="text-sm my-1">{post.author.description?.slice(0, 70)} {post.author.description?.length > 100 && '...'}</div>
 				</div>
 				<div className="text-sm p-2 leading-loose">{post.body}</div>
 				<div className="p-2">
-					<img src={post?.image} className="w-full h-80 rounded-md object-cover" alt="" />
+					<img src={post?.asset[0].url} className="w-full h-80 rounded-md object-cover" alt="" />
 				</div>
 				<div className="text-sm leading-loose p-2">
 					Do you think you have a personal or social concern? Find an expert who will help you resolve it or start writing your own petition and share your victory or testimony later

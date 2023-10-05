@@ -141,8 +141,6 @@ const HomePage = () => {
 				}
 			)
 
-
-
 			const { data } = await axios.post(SERVER_URL + "/graphql", {
 				query: print(GET_ALL),
 				variables: {

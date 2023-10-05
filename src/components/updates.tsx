@@ -49,7 +49,7 @@ const Updates = ({ updates }: { updates: any }): JSX.Element => {
 						<HideComp id={updates.id} toggle={toggle} />
 					</div>
 					{/* </div> */}
-					<div className="text-sm my-1">{updates.author.description?.slice(0, 100)} {updates.author.description?.length > 100 && '...'}</div>
+					<div className="text-sm my-1">{updates.author.description?.slice(0, 70)} {updates.author.description?.length > 100 && '...'}</div>
 				</div>
 				<div className="text-sm p-2 leading-loose">{updates.petition?.title}</div>
 				<div className="p-2">

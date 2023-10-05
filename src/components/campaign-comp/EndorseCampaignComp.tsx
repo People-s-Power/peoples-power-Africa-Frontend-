@@ -110,9 +110,10 @@ const EndorseCampaignComp = ({ camp }: { camp: ICampaign }): JSX.Element => {
 					/>
 				</div>
 			</div>
+			
 			<div className="d-flex align-items-center justify-content-between">
 				<button className="bg-warning text-white my-3 p-2 rounded-full" onClick={handleSubmit} disabled={loading}>
-					{loading ? <Loader content="Processing" /> : "Endorse Campaign"}
+					{loading ? <Loader content="Processing" /> : "Endorse Peititon"}
 				</button>
 			</div>
 		</section>

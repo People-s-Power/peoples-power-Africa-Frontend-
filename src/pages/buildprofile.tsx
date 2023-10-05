@@ -196,7 +196,7 @@ function Buildprofile(): React.ReactElement {
 										</div>
 										<div className="text-center mx-auto my-8">
 											<button className="p-2 bg-warning text-white rounded-sm" onClick={uploadFileToServer}>
-												Upload Photo
+												Next
 											</button>
 											<div className="my-1">
 												<Button onClick={onNext}>Skip</Button>
@@ -305,7 +305,7 @@ function Buildprofile(): React.ReactElement {
 											(People and organizations with similar insterests or location with you)
 										</div>
 										<div className="flex flex-wrap justify-between">
-											{users.slice(0, 12).map((user, index) =>
+											{users.slice(0, 15).map((user, index) =>
 												user._id !== user.id ? (
 													<FollowCard key={index} user={user} />
 													// <div key={index} className="lg:w-[25%] sm:w-1/2 lg:p-6 p-2">

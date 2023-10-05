@@ -119,7 +119,7 @@ const EventsCard = ({ event, timeLine }: IProps) => {
 							{following ? <span>Following</span> : <span onClick={() => follow(event.author._id)} className="cursor-pointer">+ Follow</span>}
 						</div> : <HideComp id={event._id} toggle={toggle} />}
 					</div>
-					<div className="text-sm my-1">{event.author.description?.slice(0, 100)} {event.author.description?.length > 100 && '...'}</div>
+					<div className="text-sm my-1">{event.author.description?.slice(0, 70)} {event.author.description?.length > 100 && '...'}</div>
 				</div>
 				<div className="text-xl my-3">{event.name}</div>
 				<ImageCarousel image={event.asset} />
