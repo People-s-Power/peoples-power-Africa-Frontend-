@@ -9,7 +9,7 @@ import { useRouter } from "next/router"
 import Link from "next/link"
 import { apollo } from "apollo"
 import axios from "axios"
-import { COMMENT } from "apollo/queries/generalQuery"
+import { COMMENT, LIKE } from "apollo/queries/generalQuery"
 import { SERVER_URL } from "utils/constants"
 import { print } from "graphql"
 
@@ -31,6 +31,20 @@ const EndorseCampaignComp = ({ camp }: { camp: ICampaign }): JSX.Element => {
 
 	// const [addEndorsement, { loading, error: endorseError }] = useMutation(CREATE_ENDORSEMENT);
 
+	const endorse = async () => {
+		try {
+			const { data } = await axios.post(SERVER_URL + "/graphql", {
+				query: print(LIKE),
+				variables: {
+					authorId: user.id,
+					itemId: id,
+				},
+			})
+		} catch (e) {
+			console.log(e)
+		}
+	}
+
 	const handleSubmit = async () => {
 		setLoading(true)
 		try {
@@ -42,12 +56,14 @@ const EndorseCampaignComp = ({ camp }: { camp: ICampaign }): JSX.Element => {
 					content: body,
 				},
 			})
+			endorse()
 			console.log(data)
 			router.push(`/promote?slug=${camp.slug}`)
 		} catch (error) {
 			console.log(error)
-
 		}
+
+
 
 		// axios
 		// .post("/endorsement", {
@@ -110,7 +126,7 @@ const EndorseCampaignComp = ({ camp }: { camp: ICampaign }): JSX.Element => {
 					/>
 				</div>
 			</div>
-			
+
 			<div className="d-flex align-items-center justify-content-between">
 				<button className="bg-warning text-white my-3 p-2 rounded-full" onClick={handleSubmit} disabled={loading}>
 					{loading ? <Loader content="Processing" /> : "Endorse Peititon"}

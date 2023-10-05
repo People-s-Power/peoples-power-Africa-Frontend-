@@ -21,6 +21,8 @@ import AddUpdates from "components/modals/AddUpdates"
 import type { InferGetServerSidePropsType, GetServerSideProps } from 'next'
 import { SERVER_URL } from "utils/constants"
 import { print } from "graphql"
+import { SignupCom } from "components/auth/signup/Signup"
+import { LIKE } from "apollo/queries/generalQuery"
 
 // const io = socket(SERVER_URL, {
 // 	extraHeaders: {
@@ -87,12 +89,30 @@ const SingleCampaignPage = ({ repo, }: InferGetServerSidePropsType<typeof getSer
 	// 	onError: (err) => console.log(err),
 	// })
 	useEffect(() => {
-		console.log(repo)
+		// console.log(repo)
 		setCamp(repo)
 		setEndorsements(repo.comments)
 		setUpdate(repo.updates)
 		setLikes(repo.likes)
 	}, [])
+
+	const endorse = async ({ user }) => {
+		try {
+			const { data } = await axios.post(SERVER_URL + "/graphql", {
+				query: print(LIKE),
+				variables: {
+					authorId: user,
+					itemId: camp._id,
+				},
+			})
+			router.push(`/promote?slug=${camp.slug}`)
+
+		} catch (e) {
+			console.log(e)
+		}
+	}
+
+	const isAuthor = (e) => e.authorId === user.id
 
 	// const handleLike = async () => {
 	// 	// io.emit("likeCampaign", { id: camp?.id });
@@ -243,38 +263,12 @@ const SingleCampaignPage = ({ repo, }: InferGetServerSidePropsType<typeof getSer
 											<p className="py-2 fs-5 text-center rounded text-muted w-100 px-2">Be the first to endorse this campaign</p>
 										</div>
 									)}
-									<div className="mb-3 w-100">
-										{endorsements?.map((endorsement, i) => (
-											<Endorsements endorsement={endorsement} key={i} />
-										))}
-										{/* <EndorseCampaignComp camp={camp} /> */}
-									</div>
 
 									{
-										camp?.author?._id === user?.id ? null : endorsements.length >= 1 ? (
+										user ? camp?.author?._id === user?.id ? null : endorsements.length >= 1 ? (
 											<div>
-												{endorsements.map((endorse, i) =>
-													user?.id === endorse?.authorId ? (
-														<div key={i}>
-															<div>
-																Thank you {user.firstName} for endorsing this campaign. Let's now make this campaign get to other supporters on Peoples Power by
-																promoting it.
-															</div>
-															<Link href={`/promote?slug=${camp.slug}`}>
-																<a className="btn btn-warning btn-sm  rounded-pill px-3 fw-bold my-3 text-center mx-auto">Promote Campaign</a>
-															</Link>
-														</div>
-													) : <EndorseCampaignComp camp={camp} />
-												)}
-											</div>
-										) : <EndorseCampaignComp camp={camp} />
-									}
-
-									{/* {camp?.author?._id === user?.id ?
-										null : endorsements.length >= 1 ? (
-											endorsements.map((endorse, i) =>
-												user?.id === endorse?.authorId ? (
-													<div key={i}>
+												{endorsements.some(isAuthor) ? (
+													<div>
 														<div>
 															Thank you {user.firstName} for endorsing this campaign. Let's now make this campaign get to other supporters on Peoples Power by
 															promoting it.
@@ -283,13 +277,21 @@ const SingleCampaignPage = ({ repo, }: InferGetServerSidePropsType<typeof getSer
 															<a className="btn btn-warning btn-sm  rounded-pill px-3 fw-bold my-3 text-center mx-auto">Promote Campaign</a>
 														</Link>
 													</div>
-												) : null
-											)
-										) : (
-											<div>
-												<EndorseCampaignComp camp={camp} />
+												) : <EndorseCampaignComp camp={camp} />
+												}
 											</div>
-										)} */}
+										) : null :
+											<div className="">
+												<h4 className="text-xl text-center my-4">Sign this Petition</h4>
+												<SignupCom onSucess={(d) => endorse(d.id)} />
+											</div>
+									}
+									<div className="mb-3 w-100">
+										{endorsements?.map((endorsement, i) => (
+											<Endorsements endorsement={endorsement} key={i} />
+										))}
+									</div>
+
 								</aside>
 							</main>
 						</div>

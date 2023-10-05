@@ -29,7 +29,14 @@ const RegisterComp = (): JSX.Element => {
 				Sign up with your social media accounts for easy syncing and more secure
 				privacy.
 			</p>
-			<SignupCom onSucess={(d) => console.log(d)} />
+			<div className="lg:w-1/2 mx-auto">
+				<h4 className="text-center">Sign Up</h4>
+				<div className="flex justify-center center w-[88px] m-auto">
+					{/* <Facebook onSuccess={() => (window.location.href = "/mycamp")} /> */}
+					<GoogleAuthComp onSuccess={() => (window.location.href = "/buildprofile")} />
+				</div>
+				<SignupCom onSucess={(d) => console.log(d)} />
+			</div>
 			<Link href="/?mode=login">
 				<a className="text-decoration-none text-center d-block">
 					Login instead
@@ -88,14 +95,9 @@ export const SignupCom = ({
 			console.log({ error });
 		}
 	};
-	
+
 	return (
-		<div className="form lg:w-1/2 mx-auto">
-			<h4 className="text-center">Sign Up</h4>
-			<div className="flex justify-center center w-[88px] m-auto">
-				{/* <Facebook onSuccess={() => (window.location.href = "/mycamp")} /> */}
-				<GoogleAuthComp onSuccess={() => (window.location.href = "/buildprofile")} />
-			</div>
+		<div className="form">
 			<form className="" onSubmit={handleLogin}>
 				<div className="mb-1">
 					<label className="form-label">Full Name</label>
