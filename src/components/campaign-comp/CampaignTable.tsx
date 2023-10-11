@@ -61,12 +61,13 @@ const Table = styled.table`
 `;
 
 const SingleRow = ({ camp }: { camp: ICampaign }) => {
+
 	return (
 		<tr className="table-row">
 			<td>
 				<Link href={`/campaigns/${camp?.slug}`}>
 					<a className="text-decoration-none link-dark">
-						<img src={camp?.image || camp?.image[0]} alt="" />
+						<img src={camp?.image[0] || camp?.asset[0].url} alt="" />
 						{camp?.title || camp?.caption || camp?.name}
 					</a>
 				</Link>

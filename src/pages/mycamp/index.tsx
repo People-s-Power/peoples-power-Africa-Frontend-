@@ -39,26 +39,16 @@ const MyCamp: NextPage = (): JSX.Element => {
 	// const loading = true;
 	const getGeneral = () => {
 		let general = [...petition, ...post, ...adverts, ...events, ...victories]
-		const randomize = (values: any) => {
-			let index = values.length,
-				randomIndex
-			while (index != 0) {
-				randomIndex = Math.floor(Math.random() * index)
-				index--
-				;[values[index], values[randomIndex]] = [values[randomIndex], values[index]]
-			}
-			return values
-		}
-		randomize(general)
-		setCampaigns(general)
-		// console.log(all)
+		const randomizedItems = general.sort(() => Math.random() - 0.5)
+		setCampaigns(randomizedItems)
+		// console.log(randomizedItems)
 	}
 
 	useQuery(MY_ADVERTS, {
 		client: apollo,
 		variables: { authorId: author?.id },
 		onCompleted: (data) => {
-			console.log(data)
+			// console.log(data)
 			setAdverts(data.myAdverts)
 		},
 		onError: (err) => console.log(err),
@@ -69,7 +59,7 @@ const MyCamp: NextPage = (): JSX.Element => {
 		variables: { authorId: author?.id },
 		onCompleted: (data) => {
 			// console.log(data)
-			setCampaigns(data.myPetition)
+			setPetition(data.myPetition)
 		},
 		onError: (err) => {
 			console.log(err)
@@ -130,7 +120,7 @@ const MyCamp: NextPage = (): JSX.Element => {
 						<div className="mt-4 ">
 							{campaigns.length > 0 ? (
 								<div>
-									<h3 className="fs-4 fw-bold text-center">Check Campaign Progress</h3>
+									<h3 className="fs-4 fw-bold text-center">Check Progress</h3>
 									<div className="d-flex py-3 flex-column flex-md-row">
 										<div className="flex-fill overflow-auto">
 											<CampaignTable campaigns={campaigns} />
