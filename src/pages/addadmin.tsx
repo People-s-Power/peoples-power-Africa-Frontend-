@@ -45,28 +45,45 @@ const addadmin = () => {
 	const [professionals, setProfessionals] = useState<any>([])
 	const [trained, setTrained] = useState([])
 
-	const paystack_config: PaystackProps = {
-		reference: new Date().getTime().toString(),
-		email: author?.email as string,
-		amount: role === "editor" ? 1500000 : 3500000,
-		firstname: author?.firstName,
-		lastname: author?.lastName,
-		currency: "NGN",
-		publicKey: "pk_live_13530a9fee6c7840c5f511e09879cbb22329dc28",
-		plan: role === "editor" ? "PLN_hyabaaqen17sez8" : "PLN_bpzuum9aliqlyrw",
-	}
+	// const paystack_config: PaystackProps = {
+	// 	reference: new Date().getTime().toString(),
+	// 	email: author?.email as string,
+	// 	amount: role === "editor" ? 1500000 : 3500000,
+	// 	firstname: author?.firstName,
+	// 	lastname: author?.lastName,
+	// 	currency: "NGN",
+	// 	publicKey: "pk_live_13530a9fee6c7840c5f511e09879cbb22329dc28",
+	// 	plan: role === "editor" ? "PLN_hyabaaqen17sez8" : "PLN_bpzuum9aliqlyrw",
+	// }
 
-	const initializePayment = usePaystackPayment(paystack_config)
+	// const initializePayment = usePaystackPayment(paystack_config)
 
-	const onSuccess = async () => {
-		console.log(paystack_config)
-		setStep(1)
-		return
-	}
-	const onClose = () => {
-		console.log("")
-	}
+	// const onSuccess = async () => {
+	// 	console.log(paystack_config)
+	// 	setStep(1)
+	// 	return
+	// }
+	// const onClose = () => {
+	// 	console.log("")
+	// }
 
+	const promote = async () => {
+		try {
+			const { data } = await axios.post('/transaction/subscribe', {
+				amount: role === "editor" ? 1500000 : 3500000,
+				author: author.id,
+				autoRenew: true
+			})
+			console.log(data)
+			setStep(1)
+
+			// toast.success("Promotion Successfull!")
+			// router.push(`/mycamp`)
+		} catch (e) {
+			toast.warn(e.response.data.message)
+			// console.log(e.response.data.message)
+		}
+	}
 
 	const hireProfessonal = () => {
 		if (role === "") {
@@ -74,7 +91,8 @@ const addadmin = () => {
 			return
 		}
 		if (step === 0) {
-			initializePayment(onSuccess, onClose)
+			// initializePayment(onSuccess, onClose)
+			promote()
 			return
 		}
 		if (step === 1) {
