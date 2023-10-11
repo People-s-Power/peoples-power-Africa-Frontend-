@@ -5,10 +5,13 @@ import { useRecoilValue } from "recoil"
 import { Loader } from "rsuite"
 import { IUser } from "types/Applicant.types"
 import router from "next/router"
-
 import { ToastContainer, toast } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 import Select from "react-select"
+import { SERVER_URL } from "utils/constants"
+import { GET_BANKS, VERIFY_BANK } from "apollo/queries/wallet"
+import { useMutation, useQuery } from "@apollo/client"
+import { apollo } from "apollo"
 
 const INTERESTS = [
 	"human right awareness",
@@ -31,6 +34,12 @@ const UpdateProfileComp = (): JSX.Element => {
 	const [country, setCountry] = useState("")
 	const [city, setCity] = useState("")
 	const [info, setInfo] = useState<Partial<IUser>>(user)
+	const [banks, setBanks] = useState([])
+	const [bank, setBank] = useState("")
+	const [code, setCode] = useState("")
+	const [accountName, setAccountName] = useState("")
+	const [accountNumber, setAccountNumber] = useState("")
+
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
 		const { name, value } = e.target
 		setInfo({
@@ -40,9 +49,37 @@ const UpdateProfileComp = (): JSX.Element => {
 	}
 
 	useEffect(() => {
-		console.log(user);
+		// console.log(user);
 		if (!info) setInfo(user)
 	}, [])
+
+	const [verify] = useMutation(VERIFY_BANK, {
+		variables: {
+			account_number: accountNumber,
+			code: code
+		},
+		onCompleted: (data) => {
+			console.log(data)
+			// setBankName(data.verifyBankAccount.account_name)
+		},
+		onError: (error) => {
+			console.log(error)
+		}
+	})
+
+	function checkAccount() {
+		if (accountNumber?.length >= 9) {
+			banks.map((item: { name: any; code: React.SetStateAction<string>; }) => {
+				if (item.name === bank) {
+					setCode(item.code)
+					verify()
+				} else {
+					return
+				}
+			})
+			verify()
+		}
+	}
 
 	useEffect(() => {
 		// Get countries
@@ -55,6 +92,22 @@ const UpdateProfileComp = (): JSX.Element => {
 			})
 			.catch((err) => console.log(err))
 	}, [])
+
+
+	useQuery(GET_BANKS, {
+		client: apollo,
+		onCompleted: (data) => {
+			console.log(data)
+			setBanks(data.getBanks)
+		},
+		onError: (err) => {
+			console.log(err)
+		},
+	});
+
+	useEffect(() => {
+	}, [])
+
 
 	useEffect(() => {
 		// Get countries
@@ -84,7 +137,7 @@ const UpdateProfileComp = (): JSX.Element => {
 				}
 				return acc;
 			}, []);
-			const { data } = await axios.put("/user/update", { ...info, country, state: city, interests: newInterests })
+			const { data } = await axios.put("/user/update", { ...info, country, state: city, interests: newInterests, bankCode: code, bankName: bank, accountName })
 			console.log(data);
 			setLoading(false)
 			toast.success("Profile Updates Successfully!")
@@ -95,6 +148,8 @@ const UpdateProfileComp = (): JSX.Element => {
 			toast.warn("Oops an error occured!")
 		}
 	}
+
+
 	return (
 		<form onSubmit={handleSubmit} className="lg:w-[300px] mx-auto">
 			<div className=" mb-3 g-md-4 g-2">
@@ -185,6 +240,40 @@ const UpdateProfileComp = (): JSX.Element => {
 					{cities.length !== 0 && user !== undefined ? <Select defaultValue={cities[cities?.findIndex(getUserState)]} options={cities} onChange={(e: any) => setCity(e?.value)} />
 						: null}
 				</div>
+			</div>
+
+			<div className="my-4">
+				<label className="form-label fw-bold" htmlFor="">
+					Select Bank
+				</label>
+				<div>
+					<select onChange={(e) => { setBank(e.target.value) }} className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg">
+						{
+							banks.map((bank: any, index: React.Key | null | undefined) => (
+								<option key={index} value={bank.name}>{bank.name}</option>
+							))
+						}
+					</select>
+				</div>
+				{/* <Select options={banks} onChange={(e: any) => setCountry(e?.name)} /> */}
+			</div>
+
+			<div className="my-4">
+				<label className="form-label fw-bold" htmlFor="accountNumber">
+					Acount Number
+				</label>
+				<input type="number" name="accountNumber" className="form-control"
+					value={info?.accountNumber}
+					onChange={(e) => { setAccountNumber(e.target.value), checkAccount() }
+					} />
+			</div>
+
+			<div className="my-4">
+				<label className="form-label fw-bold" htmlFor="">
+					Acount Name
+				</label>
+				<input onFocus={() => checkAccount()}
+					className="form-control" value={accountName} />
 			</div>
 
 			<div className="">

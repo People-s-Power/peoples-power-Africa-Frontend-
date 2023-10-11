@@ -1,5 +1,16 @@
 import { gql } from "@apollo/client"
 
+
+
+export const GET_BANKS = gql`
+ {
+  getBanks{
+    name
+    code
+    slug  
+  }
+ }
+`
 export const GET_WALLET = gql`
   query wallet($id: String! ){
     wallet(id: $id){
@@ -30,5 +41,13 @@ export const GET_TRANSACTIONS = gql`
 export const WiTHDRAW = gql`
   mutation requestWithdraw($userId: ID!, $amount: Float! ){
     requestWithdraw(userId: $userId, amount: $amount)
+  }
+`
+
+export const VERIFY_BANK = gql`
+  mutation verifyBankAccount($account_number: String!, $code: String!){
+    verifyBankAccount(account_number: $account_number, code: $code){
+      account_name
+    }
   }
 `

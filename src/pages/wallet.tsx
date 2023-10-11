@@ -15,6 +15,7 @@ import { Modal } from 'rsuite';
 
 import { ToastContainer, toast } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
+import Link from 'next/link';
 const Wallet = () => {
   const { query } = useRouter()
   const [balance, setBalance] = useState(0)
@@ -128,6 +129,9 @@ const Wallet = () => {
                 </div>
               </div>
             </div>
+            <Link href={"/mycamp/profile"}>
+              <button className="py-3 rounded-md px-6 border my-4">Add Bank Account</button>
+            </Link>
           </div>
           <div className='lg:w-[35%]'>
             <h5>My Transactions</h5>
