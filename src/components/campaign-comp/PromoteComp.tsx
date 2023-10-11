@@ -22,6 +22,9 @@ import { SINGLE_PETITION } from "apollo/queries/petitionQuery"
 import { Modal } from "rsuite"
 import Select from "react-select"
 import ImageCarousel from "components/ImageCarousel"
+import { ToastContainer, toast } from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
+
 
 export const GET_CAMPAIGN = gql`
 	query ($slug: String) {
@@ -240,6 +243,7 @@ const PromoteForm = ({ campaign, view, endorse, message }: { campaign: any; view
 	const [cities, setCities] = useState([])
 	const [city, setCity] = useState("")
 	const [myInterest, setMyInterest] = useState<string[]>([])
+	const router = useRouter()
 
 	useEffect(() => {
 		// Get countries
@@ -267,38 +271,57 @@ const PromoteForm = ({ campaign, view, endorse, message }: { campaign: any; view
 	}, [country])
 
 
-	const paystack_config: PaystackProps = {
-		reference: new Date().getTime().toString(),
-		email: user?.email,
-		amount: amount.toFixed(2) * 100,
-		firstname: user?.firstName,
-		lastname: user?.lastName,
-		currency,
-		publicKey: "pk_live_13530a9fee6c7840c5f511e09879cbb22329dc28",
-		metadata: {
-			purpose: location === "inbox" ? PaymentPurposeEnum.MESSAGE : null,
-			key: query.slug,
-			numberOfViews: views,
-			name: user?.name,
-			audience: audience === "Everyone" ? AudienceEnum.EVERYONE : audience === "Interest" ? AudienceEnum.INTEREST : audience === "Location" ? AudienceEnum.LOCATION : null,
-			custom_fields: [
-				{
-					display_name: view === true ? PaymentPurposeEnum.VIEWS : endorse === true ? PaymentPurposeEnum.ENDORSE : PaymentPurposeEnum.MESSAGE,
-					value: campaign,
-					variable_name: "title",
-				},
-			],
-		},
-	}
+	// const paystack_config: PaystackProps = {
+	// 	reference: new Date().getTime().toString(),
+	// 	email: user?.email,
+	// 	amount: amount.toFixed(2) * 100,
+	// 	firstname: user?.firstName,
+	// 	lastname: user?.lastName,
+	// 	currency,
+	// 	publicKey: "pk_live_13530a9fee6c7840c5f511e09879cbb22329dc28",
+	// 	metadata: {
+	// 		purpose: location === "inbox" ? PaymentPurposeEnum.MESSAGE : null,
+	// 		key: query.slug,
+	// 		numberOfViews: views,
+	// 		name: user?.name,
+	// 		audience: audience === "Everyone" ? AudienceEnum.EVERYONE : audience === "Interest" ? AudienceEnum.INTEREST : audience === "Location" ? AudienceEnum.LOCATION : null,
+	// 		custom_fields: [
+	// 			{
+	// 				display_name: view === true ? PaymentPurposeEnum.VIEWS : endorse === true ? PaymentPurposeEnum.ENDORSE : PaymentPurposeEnum.MESSAGE,
+	// 				value: campaign,
+	// 				variable_name: "title",
+	// 			},
+	// 		],
+	// 	},
+	// }
 
-	const initializePayment = usePaystackPayment(paystack_config)
-	const router = useRouter()
-	const onSuccess = async () => {
-		console.log(paystack_config)
-		router.push(`/mycamp`)
-	}
-	const onClose = () => {
-		console.log("")
+	// const initializePayment = usePaystackPayment(paystack_config)
+	// const onSuccess = async () => {
+	// 	console.log(paystack_config)
+	// 	router.push(`/mycamp`)
+	// }
+	// const onClose = () => {
+	// 	console.log("")
+	// }
+
+	const promote = async () => {
+		try {
+			const { data } = await axios.post('/transaction/promote', {
+				userId: user.id,
+				amount,
+				_id: query.slug,
+				audience: audience === "Everyone" ? AudienceEnum.EVERYONE : audience === "Interest" ? AudienceEnum.INTEREST : audience === "Location" ? AudienceEnum.LOCATION : null,
+				purpose: view === true ? PaymentPurposeEnum.VIEWS : endorse === true ? PaymentPurposeEnum.ENDORSE : PaymentPurposeEnum.MESSAGE,
+				numberOfViews: views,
+				userType: "user"
+			})
+			console.log(data)
+			toast.success("Promotion Successfull!")
+			router.push(`/mycamp`)
+		} catch (e) {
+			toast.warn(e.response.data.message)
+			// console.log(e.response.data.message)
+		}
 	}
 
 	useEffect(() => {
@@ -363,7 +386,7 @@ const PromoteForm = ({ campaign, view, endorse, message }: { campaign: any; view
 						</div>
 					</form>
 					<div className="text-center">
-						<button className="btn btn-warning my-4" onClick={() => initializePayment(onSuccess, onClose)}>
+						<button className="btn btn-warning my-4" onClick={() => promote()}>
 							Click to pay
 						</button>
 					</div>
@@ -442,6 +465,7 @@ const PromoteForm = ({ campaign, view, endorse, message }: { campaign: any; view
 						<button className="p-2 bg-warning text-white rounded-md" onClick={() => continuePayment()}>Continue</button>
 					</Modal.Footer>
 				</Modal>
+				<ToastContainer />
 			</Wrapper>
 		</FrontLayout>
 	)

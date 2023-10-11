@@ -16,6 +16,7 @@ import { Modal } from 'rsuite';
 import { ToastContainer, toast } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 import Link from 'next/link';
+
 const Wallet = () => {
   const { query } = useRouter()
   const [balance, setBalance] = useState(0)
