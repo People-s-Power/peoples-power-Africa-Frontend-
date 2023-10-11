@@ -1,5 +1,5 @@
 import { GET_ALL } from 'apollo/queries/generalQuery';
-import { GET_TRANSACTIONS, GET_WALLET } from 'apollo/queries/wallet';
+import { GET_TRANSACTIONS, GET_WALLET, WiTHDRAW } from 'apollo/queries/wallet';
 import axios from 'axios';
 import FrontLayout from 'layout/FrontLayout';
 import React, { useEffect, useState } from 'react';
@@ -13,6 +13,8 @@ import { UserAtom } from 'atoms/UserAtom';
 import { useRecoilValue } from 'recoil';
 import { Modal } from 'rsuite';
 
+import { ToastContainer, toast } from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
 const Wallet = () => {
   const { query } = useRouter()
   const [balance, setBalance] = useState(0)
@@ -22,6 +24,8 @@ const Wallet = () => {
   const user = useRecoilValue(UserAtom)
   const [amount, setAmount] = useState<any>()
   const [open, setOpen] = useState(false)
+  const [withdraw, setWithdraw] = useState(false)
+  const [loading, setLoading] = useState(false)
 
   const getWallet = async () => {
     try {
@@ -71,6 +75,25 @@ const Wallet = () => {
     console.log("")
   }
 
+  const withdrawFunds = async () => {
+    setLoading(true)
+    try {
+      const { data } = await axios.post(SERVER_URL + "/graphql", {
+        query: print(WiTHDRAW),
+        variables: { userId: query.page, amount: parseFloat(amount) },
+      })
+      // console.log()
+      if (data.errors) {
+        toast.warn(data.errors[0].message)
+      }
+
+      setLoading(false)
+    } catch (e) {
+      console.log(e)
+      setLoading(false)
+    }
+  }
+
   useEffect(() => {
     getTransactions()
     getWallet()
@@ -78,7 +101,7 @@ const Wallet = () => {
 
   return (
     <FrontLayout showFooter={false}>
-      <div className='lg:px-40 my-10'>
+      <div className='lg:px-32 my-10'>
         <h4>Wallet</h4>
         <div className='lg:flex mt-6 justify-between'>
           <div className='lg:w-[60%]'>
@@ -100,7 +123,7 @@ const Wallet = () => {
                     transfer from any source and select Sterling bank</p>
                 </div>
                 <div className='p-4 text-center'>
-                  <button className='py-2 px-6 my-6  rounded-md bg-white'>Withdraw funds</button>
+                  <button onClick={() => setWithdraw(true)} className='py-2 px-6 my-6  rounded-md bg-white'>Withdraw funds</button>
                   <p className='text-white text-sm'>Request for find Withdrawal directly to your bank account and recieve funds in minutes</p>
                 </div>
               </div>
@@ -159,6 +182,23 @@ const Wallet = () => {
             </div>
           </Modal.Body>
         </Modal>
+
+        <Modal open={withdraw} onClose={() => setWithdraw(false)}>
+          <Modal.Header>
+            <div className="border-b border-gray-200 p-3 w-full">
+              <Modal.Title>Withdraw Funds</Modal.Title>
+            </div>
+          </Modal.Header>
+          <Modal.Body>
+            <div className='text-center'>
+              <div className='my-4'>
+                <input onChange={e => setAmount(e.target.value)} value={amount} type="number" placeholder='Enter Amount to Withdraw' className='p-3 rounded-md border' />
+              </div>
+              <button className='bg-warning text-white py-2 px-6 rounded-md' onClick={() => withdrawFunds()} >{loading ? 'loading...' : 'Withdraw'}</button>
+            </div>
+          </Modal.Body>
+        </Modal>
+        <ToastContainer />
       </div>
     </FrontLayout>
   );

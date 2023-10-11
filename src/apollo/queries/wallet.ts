@@ -26,3 +26,9 @@ export const GET_TRANSACTIONS = gql`
     }
   }
 `
+
+export const WiTHDRAW = gql`
+  mutation requestWithdraw($userId: ID!, $amount: Float! ){
+    requestWithdraw(userId: $userId, amount: $amount)
+  }
+`
