@@ -13,7 +13,7 @@ const PrivacyPage = () => {
 			<Head>
 				<title>Privacy</title>
 			</Head>
-					<FrontLayout showFooter={false}>
+			<FrontLayout showFooter={false}>
 
 				<Wrapper className="privacy-policy py-5">
 					<div className="container">

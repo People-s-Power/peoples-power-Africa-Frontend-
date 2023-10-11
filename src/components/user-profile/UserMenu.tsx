@@ -34,6 +34,11 @@ const UserMenu = (): JSX.Element => {
 							<a className="text-decoration-none text-light c-hand">Settings</a>
 						</Link>
 					</li>
+					<li className="dropdown-item">
+						<Link href={`/wallet?page=${user.id}`}>
+							<a className="text-decoration-none text-light c-hand">Wallet</a>
+						</Link>
+					</li>
 					{/* <li className="dropdown-item">
 						<Link href="/mycamp">
 							<a className="text-decoration-none text-light c-hand">Manage</a>
