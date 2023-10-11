@@ -67,8 +67,8 @@ const SingleRow = ({ camp }: { camp: ICampaign }) => {
 			<td>
 				<Link href={`/campaigns/${camp?.slug}`}>
 					<a className="text-decoration-none link-dark">
-						<img src={camp?.image[0] || camp?.asset[0].url} alt="" />
-						{camp?.title || camp?.caption || camp?.name}
+						<img src={camp?.image[0] || camp?.asset[0]?.url} alt="" />
+						{camp?.title || camp?.caption || camp?.name || camp.body.slice(0, 50)}
 					</a>
 				</Link>
 			</td>

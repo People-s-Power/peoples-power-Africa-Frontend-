@@ -46,7 +46,7 @@ const MyCamp: NextPage = (): JSX.Element => {
 
 	useQuery(MY_ADVERTS, {
 		client: apollo,
-		variables: { authorId: author?.id },
+		variables: { authorId: "64beb56cb585e627382e4dd8" },
 		onCompleted: (data) => {
 			// console.log(data)
 			setAdverts(data.myAdverts)
@@ -56,7 +56,7 @@ const MyCamp: NextPage = (): JSX.Element => {
 
 	useQuery(MY_PETITION, {
 		client: apollo,
-		variables: { authorId: author?.id },
+		variables: { authorId: "64beb56cb585e627382e4dd8" },
 		onCompleted: (data) => {
 			// console.log(data)
 			setPetition(data.myPetition)
@@ -68,7 +68,7 @@ const MyCamp: NextPage = (): JSX.Element => {
 
 	useQuery(MY_VICTORIES, {
 		client: apollo,
-		variables: { authorId: author?.id },
+		variables: { authorId: "64beb56cb585e627382e4dd8" },
 		onCompleted: (data) => {
 			// console.log(data)
 			setVictories(data.myVictories)
@@ -78,7 +78,7 @@ const MyCamp: NextPage = (): JSX.Element => {
 
 	useQuery(MY_EVENT, {
 		client: apollo,
-		variables: { authorId: author?.id },
+		variables: { authorId: "64beb56cb585e627382e4dd8" },
 		onCompleted: (data) => {
 			// console.log(data)
 			setEvents(data.authorEvents)
@@ -88,7 +88,7 @@ const MyCamp: NextPage = (): JSX.Element => {
 
 	useQuery(GET_USER_POSTS, {
 		client: apollo,
-		variables: { authorId: author?.id },
+		variables: { authorId: "64beb56cb585e627382e4dd8" },
 		onCompleted: (data) => {
 			// console.log(data)
 			setPost(data.myPosts)
