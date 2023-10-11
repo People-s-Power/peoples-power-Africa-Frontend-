@@ -280,7 +280,7 @@ const SingleCampaignPage = ({ repo, }: InferGetServerSidePropsType<typeof getSer
 												) : <EndorseCampaignComp camp={camp} />
 												}
 											</div>
-										) : null :
+										) : <EndorseCampaignComp camp={camp} /> :
 											<div className="">
 												{/* <h4 className="text-xl text-center my-4">Sign this Petition</h4> */}
 												<SignupCom text="Sign this Petition" onSucess={(d) => router.reload()} />

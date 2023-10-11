@@ -45,8 +45,8 @@ const report = () => {
 			})
 			console.log(data)
 			setLoading(false)
-			router.push(`/`)
-			toast.success("Petition reported successfully!")
+			router.push(`/feeds`)
+			toast.success("Report made successfully!")
 		} catch (error) {
 			console.log(error)
 			setLoading(false)
