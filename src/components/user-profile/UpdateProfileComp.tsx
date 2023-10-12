@@ -9,9 +9,10 @@ import { ToastContainer, toast } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
 import Select from "react-select"
 import { SERVER_URL } from "utils/constants"
-import { GET_BANKS, VERIFY_BANK } from "apollo/queries/wallet"
+import { GET_BANKS, VERIFY_BANK_ACCOUNT } from "apollo/queries/wallet"
 import { useMutation, useQuery } from "@apollo/client"
 import { apollo } from "apollo"
+import { print } from "graphql"
 
 const INTERESTS = [
 	"human right awareness",
@@ -49,39 +50,26 @@ const UpdateProfileComp = (): JSX.Element => {
 	}
 
 	useEffect(() => {
-		// console.log(user);
+		console.log(user);
 		if (!info) setInfo(user)
 	}, [])
 
 	const verifyBank = async () => {
 		try {
 			const { data } = await axios.post(SERVER_URL + "/graphql", {
-				query: print(VERIFY_BANK),
+				query: print(VERIFY_BANK_ACCOUNT),
 				variables: {
 					code,
 					account_number: accountNumber
 				},
 			})
-			// setBankName(data.verifyBankAccount.account_name)
+			setAccountName(data.data.verifyBankAccount.account_name)
 			console.log(data)
 		} catch (e) {
 			console.log(e)
 		}
 	}
 
-	// const [verify] = useMutation(VERIFY_BANK, {
-	// 	variables: {
-	// 		account_number: accountNumber,
-	// 		code: code
-	// 	},
-	// 	onCompleted: (data) => {
-	// 		console.log(data)
-	// 		// setBankName(data.verifyBankAccount.account_name)
-	// 	},
-	// 	onError: (error) => {
-	// 		console.log(error)
-	// 	}
-	// })
 
 	function checkAccount() {
 		if (accountNumber?.length >= 9) {
@@ -153,7 +141,7 @@ const UpdateProfileComp = (): JSX.Element => {
 				}
 				return acc;
 			}, []);
-			const { data } = await axios.put("/user/update", { ...info, country, state: city, interests: newInterests, bankCode: code, bankName: bank, accountName })
+			const { data } = await axios.put("/user/update", { ...info, country, state: city, interests: newInterests, bankCode: code, bankName: bank, accountName, accountNumber })
 			console.log(data);
 			setLoading(false)
 			toast.success("Profile Updates Successfully!")
