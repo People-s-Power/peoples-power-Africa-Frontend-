@@ -33,8 +33,10 @@ const MyCamp: NextPage = (): JSX.Element => {
 	const [events, setEvents] = useState([])
 	const [adverts, setAdverts] = useState([])
 	const { query } = useRouter()
-	const [campaigns, setCampaigns] = useState([])
+	const [all, setCampaigns] = useState([])
 	const [victories, setVictories] = useState([])
+	const [active, setActive] = useState("summary");
+	const [manage, setManage] = useState("all")
 
 	// const loading = true;
 	const getGeneral = () => {
@@ -46,7 +48,7 @@ const MyCamp: NextPage = (): JSX.Element => {
 
 	useQuery(MY_ADVERTS, {
 		client: apollo,
-		variables: { authorId: "64beb56cb585e627382e4dd8" },
+		variables: { authorId: query.page || author?.id },
 		onCompleted: (data) => {
 			// console.log(data)
 			setAdverts(data.myAdverts)
@@ -56,7 +58,7 @@ const MyCamp: NextPage = (): JSX.Element => {
 
 	useQuery(MY_PETITION, {
 		client: apollo,
-		variables: { authorId: "64beb56cb585e627382e4dd8" },
+		variables: { authorId: query.page || author?.id },
 		onCompleted: (data) => {
 			// console.log(data)
 			setPetition(data.myPetition)
@@ -68,7 +70,7 @@ const MyCamp: NextPage = (): JSX.Element => {
 
 	useQuery(MY_VICTORIES, {
 		client: apollo,
-		variables: { authorId: "64beb56cb585e627382e4dd8" },
+		variables: { authorId: query.page || author?.id },
 		onCompleted: (data) => {
 			// console.log(data)
 			setVictories(data.myVictories)
@@ -78,7 +80,7 @@ const MyCamp: NextPage = (): JSX.Element => {
 
 	useQuery(MY_EVENT, {
 		client: apollo,
-		variables: { authorId: "64beb56cb585e627382e4dd8" },
+		variables: { authorId: query.page || author?.id },
 		onCompleted: (data) => {
 			// console.log(data)
 			setEvents(data.authorEvents)
@@ -88,7 +90,7 @@ const MyCamp: NextPage = (): JSX.Element => {
 
 	useQuery(GET_USER_POSTS, {
 		client: apollo,
-		variables: { authorId: "64beb56cb585e627382e4dd8" },
+		variables: { authorId: query.page || author?.id },
 		onCompleted: (data) => {
 			// console.log(data)
 			setPost(data.myPosts)
@@ -99,7 +101,7 @@ const MyCamp: NextPage = (): JSX.Element => {
 	useEffect(() => {
 		getGeneral()
 	}, [adverts, petition, post, events, author, victories])
-	
+
 	return (
 		<FrontLayout showFooter={false}>
 			<>
@@ -107,31 +109,101 @@ const MyCamp: NextPage = (): JSX.Element => {
 					<title>{`Theplaint.org`} || My campaign</title>
 				</Head>
 				<Wrapper className="my-camp bg-white ">
-					<div className="container">
-						{/* <h1 className="text-secondary pt-2 mb-3 fs-3 fw-bold">
-							My Campaigns
-						</h1>
-						<p className="fs-4 fst-italic">Welcome {user?.firstName} !</p>
-						<Link href="/startcamp">
-							<a className="btn btn-warning rounded-pill px-4">
-								<i className="fas fa-plus text-light me-2"></i> Create Campaign
-							</a>
-						</Link> */}
+					{query.page === undefined ? <div className="container">
 						<div className="mt-4 ">
-							{campaigns.length > 0 ? (
+							{all.length > 0 ? (
 								<div>
-									<h3 className="fs-4 fw-bold text-center">Check Progress</h3>
+									<div className="flex justify-between my-5">
+										<input type="text" className="p-2 rounded-md border w-[30%]" placeholder="Search" />
+										<select onChange={(e) => setManage(e.target.value)} className=" p-2 border w-44 rounded-md">
+											<option value="all">All</option>
+											<option value="petition">Petition</option>
+											<option value="post" >Post</option>
+											<option value="events">Events</option>
+											<option value="adverts">Advert</option>
+											<option value="victories">Victory</option>
+											{/* <option value="update">Update</option> */}
+										</select>
+									</div>
 									<div className="d-flex py-3 flex-column flex-md-row">
 										<div className="flex-fill overflow-auto">
-											<CampaignTable campaigns={campaigns} />
+											<CampaignTable campaigns={eval(manage)} />
 										</div>
 									</div>
 								</div>
 							) : (
-								<p>Loading...</p>
+								<p className="text-center">Loading...</p>
 							)}
 						</div>
-					</div>
+					</div> : <div>
+						<div className="flex w-[30%] mx-auto justify-between">
+							<div
+								onClick={() => setActive("summary")}
+								className={
+									active === "summary"
+										? "border-b border-warning cursor-pointer"
+										: "cursor-pointer"
+								}
+							>
+								Summary
+							</div>
+							<div
+								onClick={() => setActive("content")}
+								className={
+									active === "content"
+										? "border-b border-warning cursor-pointer"
+										: "cursor-pointer"
+								}
+							>
+								Manage Content
+							</div>
+							{/* <div
+								onClick={() => router.push("?page=user")}
+								className={
+									active === "user"
+										? "border-b border-warning cursor-pointer"
+										: "cursor-pointer"
+								}
+							>
+								User
+							</div> */}
+
+						</div>
+						<div className="pt-4">
+							{(() => {
+								switch (active) {
+									case "summary":
+										return <div></div>;
+									case "content":
+										return <div>
+											<div className="flex w-[80%] mx-auto justify-between my-5">
+												<input type="text" className="p-2 rounded-md border w-[30%]" placeholder="Search" />
+												<select onChange={(e) => setManage(e.target.value)} className="w-44 p-2 border rounded-md">
+													<option value="all">All</option>
+													<option value="petition">Petition</option>
+													<option value="post" >Post</option>
+													<option value="events">Events</option>
+													<option value="adverts">Advert</option>
+													<option value="victories">Victory</option>
+													{/* <option value="update">Update</option> */}
+												</select>
+											</div>
+											<div className="">
+												{all.length > 0 ? (
+													<div className="flex-fill overflow-auto">
+														<CampaignTable campaigns={eval(manage)} />
+													</div>
+												) : (
+													<p className="text-center">Loading...</p>
+												)}
+											</div>
+										</div>;
+								}
+							})()}
+						</div>
+
+					</div>}
+
 				</Wrapper>
 			</>
 		</FrontLayout>

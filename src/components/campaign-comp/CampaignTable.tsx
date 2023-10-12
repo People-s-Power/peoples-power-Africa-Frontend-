@@ -25,7 +25,7 @@ const CampaignTable = ({ campaigns }: { campaigns: any }): JSX.Element => {
 							<th>All Campaigns</th>
 							<th>Date Created</th>
 							<th> Status </th>
-							{/* <th> Promotion amount  </th> */}
+							<th className="text-center">Promotion <br /> Amount | Target</th>
 							{/* <th> Promotion target  </th> */}
 							<th> Views </th>
 							<th> Endorsements </th>
@@ -80,10 +80,8 @@ const SingleRow = ({ camp }: { camp: ICampaign }) => {
 						: "text-success fa-check-circle"
 						}`}
 				></i>
-				{/* {camp.status} */}
 			</td>
-			{/* <td className="text-center"> 0 </td> */}
-			{/* <td className="text-center">{camp?.numberOfPaidViewsCount}</td> */}
+			<td className="text-center">{camp.views.length + "  |  " + camp?.numberOfPaidViewsCount}</td>
 			<td> {camp?.views?.length} </td>
 			<td> {Number(camp?.endorsements?.length) + 1} </td>
 			<td>

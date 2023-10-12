@@ -328,7 +328,7 @@ const org = () => {
 										<button className="bg-transparent text-warning">Admin</button>
 									</Link>
 									<div className="my-2">
-										<Link href="/mycamp">
+										<Link href={`/mycamp?page=${query.page}`}>
 											<button className="bg-transparent">Dashboard</button>
 										</Link>
 									</div>

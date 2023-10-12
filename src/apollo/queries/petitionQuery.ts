@@ -110,6 +110,7 @@ export const MY_PETITION = gql`
 			views
 			slug
 			createdAt
+			numberOfPaidViewsCount
 			asset{
 				url
 				type
