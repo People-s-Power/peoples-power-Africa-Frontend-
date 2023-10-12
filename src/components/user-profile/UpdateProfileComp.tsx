@@ -53,31 +53,47 @@ const UpdateProfileComp = (): JSX.Element => {
 		if (!info) setInfo(user)
 	}, [])
 
-	const [verify] = useMutation(VERIFY_BANK, {
-		variables: {
-			account_number: accountNumber,
-			code: code
-		},
-		onCompleted: (data) => {
-			console.log(data)
+	const verifyBank = async () => {
+		try {
+			const { data } = await axios.post(SERVER_URL + "/graphql", {
+				query: print(VERIFY_BANK),
+				variables: {
+					code,
+					account_number: accountNumber
+				},
+			})
 			// setBankName(data.verifyBankAccount.account_name)
-		},
-		onError: (error) => {
-			console.log(error)
+			console.log(data)
+		} catch (e) {
+			console.log(e)
 		}
-	})
+	}
+
+	// const [verify] = useMutation(VERIFY_BANK, {
+	// 	variables: {
+	// 		account_number: accountNumber,
+	// 		code: code
+	// 	},
+	// 	onCompleted: (data) => {
+	// 		console.log(data)
+	// 		// setBankName(data.verifyBankAccount.account_name)
+	// 	},
+	// 	onError: (error) => {
+	// 		console.log(error)
+	// 	}
+	// })
 
 	function checkAccount() {
 		if (accountNumber?.length >= 9) {
 			banks.map((item: { name: any; code: React.SetStateAction<string>; }) => {
 				if (item.name === bank) {
 					setCode(item.code)
-					verify()
+					verifyBank()
 				} else {
 					return
 				}
 			})
-			verify()
+			verifyBank()
 		}
 	}
 

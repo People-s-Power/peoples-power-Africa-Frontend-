@@ -24,6 +24,7 @@ import axios from "axios"
 import { SERVER_URL } from "utils/constants"
 import { print } from "graphql"
 import { MY_VICTORIES } from "apollo/queries/victories"
+import { ACTIVITIES } from "apollo/queries/orgQuery"
 dayjs.extend(relativeTime)
 
 const MyCamp: NextPage = (): JSX.Element => {
@@ -37,6 +38,7 @@ const MyCamp: NextPage = (): JSX.Element => {
 	const [victories, setVictories] = useState([])
 	const [active, setActive] = useState("summary");
 	const [manage, setManage] = useState("all")
+	const [activities, setActivities] = useState([])
 
 	// const loading = true;
 	const getGeneral = () => {
@@ -88,6 +90,16 @@ const MyCamp: NextPage = (): JSX.Element => {
 		onError: (err) => console.log(err),
 	})
 
+	useQuery(ACTIVITIES, {
+		client: apollo,
+		variables: { page: 1, limit: 100, orgId: query.page },
+		onCompleted: (data) => {
+			setActivities(data.getOrgActivities.activities)
+			// setEvents(data.authorEvents)
+		},
+		onError: (err) => console.log(err),
+	})
+
 	useQuery(GET_USER_POSTS, {
 		client: apollo,
 		variables: { authorId: query.page || author?.id },
@@ -106,7 +118,7 @@ const MyCamp: NextPage = (): JSX.Element => {
 		<FrontLayout showFooter={false}>
 			<>
 				<Head>
-					<title>{`Theplaint.org`} || My campaign</title>
+					<title>{`Theplaint.org`}</title>
 				</Head>
 				<Wrapper className="my-camp bg-white ">
 					{query.page === undefined ? <div className="container">
@@ -173,7 +185,34 @@ const MyCamp: NextPage = (): JSX.Element => {
 							{(() => {
 								switch (active) {
 									case "summary":
-										return <div></div>;
+										return <div className="w-[80%] mx-auto">
+											<div className="flex justify-evenly text-center">
+												<div className="shadow-md rounded-md p-4">
+													<p className="text-[#000000B2] text-sm">No of Posts</p>
+													<h2 className="text-3xl my-4 font-bold">{post.length}</h2>
+													<p className="text-[#000000B2] text-sm">5% increased this month</p>
+												</div>
+												<div className="shadow-md rounded-md p-4">
+													<p className="text-[#000000B2] text-sm">Total No. of Petitions</p>
+													<h2 className="text-3xl my-4 font-bold">{petition.length}</h2>
+													<p className="text-[#000000B2] text-sm">5% increased this month</p>
+												</div>
+												<div className="shadow-md rounded-md p-4">
+													<p className="text-[#000000B2] text-sm">No. of  Events</p>
+													<h2 className="text-3xl my-4 font-bold">{events.length}</h2>
+													<p className="text-[#000000B2] text-sm">5% increased this month</p>
+												</div>
+											</div>
+
+											<p className="text-2xl my-8 text-center text-[#00401C]">Activity Logs</p>
+
+											<div>
+												{activities.length > 0 ? activities.map((activity, index) => <div className="flex p-3 border-b" key={index}>
+													<img className="w-10 h-10 mr-4" src={activity.authorId.image} alt="" />
+													<p className="my-auto">{activity.text} by {activity.authorId.name}</p>
+												</div>) : <div className="text-center my-4">No Activities</div>}
+											</div>
+										</div>;
 									case "content":
 										return <div>
 											<div className="flex w-[80%] mx-auto justify-between my-5">

@@ -126,3 +126,17 @@ export const EDIT_OPERATOR = gql`
 		}
 	}
 `
+export const ACTIVITIES = gql`
+	query getOrgActivities($page: Int!, $limit: Int!, $orgId: ID!){
+    getOrgActivities(page: $page, limit: $limit, orgId: $orgId){
+			activities{
+				text
+				authorId{
+					name
+					image
+				}
+				
+			}
+		}
+  }
+`

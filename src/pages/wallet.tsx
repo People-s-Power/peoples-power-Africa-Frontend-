@@ -57,7 +57,7 @@ const Wallet = () => {
   const paystack_config: PaystackProps = {
     reference: new Date().getTime().toString(),
     email: user?.email,
-    amount: amount * 100,
+    amount: amount,
     publicKey: "pk_live_13530a9fee6c7840c5f511e09879cbb22329dc28",
     metadata: {
       purpose: "Fund wallet",

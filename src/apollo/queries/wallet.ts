@@ -1,7 +1,5 @@
 import { gql } from "@apollo/client"
 
-
-
 export const GET_BANKS = gql`
  {
   getBanks{
@@ -48,6 +46,7 @@ export const VERIFY_BANK = gql`
   mutation verifyBankAccount($account_number: String!, $code: String!){
     verifyBankAccount(account_number: $account_number, code: $code){
       account_name
+      account_number
     }
   }
 `
