@@ -148,7 +148,7 @@ const MyCamp: NextPage = (): JSX.Element => {
 							)}
 						</div>
 					</div> : <div>
-						<div className="flex w-[30%] mx-auto justify-between">
+						<div className="flex w-[50%] mx-auto justify-between">
 							<div
 								onClick={() => setActive("summary")}
 								className={
@@ -169,8 +169,18 @@ const MyCamp: NextPage = (): JSX.Element => {
 							>
 								Manage Content
 							</div>
-							{/* <div
-								onClick={() => router.push("?page=user")}
+							<div
+								onClick={() => setActive("social")}
+								className={
+									active === "social"
+										? "border-b border-warning cursor-pointer"
+										: "cursor-pointer"
+								}
+							>
+								Social Connect
+							</div>
+							<div
+								onClick={() => router.push(`addadmin?page=${query.page}`)}
 								className={
 									active === "user"
 										? "border-b border-warning cursor-pointer"
@@ -178,7 +188,7 @@ const MyCamp: NextPage = (): JSX.Element => {
 								}
 							>
 								User
-							</div> */}
+							</div>
 
 						</div>
 						<div className="pt-4">
@@ -237,6 +247,8 @@ const MyCamp: NextPage = (): JSX.Element => {
 												)}
 											</div>
 										</div>;
+									case "social":
+										return <div className="text-center my-8">Coming Soon</div>
 								}
 							})()}
 						</div>

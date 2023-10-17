@@ -29,6 +29,7 @@ const INTERESTS = [
 const UpdateProfileComp = (): JSX.Element => {
 	const user = useRecoilValue(UserAtom)
 	const [loading, setLoading] = useState(false)
+	const [verifying, setVerifying] = useState(false)
 	const [description, setDescription] = useState("")
 	const [countries, setCountries] = useState([])
 	const [cities, setCities] = useState([])
@@ -36,10 +37,10 @@ const UpdateProfileComp = (): JSX.Element => {
 	const [city, setCity] = useState("")
 	const [info, setInfo] = useState<Partial<IUser>>(user)
 	const [banks, setBanks] = useState([])
-	const [bank, setBank] = useState("")
+	const [bank, setBank] = useState(user?.bankName || "")
 	const [code, setCode] = useState("")
-	const [accountName, setAccountName] = useState("")
-	const [accountNumber, setAccountNumber] = useState("")
+	const [accountName, setAccountName] = useState(user?.accountName || "")
+	const [accountNumber, setAccountNumber] = useState(user?.accountNumber || "")
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
 		const { name, value } = e.target
@@ -50,11 +51,13 @@ const UpdateProfileComp = (): JSX.Element => {
 	}
 
 	useEffect(() => {
-		console.log(user);
+		// console.log(user);
 		if (!info) setInfo(user)
 	}, [])
 
 	const verifyBank = async () => {
+		setVerifying(true)
+
 		try {
 			const { data } = await axios.post(SERVER_URL + "/graphql", {
 				query: print(VERIFY_BANK_ACCOUNT),
@@ -65,8 +68,12 @@ const UpdateProfileComp = (): JSX.Element => {
 			})
 			setAccountName(data.data.verifyBankAccount.account_name)
 			console.log(data)
+			setVerifying(false)
+
 		} catch (e) {
 			console.log(e)
+			setVerifying(false)
+			// verifyBank()
 		}
 	}
 
@@ -267,25 +274,24 @@ const UpdateProfileComp = (): JSX.Element => {
 					Acount Number
 				</label>
 				<input type="number" name="accountNumber" className="form-control"
-					value={info?.accountNumber}
-					onChange={(e) => { setAccountNumber(e.target.value), checkAccount() }
+					value={accountNumber}
+					onChange={(e) => {
+						setAccountNumber(e.target.value)
+						checkAccount()
+					}
 					} />
+				<p className="p-1 text-warning text-xs">{verifying ? "verifying..." : ""}</p>
+			</div>
+			<div className="mb-6">
+				<p className="text-lg my-2">{accountName}</p>
 			</div>
 
-			<div className="my-4">
-				<label className="form-label fw-bold" htmlFor="">
-					Acount Name
-				</label>
-				<input onFocus={() => checkAccount()}
-					className="form-control" value={accountName} />
-			</div>
-
-			<div className="">
-				<button type="reset" className="btn px-5 py-2 rounded-pill bg-light text-warning" onClick={() => setInfo(user)}>
-					Cancel
-				</button>
+			<div className="flex">
 				<button disabled={loading} className="btn px-5 py-2 rounded-pill border-3 fw-bold btn-outline-warning">
 					{loading ? <Loader content="processing..." /> : "Update"}
+				</button>
+				<button type="reset" className="btn px-5 text-black py-2 rounded-pill bg-light text-warning" onClick={() => setInfo(user)}>
+					Cancel
 				</button>
 			</div>
 			<ToastContainer />

@@ -57,7 +57,7 @@ const Wallet = () => {
   const paystack_config: PaystackProps = {
     reference: new Date().getTime().toString(),
     email: user?.email,
-    amount: amount,
+    amount: amount * 100,
     publicKey: "pk_live_13530a9fee6c7840c5f511e09879cbb22329dc28",
     metadata: {
       purpose: "Fund wallet",
@@ -122,11 +122,11 @@ const Wallet = () => {
                 <div className='p-4 text-center border-r'>
                   <button onClick={() => setOpen(true)} className='py-2 px-6 my-6 rounded-md bg-white'>Fund Your wallet</button>
                   <p className='text-white text-sm'>Fund your wallet, this works like a regular account
-                    transfer from any source and select Sterling bank</p>
+                    transfer from any source.</p>
                 </div>
                 <div className='p-4 text-center'>
                   <button onClick={() => setWithdraw(true)} className='py-2 px-6 my-6  rounded-md bg-white'>Withdraw funds</button>
-                  <p className='text-white text-sm'>Request for find Withdrawal directly to your bank account and recieve funds in minutes</p>
+                  <p className='text-white text-sm'>Request for fund Withdrawal directly to your bank account and recieve funds in minutes</p>
                 </div>
               </div>
             </div>
@@ -134,7 +134,7 @@ const Wallet = () => {
               <button className="py-3 rounded-md px-6 border my-4">Add Bank Account</button>
             </Link>
           </div>
-          <div className='lg:w-[35%]'>
+          <div className='lg:w-[35%] h-[400pv] overflow-y-auto'>
             <h5>My Transactions</h5>
             <div className='flex text-sm p-3 my-4 bg-[#D9D9D929]'>
               <p onClick={() => setFilter('All')} className='mx-4 cursor-pointer my-auto'>All</p>

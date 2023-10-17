@@ -9,6 +9,7 @@ import {
 	WhatsappShareButton,
 } from "react-share";
 import { useRecoilValue } from "recoil";
+import { Dropdown } from "rsuite";
 import styled from "styled-components";
 import { ICampaign } from "types/Applicant.types";
 import { BASEURL } from "utils/constants";
@@ -30,7 +31,6 @@ const CampaignTable = ({ campaigns }: { campaigns: any }): JSX.Element => {
 							<th> Views </th>
 							<th> Endorsements </th>
 							<th> Action </th>
-							<th></th>
 						</tr>
 					</thead>
 					<tbody className="tbody">
@@ -64,7 +64,7 @@ const SingleRow = ({ camp }: { camp: ICampaign }) => {
 
 	return (
 		<tr className="table-row">
-			<td>
+			<td className="w-80">
 				<Link href={`/campaigns/${camp?.slug}`}>
 					<a className="text-decoration-none link-dark">
 						<img src={camp?.image[0] || camp?.asset[0]?.url} alt="" />
@@ -81,31 +81,35 @@ const SingleRow = ({ camp }: { camp: ICampaign }) => {
 						}`}
 				></i>
 			</td>
-			<td className="text-center">{camp.views.length + "  |  " + camp?.numberOfPaidViewsCount}</td>
+			<td className="text-center">{camp?.numberOfPaidViewsCount + "  |  " + camp.views.length}</td>
 			<td> {camp?.views?.length} </td>
 			<td> {Number(camp?.endorsements?.length) + 1} </td>
-			<td>
-				<Link href={`/promote?slug=${camp?._id}&views`}>
-					<a className="btn p-0">{camp?.promoted ? "Upgrade" : "Promote"}</a>
-				</Link>
-
-				{/* <Link href={`/editcamp?page=${camp?.slug}`}>
-					<a className="btn pl-2">Edit</a>
-				</Link>
-
-				<Link href={`/updates?page=${camp?.id}?slug=${camp?.slug}`}>
-					<a className="btn pl-2">Add Updates</a>
-				</Link> */}
-			</td>
 
 			<td>
-				<CampaignShareMenuList camp={camp}>
-					<span className="btn pr-1">
-						<ShareIcon />
-					</span>
-				</CampaignShareMenuList>
+				<Dropdown placement="rightStart" title={<img className="h-6 w-6" src="/images/edit.svg" alt="" />} noCaret>
+					<Dropdown.Item><Link href={`/promote?slug=${camp?._id}&views`}>
+						<a className="p-0">{camp?.promoted ? "Upgrade" : "Promote"}</a>
+					</Link>
+					</Dropdown.Item>
+					<Dropdown.Item><Link href={`/${camp.__typename}?page=${camp._id}`}>
+						<a className=" p-0">Edit</a>
+					</Link>
+					</Dropdown.Item>
+					<Dropdown.Item>
+						<Link href={`/${camp.__typename}?page=${camp._id}`}>
+							<a className=" p-0">Delete</a>
+						</Link>
+					</Dropdown.Item>
+					<Dropdown.Item>
+						<CampaignShareMenuList camp={camp}>
+							<span className="">
+								Share
+							</span>
+						</CampaignShareMenuList>
+					</Dropdown.Item>
+				</Dropdown>
 			</td>
-		</tr>
+		</tr >
 	);
 };
 

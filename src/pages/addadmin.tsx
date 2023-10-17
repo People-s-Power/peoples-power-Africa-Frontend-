@@ -75,10 +75,10 @@ const addadmin = () => {
 				autoRenew: true
 			})
 			console.log(data)
-			setStep(1)
+			// setStep(1)
 
 			// toast.success("Promotion Successfull!")
-			// router.push(`/mycamp`)
+			router.push(`/mycamp?page=${query.page}`)
 		} catch (e) {
 			toast.warn(e.response.data.message)
 			// console.log(e.response.data.message)
@@ -239,6 +239,10 @@ const addadmin = () => {
 			console.log(e)
 		}
 	}
+
+	useEffect(() => {
+		setAdmin(true), setAdmins(true), allAdmins()
+	}, [])
 
 	const adminTooltip = <Tooltip>This person makes, edits, create and promote, posts, petitons, events, update, organization and profile.</Tooltip>
 	const editorTooltip = <Tooltip>This person edits posts, petitons, events, update and products.</Tooltip>
