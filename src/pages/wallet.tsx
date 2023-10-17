@@ -134,7 +134,7 @@ const Wallet = () => {
               <button className="py-3 rounded-md px-6 border my-4">Add Bank Account</button>
             </Link>
           </div>
-          <div className='lg:w-[35%] h-[400pv] overflow-y-auto'>
+          <div className='lg:w-[35%] h-[500px] overflow-y-auto'>
             <h5>My Transactions</h5>
             <div className='flex text-sm p-3 my-4 bg-[#D9D9D929]'>
               <p onClick={() => setFilter('All')} className='mx-4 cursor-pointer my-auto'>All</p>
