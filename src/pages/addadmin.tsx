@@ -70,7 +70,7 @@ const addadmin = () => {
 	const promote = async () => {
 		try {
 			const { data } = await axios.post('/transaction/subscribe', {
-				amount: role === "editor" ? 200 : 35000,
+				amount: role === "editor" ? 200 : 300,
 				author: author.id,
 				autoRenew: true
 			})
