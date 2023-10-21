@@ -15,7 +15,7 @@ const ProfileComp = (): JSX.Element => {
 	const [img, setImg] = useState("");
 	// const [edit, setEdit] = useState(false)
 
-	// console.log(user)
+	console.log(user)
 
 	const handleImg = async (e: React.ChangeEvent<HTMLInputElement>) => {
 		// const { files } = e.target;

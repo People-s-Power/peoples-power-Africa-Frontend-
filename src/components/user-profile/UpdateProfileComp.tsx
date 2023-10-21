@@ -68,12 +68,12 @@ const UpdateProfileComp = (): JSX.Element => {
 			})
 			setAccountName(data.data.verifyBankAccount.account_name)
 			console.log(data)
-			setVerifying(false)
+			// setVerifying(false)
 
 		} catch (e) {
-			console.log(e)
+			console.log(e.response)
 			setVerifying(false)
-			// verifyBank()
+			// checkAccount()
 		}
 	}
 
@@ -258,7 +258,7 @@ const UpdateProfileComp = (): JSX.Element => {
 					Select Bank
 				</label>
 				<div>
-					<select onChange={(e) => { setBank(e.target.value) }} className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg">
+					<select value={bank} onChange={(e) => { setBank(e.target.value) }} className="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-indigo-600 shadow-sm rounded-lg">
 						{
 							banks.map((bank: any, index: React.Key | null | undefined) => (
 								<option key={index} value={bank.name}>{bank.name}</option>
