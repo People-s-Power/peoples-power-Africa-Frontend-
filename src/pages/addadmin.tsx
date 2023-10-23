@@ -77,8 +77,11 @@ const addadmin = () => {
 			console.log(data)
 			// setStep(1)
 
-			toast.success("You have Successfully paid for a professional")
-			router.push(`/mycamp?page=${query.page}`)
+			toast.success("Your payment is successful pending approval")
+			setAdmin(true)
+			setAdmins(true)
+			allAdmins()
+			// router.push(`/mycamp?page=${query.page}`)
 		} catch (e) {
 			toast.warn(e.response.data.message)
 			// console.log(e.response.data.message)
