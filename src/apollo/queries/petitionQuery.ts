@@ -110,6 +110,9 @@ export const MY_PETITION = gql`
 			views
 			slug
 			createdAt
+			endorsements{
+				id	
+			}
 			numberOfPaidViewsCount
 			asset{
 				url

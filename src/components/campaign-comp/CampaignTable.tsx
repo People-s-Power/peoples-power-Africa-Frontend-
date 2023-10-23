@@ -83,7 +83,7 @@ const SingleRow = ({ camp }: { camp: ICampaign }) => {
 			</td>
 			<td className="text-center">{camp?.numberOfPaidViewsCount + "  |  " + camp.views.length}</td>
 			<td> {camp?.views?.length} </td>
-			<td> {Number(camp?.endorsements?.length) + 1} </td>
+			<td> {camp?.endorsements?.length} </td>
 
 			<td>
 				<Dropdown placement="rightStart" title={<img className="h-6 w-6" src="/images/edit.svg" alt="" />} noCaret>
