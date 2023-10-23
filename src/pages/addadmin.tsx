@@ -77,7 +77,7 @@ const addadmin = () => {
 			console.log(data)
 			// setStep(1)
 
-			// toast.success("Promotion Successfull!")
+			toast.success("You have Successfully paid for a professional")
 			router.push(`/mycamp?page=${query.page}`)
 		} catch (e) {
 			toast.warn(e.response.data.message)
