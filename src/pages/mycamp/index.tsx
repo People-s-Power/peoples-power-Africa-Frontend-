@@ -25,6 +25,10 @@ import { SERVER_URL } from "utils/constants"
 import { print } from "graphql"
 import { MY_VICTORIES } from "apollo/queries/victories"
 import { ACTIVITIES } from "apollo/queries/orgQuery"
+import NewTask from "components/modals/NewTask"
+import { GET_TASKS, REMOVE_TASK } from "apollo/queries/taskQuery"
+import { ToastContainer, toast } from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
 dayjs.extend(relativeTime)
 
 const MyCamp: NextPage = (): JSX.Element => {
@@ -39,6 +43,8 @@ const MyCamp: NextPage = (): JSX.Element => {
 	const [active, setActive] = useState("summary");
 	const [manage, setManage] = useState("all")
 	const [activities, setActivities] = useState([])
+	const [open, setOpen] = useState(false)
+	const [tasks, setTasks] = useState([])
 
 	// const loading = true;
 	const getGeneral = () => {
@@ -86,6 +92,16 @@ const MyCamp: NextPage = (): JSX.Element => {
 		onCompleted: (data) => {
 			// console.log(data)
 			setEvents(data.authorEvents)
+		},
+		onError: (err) => console.log(err),
+	})
+
+	useQuery(GET_TASKS, {
+		client: apollo,
+		variables: { orgId: query.page, page: 1, limit: 100 },
+		onCompleted: (data) => {
+			console.log(data)
+			setTasks(data.tasks.tasks)
 		},
 		onError: (err) => console.log(err),
 	})
@@ -170,6 +186,16 @@ const MyCamp: NextPage = (): JSX.Element => {
 								Manage Content
 							</div>
 							<div
+								onClick={() => setActive("tasks")}
+								className={
+									active === "tasks"
+										? "border-b border-warning cursor-pointer"
+										: "cursor-pointer"
+								}
+							>
+								Tasks
+							</div>
+							<div
 								onClick={() => setActive("social")}
 								className={
 									active === "social"
@@ -247,17 +273,88 @@ const MyCamp: NextPage = (): JSX.Element => {
 												)}
 											</div>
 										</div>;
+									case "tasks":
+										return <div className="w-[80%] mx-auto">
+											<button onClick={() => setOpen(true)} className="py-2 my-4 text-white float-right px-8 rounded-md bg-warning">Create Task</button>
+											<div>
+												<table className="table-auto w-full ">
+													<thead className="bg-warning text-white text-left rounded-md">
+														<tr>
+															<th className="p-3">Date</th>
+															<th className="p-3">Name</th>
+															<th className="p-3">Author</th>
+															<th className="p-3">Status</th>
+															<th className="p-3">Due Date</th>
+															{/* <th className="p-3">Endorsement</th> */}
+															<th className="p-3">Action</th>
+														</tr>
+													</thead>
+													<tbody>
+														{tasks.length > 0 ? tasks.map(task => (
+															<tr key={task._id}>
+																<td className="p-3">
+																	{task.createdAt.substring(0, 10)}
+																</td>
+																<td className="p-3">
+																	{task.name}
+																</td>
+																<td className="p-3">
+																	{task.author.name}
+																</td>
+																<td className="p-3">
+																	{task.status}
+																</td>
+																<td className="p-3">
+																	{task.dueDate.substring(0, 10)}
+																</td>
+																<td className="p-3">
+																	<SingleTask task={task} />
+																</td>
+															</tr>
+														)) : null}
+													</tbody>
+												</table>
+											</div>
+										</div>;
 									case "social":
 										return <div className="text-center my-8">Coming Soon</div>
 								}
 							})()}
 						</div>
-
 					</div>}
-
 				</Wrapper>
+				<NewTask open={open} handelClick={() => setOpen(false)} task={null} />
+				<ToastContainer />
 			</>
 		</FrontLayout>
+	)
+}
+
+const SingleTask = ({ task }: { task: any }) => {
+	const [open, setOpen] = useState(false)
+
+	const deleteTask = async () => {
+		try {
+			const { data } = await axios.post(SERVER_URL + "/graphql", {
+				query: print(REMOVE_TASK),
+				variables: {
+					id: task._id
+				}
+			})
+			console.log(data)
+			toast.success("Task deleted successfully")
+		} catch (error) {
+			console.log(error)
+			toast.error(error?.response.data.message)
+		}
+	}
+
+	return (
+		<div className="flex justify-evenly">
+			<img onClick={() => setOpen(true)} className="cursor-pointer" src="./images/pencil-fill.svg" alt="" />
+			<img onClick={() => deleteTask()} className="cursor-pointer" src="./images/trash-fill.svg" alt="" />
+			<NewTask open={open} handelClick={() => setOpen(false)} task={task} />
+		</div>
 	)
 }
 
