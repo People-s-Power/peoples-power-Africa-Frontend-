@@ -8,8 +8,9 @@ import { print } from "graphql"
 import { SERVER_URL } from "utils/constants"
 import { NEW_TASK, UPDATE_TASK } from "apollo/queries/taskQuery"
 import router, { useRouter } from "next/router"
+import Select from 'react-select';
 
-const NewTask = ({ open, handelClick, task }: { open: boolean, handelClick: any, task: any }) => {
+const NewTask = ({ open, handelClick, task, operators }: { open: boolean, handelClick: any, task: any, operators: any }) => {
   const [loading, setLoading] = useState(false)
   const [previewImages, setFilePreview] = useState(task?.asset || []);
   const uploadRef = useRef<HTMLInputElement>(null)
@@ -38,6 +39,8 @@ const NewTask = ({ open, handelClick, task }: { open: boolean, handelClick: any,
       }
     }
   }
+
+
 
   const handleDelSelected = (index) => {
     setFilePreview((prev) => {
@@ -88,7 +91,7 @@ const NewTask = ({ open, handelClick, task }: { open: boolean, handelClick: any,
             instruction,
             dueTime,
             author: query.page,
-            assigne: ["6518f7c14e825a531935f6f0"]
+            assigne: assign
           }
         },
       })
@@ -133,11 +136,16 @@ const NewTask = ({ open, handelClick, task }: { open: boolean, handelClick: any,
 
           <div className="my-3 w-full">
             <label className="text-sm">Assign</label>
-            <select className="w-full p-2 rounded-md">
-              <option value=""></option>
+            {/* <Select
+              isMulti
+              defaultValue={assign}
+              onChange={(e: any) => { setAssign([...assign, e]) }}
+              options={operators} /> */}
+            <select onChange={e => setAssign([e.target.value])} className="w-full p-2 rounded-md">
+              <option value="" className="hidden">{operators.length > 0 ? "Select an admin" : "Add admins assign task to"}</option>
+              {operators.map((single) => <option value={single.id}>{single.firstName} {single.lastName}</option>)}
             </select>
           </div>
-
         </Modal.Body>
 
         <Modal.Footer>
@@ -183,15 +191,6 @@ const NewTask = ({ open, handelClick, task }: { open: boolean, handelClick: any,
               <div onClick={() => uploadRef.current?.click()} className="cursor-pointer">
                 <img className="w-4 h-4 my-auto" src="/images/home/icons/ic_outline-photo-camera.svg" alt="" />
               </div>
-              {/* <div className="cursor-pointer">
-                <img className="w-4 h-4 my-auto" src="/images/home/icons/charm_camera-video.svg" alt="" />
-              </div>
-              <div className="cursor-pointer">
-                <img className="w-4 h-4 my-auto" src="/images/home/icons/fe_sitemap.svg" alt="" />
-              </div>
-              <div className="cursor-pointer">
-                <img className="w-4 h-4 my-auto" src="/images/home/icons/tabler_article.svg" alt="" />
-              </div> */}
             </div>
             {task === null ? (
               <button onClick={handleSubmit} className="p-1 bg-warning text-white rounded-sm w-40">

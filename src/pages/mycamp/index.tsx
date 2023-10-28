@@ -21,6 +21,10 @@ import { MY_ADVERTS } from "apollo/queries/advertsQuery"
 import router, { useRouter } from "next/router"
 import axios from "axios"
 
+import { GET_ORGANIZATION } from "apollo/queries/orgQuery"
+import { Operator } from "pages/addadmin"
+import { IUser } from "types/Applicant.types"
+
 import { SERVER_URL } from "utils/constants"
 import { print } from "graphql"
 import { MY_VICTORIES } from "apollo/queries/victories"
@@ -46,12 +50,59 @@ const MyCamp: NextPage = (): JSX.Element => {
 	const [open, setOpen] = useState(false)
 	const [tasks, setTasks] = useState([])
 
+
+
+	const [operator, setOperator] = useState<Operator[]>([])
+	const [operators, setOperators] = useState<IUser[]>([])
+	const [users, setUsers] = useState<IUser[]>([])
+
+
 	// const loading = true;
 	const getGeneral = () => {
 		let general = [...petition, ...post, ...adverts, ...events, ...victories]
 		const randomizedItems = general.sort(() => Math.random() - 0.5)
 		setCampaigns(randomizedItems)
 		// console.log(randomizedItems)
+	}
+
+
+	useEffect(() => {
+		axios
+			.get(`/user`)
+			.then(function (response) {
+				setUsers(response.data)
+				allAdmins()
+			})
+			.catch(function (error) {
+				console.log(error)
+			})
+	}, [operator])
+
+	useQuery(GET_ORGANIZATION, {
+		variables: { ID: query.page },
+		client: apollo,
+		onCompleted: (data) => {
+			console.log(data.getOrganzation.operators)
+			setOperator(data.getOrganzation.operators)
+		},
+		onError: (err) => console.log(err),
+	})
+
+
+
+	const allAdmins = () => {
+		setOperators([])
+		const list: any = []
+		operator.map((single: any) => {
+			users.map((user: any) => {
+				if (user.id === single.userId) {
+					// console.log(user)
+					list.push({ ...user, ...{ role: single.role } })
+					setOperators(list)
+				}
+			})
+		})
+		console.log(operators)
 	}
 
 	useQuery(MY_ADVERTS, {
@@ -186,7 +237,7 @@ const MyCamp: NextPage = (): JSX.Element => {
 								Manage Content
 							</div>
 							<div
-								onClick={() => setActive("tasks")}
+								onClick={() => { setActive("tasks"), allAdmins() }}
 								className={
 									active === "tasks"
 										? "border-b border-warning cursor-pointer"
@@ -308,7 +359,7 @@ const MyCamp: NextPage = (): JSX.Element => {
 																	{task.dueDate.substring(0, 10)}
 																</td>
 																<td className="p-3">
-																	<SingleTask task={task} />
+																	<SingleTask task={task} operators={operators} />
 																</td>
 															</tr>
 														)) : null}
@@ -323,14 +374,14 @@ const MyCamp: NextPage = (): JSX.Element => {
 						</div>
 					</div>}
 				</Wrapper>
-				<NewTask open={open} handelClick={() => setOpen(false)} task={null} />
+				<NewTask open={open} handelClick={() => setOpen(false)} task={null} operators={operators} />
 				<ToastContainer />
 			</>
 		</FrontLayout>
 	)
 }
 
-const SingleTask = ({ task }: { task: any }) => {
+const SingleTask = ({ task, operators }: { task: any, operators: any }) => {
 	const [open, setOpen] = useState(false)
 
 	const deleteTask = async () => {
@@ -353,7 +404,7 @@ const SingleTask = ({ task }: { task: any }) => {
 		<div className="flex justify-evenly">
 			<img onClick={() => setOpen(true)} className="cursor-pointer" src="./images/pencil-fill.svg" alt="" />
 			<img onClick={() => deleteTask()} className="cursor-pointer" src="./images/trash-fill.svg" alt="" />
-			<NewTask open={open} handelClick={() => setOpen(false)} task={task} />
+			<NewTask open={open} handelClick={() => setOpen(false)} task={task} operators={operators} />
 		</div>
 	)
 }
