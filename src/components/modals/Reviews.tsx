@@ -39,6 +39,7 @@ const Reviews = ({ open, user, handelClick }: { open: boolean, user: String, han
           author: author.id
         },
       })
+      console.log(data)
       setLoading(false)
       handelClick()
     } catch (e) {

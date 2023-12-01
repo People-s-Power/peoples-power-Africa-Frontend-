@@ -52,7 +52,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 				return {
 					redirect: {
 						permanent: false,
-						destination: "/auth?mode=login",
+						destination: "/?mode=login",
 					},
 				};
 			}

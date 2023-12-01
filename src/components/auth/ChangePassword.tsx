@@ -24,7 +24,7 @@ const ChangePassword = (): JSX.Element => {
 			});
 			toast.success("Password changed !");
 			setLoading(true);
-			window.location.href = "/auth?mode=login";
+			window.location.href = "/?mode=login";
 		} catch (error) {
 			const e = error as any;
 			console.log({ error });

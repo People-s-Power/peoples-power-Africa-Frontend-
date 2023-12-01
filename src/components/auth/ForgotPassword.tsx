@@ -30,7 +30,7 @@ const ForgotPassword = (): JSX.Element => {
 				<h2 className="text-secondary fw-bold">Forgot Password</h2>
 				<p className="m-0 mb-3 fs-5">
 					Already have an account ?
-					<Link href="/auth?mode=login">
+					<Link href="/?mode=login">
 						<a className="text-warning fw-bold c-hand"> login</a>
 					</Link>
 				</p>
@@ -52,7 +52,7 @@ const ForgotPassword = (): JSX.Element => {
 				<button className="btn btn-warning d-block w-100 text-white fw-bold py-2">
 					Send verification
 				</button>
-				<Link href="/auth?mode=login">
+				<Link href="/?mode=login">
 					<a className="text-decoration-none text-center d-block">
 						{loading ? "process..." : "Login instead"}
 					</a>
