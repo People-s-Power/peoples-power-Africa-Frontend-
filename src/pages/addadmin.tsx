@@ -18,6 +18,7 @@ import { PaystackButton, usePaystackPayment } from "react-paystack"
 import { useRecoilValue, useSetRecoilState } from "recoil"
 import { UserAtom } from "atoms/UserAtom"
 import { PaystackProps } from "react-paystack/dist/types"
+import Reviews from "components/modals/Reviews"
 
 export interface Operator {
 	userId: string
@@ -44,6 +45,8 @@ const addadmin = () => {
 	const router = useRouter()
 	const [professionals, setProfessionals] = useState<any>([])
 	const [trained, setTrained] = useState([])
+
+	const [review, setReview] = useState(false)
 
 	// const paystack_config: PaystackProps = {
 	// 	reference: new Date().getTime().toString(),
@@ -103,28 +106,29 @@ const addadmin = () => {
 		}
 	}
 
-	useQuery(GET_ORGANIZATION, {
-		variables: { ID: query.page },
-		client: apollo,
-		onCompleted: (data) => {
-			console.log(data.getOrganzation.operators)
-			setOperator(data.getOrganzation.operators)
-		},
-		onError: (err) => console.log(err),
-	})
-
 	useEffect(() => {
 		getRep()
 		axios
 			.get(`/user`)
 			.then(function (response) {
 				setUsers(response.data)
-				allAdmins()
+				// allAdmins()
 			})
 			.catch(function (error) {
 				console.log(error)
 			})
 	}, [operator])
+
+	useQuery(GET_ORGANIZATION, {
+		variables: { ID: query.page },
+		client: apollo,
+		onCompleted: (data) => {
+			console.log(data.getOrganzation.operators)
+			setOperator(data.getOrganzation.operators)
+			allAdmins()
+		},
+		onError: (err) => console.log(err),
+	})
 
 	const allAdmins = () => {
 		setOperators([])
@@ -243,9 +247,9 @@ const addadmin = () => {
 		}
 	}
 
-	useEffect(() => {
-		setAdmin(true), setAdmins(true), allAdmins()
-	}, [])
+	// useEffect(() => {
+	// 	allAdmins()
+	// })
 
 	const adminTooltip = <Tooltip>This person makes, edits, create and promote, posts, petitons, events, update, organization and profile.</Tooltip>
 	const editorTooltip = <Tooltip>This person edits posts, petitons, events, update and products.</Tooltip>
@@ -318,6 +322,7 @@ const addadmin = () => {
 											<span>&#x270E;</span> Edit
 										</button>
 									</div>
+									<div onClick={() => setReview(true)} className="p-2 my-auto cursor-pointer">Reviews & Rating</div>
 									<div
 										onClick={() => {
 											removeAdmin(org.id)
@@ -326,6 +331,7 @@ const addadmin = () => {
 									>
 										&#10006;
 									</div>
+									<Reviews user={org.id} open={review} handelClick={() => setReview(false)} />
 								</div>
 							))
 						) : (
