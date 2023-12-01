@@ -12,10 +12,9 @@ import Select from 'react-select';
 
 const NewTask = ({ open, handelClick, task, operators }: { open: boolean, handelClick: any, task: any, operators: any }) => {
   const [loading, setLoading] = useState(false)
-  const [previewImages, setFilePreview] = useState(task?.asset || []);
+  const [previewImages, setFilePreview] = useState( []);
   const uploadRef = useRef<HTMLInputElement>(null)
   const { query } = useRouter()
-
   const [name, setName] = useState(task?.name || "")
   const [dueDate, setDueDate] = useState(task?.dueDate || "")
   const [instruction, setInstruction] = useState(task?.instruction || "")
@@ -153,10 +152,10 @@ const NewTask = ({ open, handelClick, task, operators }: { open: boolean, handel
           {previewImages.length > 0 && (
             <div className="flex flex-wrap my-4 w-full">
               {previewImages.map((image, index) => (
-                image.type === 'image' ?
+                image?.type === 'image' ?
                   <div className="w-[100px] h-[100px] m-[3px]" key={index}>
                     <img
-                      src={image.url}
+                      src={image?.url}
                       alt={`Preview ${index}`}
                       className=" object-cover w-full h-full"
                     />
@@ -169,12 +168,12 @@ const NewTask = ({ open, handelClick, task, operators }: { open: boolean, handel
                   </div>
                   : <div className="w-[100px] h-[100px] m-[3px]" key={index}>
                     <video
-                      src={image.url}
+                      src={image?.url}
                       width="500"
                       autoPlay muted
                       className="embed-responsive-item w-full object-cover h-full"
                     >
-                      <source src={image.url} type="video/mp4" />
+                      <source src={image?.url} type="video/mp4" />
                     </video>
                     <div
                       className="flex  cursor-pointer text-[red] justify-center items-center"

@@ -295,8 +295,10 @@ const MyCamp: NextPage = (): JSX.Element => {
 
 											<div>
 												{activities.length > 0 ? activities.map((activity, index) => <div className="flex p-3 border-b" key={index}>
-													<img className="w-10 h-10 mr-4" src={activity.authorId.image} alt="" />
-													<p className="my-auto">{activity.text} by {activity.authorId.name}</p>
+													<img className="w-10 h-10 mr-4" src='./images/lolo.jpg' alt="" />
+													<p className="my-auto">{activity.text}
+														{/* by {activity.authorId.name} */}
+													</p>
 												</div>) : <div className="text-center my-4">No Activities</div>}
 											</div>
 										</div>;
@@ -383,7 +385,7 @@ const MyCamp: NextPage = (): JSX.Element => {
 
 const SingleTask = ({ task, operators }: { task: any, operators: any }) => {
 	const [open, setOpen] = useState(false)
-
+	// console.log(task)
 	const deleteTask = async () => {
 		try {
 			const { data } = await axios.post(SERVER_URL + "/graphql", {

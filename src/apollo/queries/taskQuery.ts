@@ -6,6 +6,7 @@ export const GET_TASKS = gql`
       tasks{
         name
         dueDate
+        _id
         dueTime
         createdAt
         instruction
