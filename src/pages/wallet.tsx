@@ -88,7 +88,7 @@ const Wallet = () => {
       if (data.errors) {
         toast.warn(data.errors[0].message)
       }
-
+      setWithdraw(false)
       setLoading(false)
     } catch (e) {
       console.log(e)
