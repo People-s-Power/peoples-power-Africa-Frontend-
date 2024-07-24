@@ -185,7 +185,7 @@ const MyCamp: NextPage = (): JSX.Element => {
 		<FrontLayout showFooter={false}>
 			<>
 				<Head>
-					<title>{`Theplaint.org`}</title>
+					<title>{`People Power`}</title>
 				</Head>
 				<Wrapper className="my-camp bg-white ">
 					{query.page === undefined ? <div className="container">

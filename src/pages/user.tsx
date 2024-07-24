@@ -299,7 +299,7 @@ const user = () => {
 			<>
 				<Head>
 					<title>
-						{`Theplaint.org`} || {user?.name}{" "}
+						{`People Power`} || {user?.name}{" "}
 					</title>
 				</Head>
 				<div className="lg:mx-52">

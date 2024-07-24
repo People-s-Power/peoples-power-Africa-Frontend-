@@ -29,7 +29,7 @@ export const CampaignShareMenuList = ({
       <ul className="dropdown-menu m-0 ">
         <li className="dropdown-menu-item mb-2 ">
           <button className="btn py-0 d-flex justify-start" onClick={() => setOpen(!open)}>
-            <img src="/images/lolo.jpeg" className='w-6 h-6 me-2' alt="" />
+            <img src="/images/logo.svg" className='w-6 h-6 me-2' alt="" />
             <span>Timeline</span>
           </button>
         </li>

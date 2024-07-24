@@ -265,7 +265,7 @@ const MessagePopup = () => {
               </div>
               : display &&
               <div className="p-4 text-center">
-                <img className="w-40 mx-auto h-40 sm:hidden" src="/images/lolo.jpeg" alt="" />
+                <img className="w-40 mx-auto h-40 sm:hidden" src="/images/logo.svg" alt="" />
                 <h5 className="my-4 sm:hidden">Chat with your connections.</h5>
                 <p className="sm:hidden">Go to My Connections and followers or following to send message.</p>
                 <Link href={'/connection?page=followers'}>

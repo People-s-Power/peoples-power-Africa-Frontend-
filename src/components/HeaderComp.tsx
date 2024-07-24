@@ -119,7 +119,7 @@ const Header = (): JSX.Element => {
 	}, [user])
 
 	const { pathname } = useRouter();
-	const text = `Theplaint.org`
+	const text = `People Power`
 	// const token = cookie.get(TOKEN_NAME);
 
 	// eslint-disable-next-line no-empty
@@ -140,7 +140,7 @@ const Header = (): JSX.Element => {
 					<div className="navbar-brand d-flex justify-content-between align-items-center justify-content-md-start min">
 						{/* <Link href="/home"> */}
 						<a className="navbar-brand">
-							<img src="/images/lolo.jpeg" className="rounded-full" alt="" loading="lazy" />
+							<img src="/images/logo.svg" className="rounded-full" alt="" loading="lazy" />
 							<h5>{text}</h5>
 						</a>
 						{/* </Link> */}

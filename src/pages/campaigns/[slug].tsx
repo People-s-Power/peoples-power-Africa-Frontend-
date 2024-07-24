@@ -148,7 +148,7 @@ const SingleCampaignPage = ({ repo, }: InferGetServerSidePropsType<typeof getSer
 				<meta property="og:title" content={repo.title || repo.body || repo.caption || repo.name} />
 				<meta property="og:description" content={repo.body} />
 				<meta property="og:image" content={repo.asset[0].url} />
-				<meta property="og:url" content={`https://theplaint.org/campaigns/${repo.slug}`} />
+				<meta property="og:url" content={`https://www.peoplespower.me/campaigns/${repo.slug}`} />
 				<meta property="og:site_name" content={repo.title || repo.body || repo.caption || repo.name} />
 
 				<meta name="twitter:title" content={repo.title || repo.body || repo.caption || repo.name} />

@@ -38,12 +38,12 @@ const Footer: React.FC = () => {
 
 					<section className="d-flex justify-between mb-4 footer-list container mt-5">
 						<div className="w-20">
-							<img src="./images/lolo.jpeg" className="rounded-full" alt="" />
+							<img src="./images/logo.svg" className="rounded-full" alt="" />
 						</div>
 						<ul className="lg:w-2/3 ">
 							{/* <li className="mb-4 fs-4 fw-bold">About us</li> */}
 							<li className="text-[#666666]">
-								<strong>{`Theplaint.org`}</strong> is a web-based technology for those
+								<strong>{`People Power`}</strong> is a web-based technology for those
 								facing Social injustice and Human Right abuse. It is created
 								to inspire people to cause a change in their local
 								communities. The forum enables one or group to launch a
@@ -129,7 +129,7 @@ const Footer: React.FC = () => {
 					|
 					<Link href="/">
 						<a>
-							&nbsp; &copy;{new Date().getFullYear()} {`Theplaint.org`}, All rights
+							&nbsp; &copy;{new Date().getFullYear()} {`People Power`}, All rights
 							reserved.
 						</a>
 					</Link>

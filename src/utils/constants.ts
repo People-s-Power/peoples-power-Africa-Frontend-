@@ -7,7 +7,7 @@ export const SERVER_URL = "https://apiv5-xacq2.ondigitalocean.app"
 // 	? "https://edfhr.org"
 // 	: "http://localhost:8000";
 export const HTTP_URI = `${SERVER_URL}/api/v5`
-export const BASEURL = process.env.BASE_URL || "https://www.theplaint.org"
+export const BASEURL = process.env.BASE_URL || "http://www.peoplespower.me/"
 // export const STRAPI_URI = "https://cms.edfhr.org"
 
 export const WS_URI = SERVER_URL

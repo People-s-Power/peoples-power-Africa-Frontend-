@@ -211,7 +211,7 @@ function Buildprofile(): React.ReactElement {
 											<img
 												onClick={() => uploadRef.current?.click()}
 												className="rounded-full hover:opacity-50 w-44 h-44 mx-auto"
-												src={img || "/images/lolo.jpeg"}
+												src={img || "/images/logo.svg"}
 												alt=""
 											/>
 										</div>
