@@ -57,7 +57,7 @@ const HomePage = () => {
 	const [loading, setLoading] = useState(false)
 	const [active, setActive] = useState<any>(null)
 	const [toggle, setToggle] = useState(true)
-	const [hashtag, setHashtag] = useState("");
+	const [hashtag, setHashtag] = useState("")
 	// console.log(author)
 
 	useEffect(() => {
@@ -109,7 +109,7 @@ const HomePage = () => {
 		try {
 			axios.get(`/user/single/${author?.id}`).then(function (response) {
 				// console.log(response.data.user.orgOperating)
-				response.data.user.orgOperating.map((operating: any) => {
+				response.data.user?.orgOperating.map((operating: any) => {
 					setOrgId(operating)
 					refetch()
 				})
@@ -120,8 +120,6 @@ const HomePage = () => {
 	}
 
 	async function getData(hstag = "") {
-		// console.log(active._id)
-
 		try {
 			setLoading(true)
 			setAll([])
@@ -130,7 +128,7 @@ const HomePage = () => {
 			await socket.emit(
 				"notifications",
 				{
-					userId: active._id || active.id,
+					userId: active?._id || active?.id,
 					page: 1,
 					limit: 80,
 				},
@@ -144,16 +142,17 @@ const HomePage = () => {
 			const { data } = await axios.post(SERVER_URL + "/graphql", {
 				query: print(GET_ALL),
 				variables: {
-					authorId: active._id || active.id,
-					page: 1, limit: 50
+					authorId: active?._id || active?.id,
+					page: 1,
+					limit: 50,
 				},
 			})
 
 			console.log(data)
 
-			await axios.get(`share/feed/${active._id || active.id}`).then(function (response) {
-				response.data.map(single => {
-					feed.push({...single, __typename: "Share"})
+			await axios.get(`share/feed/${active?._id || active?.id}`).then(function (response) {
+				response.data.map((single) => {
+					feed.push({ ...single, __typename: "Share" })
 				})
 				console.log(feed)
 				// feed = response.data
@@ -193,15 +192,15 @@ const HomePage = () => {
 				// })
 				newArray = newArray.filter((feedItem) => {
 					if (Object.prototype.hasOwnProperty.call(feedItem, "category")) {
-						if (feedItem.category.toLowerCase() === hstag.toLowerCase()) return true;
-						return false;
+						if (feedItem.category.toLowerCase() === hstag.toLowerCase()) return true
+						return false
 					}
 					if (Object.prototype.hasOwnProperty.call(feedItem, "categories")) {
 						// console.log(feedItem)
-						if (feedItem.categories[0].toLowerCase() === hstag.toLowerCase()) return true;
-						return false;
+						if (feedItem.categories[0].toLowerCase() === hstag.toLowerCase()) return true
+						return false
 					}
-					return false;
+					return false
 				})
 			}
 			console.log(newArray)
@@ -215,7 +214,7 @@ const HomePage = () => {
 	}
 
 	const filterItemsByInterest = (selectedHashtag: string) => {
-		setHashtag(selectedHashtag);
+		setHashtag(selectedHashtag)
 	}
 
 	const refresh = () => {
@@ -235,7 +234,7 @@ const HomePage = () => {
 			const { data } = await axios.post(SERVER_URL + "/graphql", {
 				query: print(CONNECTIONS),
 				variables: {
-					authorId: author.id,
+					authorId: author?.id,
 				},
 			})
 			// console.log(data)
@@ -259,18 +258,18 @@ const HomePage = () => {
 			</div>
 			{orgs !== null
 				? orgs?.map((org: any, index: number) => (
-					<div
-						onClick={() => {
-							setActive(org)
-							// getData()
-						}}
-						key={index}
-						className="flex m-1 cursor-pointer"
-					>
-						<img src={org?.image} className="w-8 h-8 rounded-full mr-4" alt="" />
-						<div className="text-sm my-auto">{org?.name}</div>
-					</div>
-				))
+						<div
+							onClick={() => {
+								setActive(org)
+								// getData()
+							}}
+							key={index}
+							className="flex m-1 cursor-pointer"
+						>
+							<img src={org?.image} className="w-8 h-8 rounded-full mr-4" alt="" />
+							<div className="text-sm my-auto">{org?.name}</div>
+						</div>
+				  ))
 				: null}
 		</Popover>
 	)
@@ -354,14 +353,20 @@ const HomePage = () => {
 							<div className="text-left sm:p-3">
 								<div className="flex">
 									<p className="my-4">My Interests</p>
-									<Link href={"/mycamp/profile"}><span className="cursor-pointer m-3">
-										{/* <img src="/images/pencil.png" className="w-6 h-6" alt="" /> */}
-										<button className="bg-transparent p-2 text-warning rotate-90">
-											<span className="text-warning">&#x270E;</span>
-										</button>
-									</span></Link>
+									<Link href={"/mycamp/profile"}>
+										<span className="cursor-pointer m-3">
+											{/* <img src="/images/pencil.png" className="w-6 h-6" alt="" /> */}
+											<button className="bg-transparent p-2 text-warning rotate-90">
+												<span className="text-warning">&#x270E;</span>
+											</button>
+										</span>
+									</Link>
 								</div>
-								{author?.interests.map((interst, i) => <p className="text-sm my-3 capitalize cursor-pointer" key={i} onClick={() => filterItemsByInterest(interst)}>{interst}</p>)}
+								{author?.interests.map((interst, i) => (
+									<p className="text-sm my-3 capitalize cursor-pointer" key={i} onClick={() => filterItemsByInterest(interst)}>
+										{interst}
+									</p>
+								))}
 							</div>
 						</div>
 						<div className="">
@@ -379,7 +384,6 @@ const HomePage = () => {
 								))}
 							</Dropdown>
 						</div> */}
-
 					</aside>
 				)}
 
@@ -465,7 +469,7 @@ const HomePage = () => {
 				<aside className="w-[20%] sm:hidden p-2 fixed bg-white right-20">
 					<div className="text-sm">Grow your Support Base by following persons and organizations that interest you</div>
 					{users.slice(0, 4).map((user, index) =>
-						user._id !== author?.id ? (
+						user?._id !== author?.id ? (
 							<div key={index}>
 								<Follow user={user} getUsers={getUsers()} />
 							</div>
@@ -520,8 +524,8 @@ function Follow(user, getUsers) {
 			const { data } = await axios.post(SERVER_URL + "/graphql", {
 				query: print(FOLLOW),
 				variables: {
-					followerId: author.id,
-					followId: user._id,
+					followerId: author?.id,
+					followId: user?._id,
 				},
 			})
 			console.log(data)
@@ -537,14 +541,14 @@ function Follow(user, getUsers) {
 	}
 	return (
 		<div className="flex justify-between my-4">
-			<Link href={`user?page=${user.user._id}`}>
-				<img src={user.user.image} className="w-12 mx-2 my-auto h-12 cursor-pointer rounded-full" alt="" />
+			<Link href={`user?page=${user?.user?._id}`}>
+				<img src={user?.user?.image} className="w-12 mx-2 my-auto h-12 cursor-pointer rounded-full" alt="" />
 			</Link>
 			<div className="w-[80%]">
-				<Link href={`user?page=${user.user._id}`}>
+				<Link href={`user?page=${user?.user?._id}`}>
 					<div className="cursor-pointer">
-						<div className="text-base font-light">{user.user.name} </div>
-						<div className="text-xs">{user.user.description.substring(0, 30)}</div>
+						<div className="text-base font-light">{user?.user?.name} </div>
+						<div className="text-xs">{user?.user?.description.substring(0, 30)}</div>
 					</div>
 				</Link>
 				{loading ? (
@@ -554,7 +558,7 @@ function Follow(user, getUsers) {
 				) : (
 					<div className="flex cursor-pointer justify-between px-4 py-1 text-xs border border-black w-[70%] mt-2 rounded-md">
 						<div className="text-lg">+</div>
-						<div className="my-auto text-sm" onClick={() => followUser(user.user)}>
+						<div className="my-auto text-sm" onClick={() => followUser(user?.user)}>
 							Follow
 						</div>
 					</div>

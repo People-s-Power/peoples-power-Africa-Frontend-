@@ -1,7 +1,7 @@
 import FrontLayout from "layout/FrontLayout";
 import Head from "next/head";
 import React, { Fragment } from "react";
-import ReactMarkdown from "react-markdown";
+// import ReactMarkdown from "react-markdown";
 
 
 const AboutPage = () => {
@@ -158,7 +158,7 @@ const AboutPage = () => {
 					<section id="career" className="mb-8 mt-20">
 						<div className="what-we-do-txt bg-light h-100 px-4 py-3 my-2 lg:mx-32">
 							<div className=" text-secondary fw-bold text-4xl my-2">Join our team</div>
-							<div className="text-base">If you’re passionate and ready to dive in, we’d love to meet you.</div>
+							<div className="text-base">If you&apos;re passionate and ready to dive in, we&apos;d love to meet you.</div>
 						</div>
 						<details className="mb-3 lg:w-1/2 mx-auto">
 							<summary className="header summary bg-light rounded-top rounded-0 rounded-3 py-2 align-items-center px-1 d-flex justify-content-between">
@@ -180,7 +180,7 @@ const AboutPage = () => {
 
 											As a virtual Assistant, you are also to help organizations grow their followers and supporters through active campaigns and digital marketing.
 										</p>
-										<a href="https://teamapp-6jfl6.ondigitalocean.app/" target="_blank">
+										<a href="https://team.experthubllc.com/form/dtvp9l" target="_blank">
 											<button className="btn btn-warning text-white px-4 py-2 rounded-pill fw-bold">
 												Apply Now
 											</button>
@@ -209,7 +209,7 @@ const AboutPage = () => {
 
 											As a virtual Assistant, you are also to help organizations grow their followers and supporters through active campaigns and digital marketing.
 										</p>
-										<a href="https://teamapp-6jfl6.ondigitalocean.app/" target="_blank">
+										<a href="https://team.experthubllc.com/form/dtvp9l" target="_blank">
 											<button className="btn btn-warning text-white px-4 py-2 rounded-pill fw-bold">
 												Apply Now
 											</button>
@@ -238,7 +238,7 @@ const AboutPage = () => {
 
 											As a virtual Assistant, you are also to help organizations grow their followers and supporters through active campaigns and digital marketing.
 										</p>
-										<a href="https://teamapp-6jfl6.ondigitalocean.app/" target="_blank">
+										<a href="https://team.experthubllc.com/form/dtvp9l" target="_blank">
 											<button className="btn btn-warning text-white px-4 py-2 rounded-pill fw-bold">
 												Apply Now
 											</button>
@@ -267,7 +267,7 @@ const AboutPage = () => {
 
 											As a virtual Assistant, you are also to help organizations grow their followers and supporters through active campaigns and digital marketing.
 										</p>
-										<a href="https://teamapp-6jfl6.ondigitalocean.app/" target="_blank">
+										<a href="https://team.experthubllc.com/form/dtvp9l" target="_blank">
 											<button className="btn btn-warning text-white px-4 py-2 rounded-pill fw-bold">
 												Apply Now
 											</button>
@@ -296,7 +296,7 @@ const AboutPage = () => {
 
 											As a virtual Assistant, you are also to help organizations grow their followers and supporters through active campaigns and digital marketing.
 										</p>
-										<a href="https://teamapp-6jfl6.ondigitalocean.app/" target="_blank">
+										<a href="https://team.experthubllc.com/form/dtvp9l" target="_blank">
 											<button className="btn btn-warning text-white px-4 py-2 rounded-pill fw-bold">
 												Apply Now
 											</button>
@@ -323,7 +323,7 @@ const AboutPage = () => {
 										<p className="mb-4">
 											lorem
 										</p>
-										<a href="https://teamapp-6jfl6.ondigitalocean.app/" target="_blank">
+										<a href="https://team.experthubllc.com/form/dtvp9l" target="_blank">
 											<button className="btn btn-warning text-white px-4 py-2 rounded-pill fw-bold">
 												Apply Now
 											</button>
@@ -350,7 +350,7 @@ const AboutPage = () => {
 										<p className="mb-4">
 											lorem
 										</p>
-										<a href="https://teamapp-6jfl6.ondigitalocean.app/" target="_blank">
+										<a href="https://team.experthubllc.com/form/dtvp9l" target="_blank">
 											<button className="btn btn-warning text-white px-4 py-2 rounded-pill fw-bold">
 												Apply Now
 											</button>
@@ -379,7 +379,7 @@ const AboutPage = () => {
 
 											As a virtual Assistant, you are also to help organizations grow their followers and supporters through active campaigns and digital marketing.
 										</p>
-										<a href="https://teamapp-6jfl6.ondigitalocean.app/" target="_blank">
+										<a href="https://team.experthubllc.com/form/dtvp9l" target="_blank">
 											<button className="btn btn-warning text-white px-4 py-2 rounded-pill fw-bold">
 												Apply Now
 											</button>
