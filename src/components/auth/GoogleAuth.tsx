@@ -80,8 +80,6 @@ const GoogleAuthComp = ({
 			onClick={() => login()}
 			className="w-[50px] h-[50px] rounded-[100px] border-stone-800"
 			disabled={loading}
-		// eslint-disable-next-line react/prop-types
-		// disabled={props?.disabled}
 		>
 			<span>
 				<svg

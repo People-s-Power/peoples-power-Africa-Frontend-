@@ -84,7 +84,8 @@ function MyApp({ Component, pageProps }: AppProps): JSX.Element {
 			<ApolloProvider client={client}>
 				<ThemeProvider theme={theme}>
 					<RecoilRoot>
-						<GoogleOAuthProvider clientId="887697567363-9ok08i91989vf3naqcdh7f2qg8558k1m.apps.googleusercontent.com">
+						{/* <GoogleOAuthProvider clientId="887697567363-9ok08i91989vf3naqcdh7f2qg8558k1m.apps.googleusercontent.com"> old client id */}
+						<GoogleOAuthProvider clientId="912688969936-0ms6dqg78t5tbrj8s54lfd97d27uq3sg.apps.googleusercontent.com">
 							<Layout>
 								<Component {...pageProps} />
 							</Layout>
