@@ -72,10 +72,10 @@ const addadmin = () => {
 
 	const promote = async () => {
 		try {
-			const { data } = await axios.post('/transaction/subscribe', {
+			const { data } = await axios.post("/transaction/subscribe", {
 				amount: role === "editor" ? 200 : 300,
 				author: author.id,
-				autoRenew: true
+				autoRenew: true,
 			})
 			console.log(data)
 			// setStep(1)
@@ -217,18 +217,22 @@ const addadmin = () => {
 	const search = (e: any) => {
 		const matchingStrings = []
 		for (const string of users) {
-			if (string.firstName.toLowerCase().includes(e.target.value)) {
-				matchingStrings.push(string);
+			if (
+				string.firstName?.toLowerCase()?.includes(e.target.value) ||
+				string.lastName?.toLowerCase()?.includes(e.target.value) ||
+				string.name?.toLowerCase()?.includes(e.target.value)
+			) {
+				matchingStrings.push(string)
 			}
 		}
 		setSearched(matchingStrings)
 	}
 	const searchProf = (value) => {
-		if (value === "") return getRep()
+		if (value === "") return
 		const matchingStrings = []
 		for (const string of trained) {
 			if (string.name.toLowerCase().includes(value.target.value)) {
-				matchingStrings.push(string);
+				matchingStrings.push(string)
 			}
 		}
 		setProfessionals(matchingStrings)
@@ -236,20 +240,18 @@ const addadmin = () => {
 
 	const getRep = () => {
 		try {
-			axios.get("https://api.experthubllc.com/api/v5/user")
-				.then((response) => {
-					console.log(response.data.data)
-					setTrained(response.data.data.map(d => ({ ...d, name: d.firstName + " " + d.lastName })))
-				})
-		}
-		catch (e) {
+			axios.get("https://api.experthubllc.com/api/v5/user/state-ref").then((response) => {
+				console.log(response.data)
+				Array.isArray(response.data) && setTrained(response.data.map((d) => ({ ...d, name: d.firstName + " " + d.lastName })))
+			})
+		} catch (e) {
 			console.log(e)
 		}
 	}
 
-	// useEffect(() => {
-	// 	allAdmins()
-	// })
+	useEffect(() => {
+		getRep()
+	}, [])
 
 	const adminTooltip = <Tooltip>This person makes, edits, create and promote, posts, petitons, events, update, organization and profile.</Tooltip>
 	const editorTooltip = <Tooltip>This person edits posts, petitons, events, update and products.</Tooltip>
@@ -322,7 +324,9 @@ const addadmin = () => {
 											<span>&#x270E;</span> Edit
 										</button>
 									</div>
-									<div onClick={() => setReview(true)} className="p-2 my-auto cursor-pointer">Reviews & Rating</div>
+									<div onClick={() => setReview(true)} className="p-2 my-auto cursor-pointer">
+										Reviews & Rating
+									</div>
 									<div
 										onClick={() => {
 											removeAdmin(org.id)
@@ -428,7 +432,7 @@ const addadmin = () => {
 										<img src="/images/logo.svg" className="w-16 my-2 h-16 mx-auto" alt="" />
 										<div className="font-bold text-lg text-center my-2">
 											{author.name}, what plan will you like to use? <br />
-											We’ll recommend the right plan for you.
+											We&apos;ll recommend the right plan for you.
 										</div>
 										<div className="text-base my-2">
 											Start your free 1-month trial today. Cancel anytime. We'll send you a reminder 7 days before your trial ends.
