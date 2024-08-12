@@ -236,10 +236,10 @@ const addadmin = () => {
 
 	const getRep = () => {
 		try {
-			axios.get("https://teamapp-6jfl6.ondigitalocean.app/api/get-reps")
+			axios.get("https://api.experthubllc.com/api/v5/user")
 				.then((response) => {
 					console.log(response.data.data)
-					setTrained(response.data.data)
+					setTrained(response.data.data.map(d => ({ ...d, name: d.firstName + " " + d.lastName })))
 				})
 		}
 		catch (e) {
