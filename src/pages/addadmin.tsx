@@ -25,6 +25,11 @@ export interface Operator {
 	role: string
 }
 
+const ADMIN_FEES = {
+	admin: 35_000,
+	editor: 15_000,
+}
+
 const addadmin = () => {
 	const author = useRecoilValue(UserAtom)
 	const [admins, setAdmins] = useState(true)
@@ -45,49 +50,22 @@ const addadmin = () => {
 	const router = useRouter()
 	const [professionals, setProfessionals] = useState<any>([])
 	const [trained, setTrained] = useState([])
-
 	const [review, setReview] = useState(false)
-
-	// const paystack_config: PaystackProps = {
-	// 	reference: new Date().getTime().toString(),
-	// 	email: author?.email as string,
-	// 	amount: role === "editor" ? 1500000 : 3500000,
-	// 	firstname: author?.firstName,
-	// 	lastname: author?.lastName,
-	// 	currency: "NGN",
-	// 	publicKey: "pk_live_13530a9fee6c7840c5f511e09879cbb22329dc28",
-	// 	plan: role === "editor" ? "PLN_hyabaaqen17sez8" : "PLN_bpzuum9aliqlyrw",
-	// }
-
-	// const initializePayment = usePaystackPayment(paystack_config)
-
-	// const onSuccess = async () => {
-	// 	console.log(paystack_config)
-	// 	setStep(1)
-	// 	return
-	// }
-	// const onClose = () => {
-	// 	console.log("")
-	// }
 
 	const promote = async () => {
 		try {
 			const { data } = await axios.post("/transaction/subscribe", {
-				amount: role === "editor" ? 200 : 300,
+				amount: role === "editor" ? ADMIN_FEES.editor : ADMIN_FEES.admin,
 				author: author.id,
 				autoRenew: true,
 			})
 			console.log(data)
-			// setStep(1)
-
-			toast.success("Your payment is successful pending approval")
-			setAdmin(true)
-			setAdmins(true)
-			allAdmins()
-			// router.push(`/mycamp?page=${query.page}`)
+			setStep(1)
 		} catch (e) {
+			if (e.response) {
+				console.log(e.response)
+			}
 			toast.warn(e.response.data.message)
-			// console.log(e.response.data.message)
 		}
 	}
 
@@ -97,7 +75,6 @@ const addadmin = () => {
 			return
 		}
 		if (step === 0) {
-			// initializePayment(onSuccess, onClose)
 			promote()
 			return
 		}
@@ -496,12 +473,12 @@ const addadmin = () => {
 											<div
 												key={i}
 												className={
-													id === search._id
+													id === (search._id ?? search.id)
 														? "bg-gray-400 text-white p-3 text-base mb-1 cursor-pointer "
 														: "" + "p-3 bg-gray-100 cursor-pointer hover:bg-gray-200 text-base mb-1"
 												}
 												onClick={() => {
-													setId(search._id)
+													setId(search._id ?? search.id)
 												}}
 											>
 												{search.name}
