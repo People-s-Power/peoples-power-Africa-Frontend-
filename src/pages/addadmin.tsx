@@ -26,8 +26,10 @@ export interface Operator {
 }
 
 const ADMIN_FEES = {
-	admin: 35_000,
-	editor: 15_000,
+	// admin: 35_000,
+	// editor: 15_000,
+	admin: 200,
+	editor: 400,
 }
 
 const addadmin = () => {
@@ -217,9 +219,18 @@ const addadmin = () => {
 
 	const getRep = () => {
 		try {
-			axios.get("https://api.experthubllc.com/api/v5/user/state-ref").then((response) => {
-				console.log(response.data)
-				Array.isArray(response.data) && setTrained(response.data.map((d) => ({ ...d, name: d.firstName + " " + d.lastName })))
+			// axios.get("https://api.experthubllc.com/api/v5/user/state-ref").then((response) => {
+			// 	console.log(response.data)
+			// 	Array.isArray(response.data) && setTrained(response.data.map((d) => ({ ...d, name: d.firstName + " " + d.lastName })))
+			// })
+			axios.get("https://project-experthub.onrender.com/v1/user").then((response) => {
+				Array.isArray(response.data?.data.users) &&
+					setTrained(
+						response.data.data.users.map((d) => {
+							if (d.name) return d
+							return { ...d, name: d.firstName + " " + d.lastName }
+						})
+					)
 			})
 		} catch (e) {
 			console.log(e)

@@ -1,15 +1,10 @@
 
 
 export const TOKEN_NAME = "__ed_KEY"
-// https://apiv5-xacq2.ondigitalocean.app/
-// export const SERVER_URL = "https://api.experthubllc.com"
-export const SERVER_URL = "http://localhost:8005"
-// process.env.NODE_ENV === "production"
-// 	? "https://edfhr.org"
-// 	: "http://localhost:8000";
+export const SERVER_URL = "https://api.experthubllc.com"
+// export const SERVER_URL = "http://localhost:8005"
 export const HTTP_URI = `${SERVER_URL}/api/v5`
 export const BASEURL = process.env.BASE_URL || "http://www.peoplespower.me/"
-// export const STRAPI_URI = "https://cms.edfhr.org"
 
 export const WS_URI = SERVER_URL
 export enum CampaignMessage {
