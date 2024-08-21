@@ -26,10 +26,10 @@ export interface Operator {
 }
 
 const ADMIN_FEES = {
-	// admin: 35_000,
-	// editor: 15_000,
-	admin: 200,
-	editor: 400,
+	admin: 35_000,
+	editor: 15_000,
+	// admin: 200,
+	// editor: 400,
 }
 
 const addadmin = () => {
