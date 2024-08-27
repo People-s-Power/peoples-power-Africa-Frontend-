@@ -29,7 +29,7 @@ const INTERESTS = [
 const UpdateProfileComp = (): JSX.Element => {
 	const user = useRecoilValue(UserAtom)
 	const [loading, setLoading] = useState(false)
-	const [verifying, setVerifying] = useState(false)
+	const [verifying, setVerifying] = useState("")
 	const [description, setDescription] = useState("")
 	const [countries, setCountries] = useState([])
 	const [cities, setCities] = useState([])
@@ -56,7 +56,7 @@ const UpdateProfileComp = (): JSX.Element => {
 	}, [])
 
 	const verifyBank = async () => {
-		setVerifying(true)
+		setVerifying("Verifying...")
 
 		try {
 			const { data } = await axios.post(SERVER_URL + "/graphql", {
@@ -68,11 +68,11 @@ const UpdateProfileComp = (): JSX.Element => {
 			})
 			setAccountName(data.data.verifyBankAccount.account_name)
 			console.log(data)
-			// setVerifying(false)
+			setVerifying("Verified");
 
 		} catch (e) {
 			console.log(e.response)
-			setVerifying(false)
+			setVerifying("Invalid details");
 			// checkAccount()
 		}
 	}
@@ -277,10 +277,13 @@ const UpdateProfileComp = (): JSX.Element => {
 					value={accountNumber}
 					onChange={(e) => {
 						setAccountNumber(e.target.value)
+						if(e.target.value.length < 9) {
+							setVerifying("");
+						}
 						checkAccount()
 					}
 					} />
-				<p className="p-1 text-warning text-xs">{verifying ? "verifying..." : ""}</p>
+				<p className="p-1 text-warning text-xs">{verifying}</p>
 			</div>
 			<div className="mb-6">
 				<p className="text-lg my-2">{accountName}</p>

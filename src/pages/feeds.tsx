@@ -468,7 +468,7 @@ const HomePage = () => {
 				</section>
 				<aside className="w-[20%] sm:hidden p-2 fixed bg-white right-20">
 					<div className="text-sm">Grow your Support Base by following persons and organizations that interest you</div>
-					{users.slice(0, 4).map((user, index) =>
+					{users?.slice(0, 4).map((user, index) =>
 						user?._id !== author?.id ? (
 							<div key={index}>
 								<Follow user={user} getUsers={getUsers()} />

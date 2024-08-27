@@ -15,8 +15,6 @@ const ProfileComp = (): JSX.Element => {
 	const [img, setImg] = useState("");
 	// const [edit, setEdit] = useState(false)
 
-	console.log(user)
-
 	const handleImg = async (e: React.ChangeEvent<HTMLInputElement>) => {
 		// const { files } = e.target;
 		// setImg(URL.createObjectURL(files?.[0] as any));
