@@ -30,13 +30,30 @@ export interface Operator {
 const ADMIN_FEES = {
 	admin: 35_000,
 	editor: 15_000,
-	// admin: 200,
-	// editor: 400,
 }
+
+const PROFESSIONS = [
+	"General Administrative Assistant",
+	"Social Media Manager ",
+	"Real Estate",
+	"Virtual Research",
+	"Virtual Data Entry",
+	"Virtual Book keeper",
+	"Virtual ecommerce",
+	"Customer Service Provider (Phone/Chat",
+	"Content Writer",
+	"Website Management",
+	"Public Relation Assistant",
+	"Graphic designs",
+	"Appointment/Calendar setter",
+	"Email Management",
+	"Campaign/petition Writer",
+]
 
 const Addadmin = () => {
 	const author = useRecoilValue(UserAtom)
-	const [users, setUsers] = useState<IUser[]>([])
+	const [professionals, setProfessionalas] = useState<IUser[]>([])
+	const [profession, setProfession] = useState("")
 	const { query } = useRouter()
 	const [role, setRole] = useState("")
 	const [loading, setLoading] = useState(false)
@@ -45,22 +62,19 @@ const Addadmin = () => {
 	const [search, setSearched] = useState("")
 
 	useEffect(() => {
-		axios
-			.get(`/user`)
-			.then(function (response) {
-				setUsers(response.data)
-			})
-			.catch(function (error) {
-				console.log(error)
-			})
+		axios.get("https://project-experthub.onrender.com/v1/user").then((response) => {
+			Array.isArray(response.data?.data.users) &&
+				setProfessionalas(
+					response.data.data.users.map((d) => {
+						if (d.name) return d
+						return { ...d, name: d.firstName + " " + d.lastName }
+					})
+				)
+		})
 	}, [])
 
-	const addAdmin = async () => {
+	const addProfessional = async () => {
 		if (loading) return
-		if (!role) {
-			toast.info("Please select a role!")
-			return
-		}
 		if (!userId) {
 			toast.info("Please select a user!")
 			return
@@ -79,7 +93,7 @@ const Addadmin = () => {
 				},
 			})
 			console.log(data)
-			toast.success("Admin added successfully!")
+			toast.success("Profession added successfully!")
 			location.reload()
 		} catch (error) {
 			toast.warn("Oops an error occoured")
@@ -111,9 +125,10 @@ const Addadmin = () => {
 
 					<main className="p-3 grow">
 						<section className="top flex justify-between">
-							<div>
-								<h3>Add Admins</h3>
-								<p>Add an admin to manage functions in your organisation</p>
+							<div className="max-w-lg">
+								<h3>Hire a trained professionals</h3>
+								<p>Leave the complexity of writing, designing and editing your campaigns and other administration to us.</p>
+								{/* <p>Our team of content writers, designers, journalists and social skill workers can handle your content, designs, updates and other administrations while you focus on building a strong and physical campaigns with momentum.</p> */}
 							</div>
 							<div className="flex gap-2 h-fit">
 								<Link href={`/addadmin?page=${query.page}`}>
@@ -132,9 +147,19 @@ const Addadmin = () => {
 								placeholder="Admin or Editor"
 								onChange={(e) => setRole(e.value)}
 								options={[
-									{ value: "admin", label: "Admin" },
-									{ value: "editor", label: "editor" },
+									{ value: "admin", label: "Admin - #35,000" },
+									{ value: "editor", label: "editor - #15,000" },
 								]}
+							/>
+						</section>
+
+						<section className="select-role mt-4 space-y-2">
+							<p className="font-semibold">Filter by profession</p>
+							<ReactSelect
+								className="max-w-sm"
+								placeholder="Select a specific role"
+								onChange={(e) => setProfession(e.value)}
+								options={PROFESSIONS.map((prof) => ({ value: prof, label: prof }))}
 							/>
 						</section>
 
@@ -150,13 +175,13 @@ const Addadmin = () => {
 								placeholder="Type here to search for a user to assign role"
 							/>
 
-							{users.length ? (
+							{professionals.length ? (
 								<div className="grid grid-cols-3 max-h-[400px] h-auto overflow-auto w-full">
 									<td className="px-2 py-2 border border-slate-600">User</td>
 									<td className="px-2 py-2 border border-slate-600">Role</td>
 									<td className="px-2 py-2 border border-slate-600">Review</td>
 									{search
-										? users
+										? professionals
 												.filter((user) => {
 													return (
 														user.firstName?.toLowerCase()?.includes(search.toLowerCase()) ||
@@ -190,7 +215,7 @@ const Addadmin = () => {
 														</td>
 													</>
 												))
-										: users.map((user) => (
+										: professionals.map((user) => (
 												<>
 													<td onClick={() => setUserId(user.id)} className="px-2 py-2 flex gap-2 items-center border border-slate-600 cursor-pointer">
 														<svg
@@ -218,13 +243,13 @@ const Addadmin = () => {
 										  ))}
 								</div>
 							) : (
-								<p>No users</p>
+								<p>No professionals available now</p>
 							)}
 						</section>
 
 						<section className="submit mt-4 space-y-2">
-							<button onClick={addAdmin} type="button" className="px-4 py-2 rounded bg-warning text-white">
-								Submit
+							<button onClick={addProfessional} type="button" className="px-4 py-2 rounded bg-warning text-white">
+								Hire
 							</button>
 						</section>
 					</main>

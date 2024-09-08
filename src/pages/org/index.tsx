@@ -324,7 +324,7 @@ const org = () => {
 						<div className="lg:w-1/3 mt-3 lg:h-80 lg:mr-4 rounded-md bg-gray-50">
 							{user?.author === author?.id ? (
 								<div className=" text-base p-3">
-									<Link href={`/addadmin?page=${query.page}`}>
+									<Link href={`/manageadmins?page=${query.page}`}>
 										<button className="bg-transparent text-warning">Admin</button>
 									</Link>
 									<div className="my-2">

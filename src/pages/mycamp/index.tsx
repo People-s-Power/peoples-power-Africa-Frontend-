@@ -22,7 +22,7 @@ import router, { useRouter } from "next/router"
 import axios from "axios"
 
 import { GET_ORGANIZATION } from "apollo/queries/orgQuery"
-import { Operator } from "pages/addadmin"
+import { Operator } from "pages/manageadmins"
 import { IUser } from "types/Applicant.types"
 
 import { SERVER_URL } from "utils/constants"
