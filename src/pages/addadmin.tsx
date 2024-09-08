@@ -96,10 +96,12 @@ const Addadmin = () => {
 				</Head>
 				<div className="p-4 max-w-[85rem] mx-auto flex gap-3">
 					<div className="sidebar text-base bg-[#f8fbfa] h-fit rounded-md p-3 max-w-sm w-full">
-						<div className="flex items-center mb-2 gap-2">
-							<img className="w-8 h-8 opacity-20" src="/images/logo.svg" alt="" />
-							<p className="font-semibold">Organisation Admins</p>
-						</div>
+						<Link href={"/org?page=" + query.page}>
+							<div className="flex items-center mb-2 gap-2 cursor-pointer">
+								<img className="w-8 h-8 opacity-20" src="/images/logo.svg" alt="" />
+								<p className="font-semibold">Organisation Admins</p>
+							</div>
+						</Link>
 						<ul className="pl-0 pt-2 flex flex-col gap-2 text-sm">
 							<li>
 								<Link href={`/manageadmins?page=${query.page}`}>
