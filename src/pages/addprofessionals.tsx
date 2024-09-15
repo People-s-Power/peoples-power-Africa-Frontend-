@@ -27,11 +27,6 @@ export interface Operator {
 	role: string
 }
 
-const ADMIN_FEES = {
-	admin: 35_000,
-	editor: 15_000,
-}
-
 const PROFESSIONS = [
 	"General Administrative Assistant",
 	"Social Media Manager ",
@@ -58,11 +53,14 @@ const Addadmin = () => {
 	const [role, setRole] = useState("")
 	const [loading, setLoading] = useState(false)
 	const [open, setOpen] = useState(false)
+	const [result, setResult] = useState<{ message: string } | undefined>()
 	const [userId, setUserId] = useState<any>("")
 	const [search, setSearched] = useState("")
 
 	useEffect(() => {
-		axios.get("https://project-experthub.onrender.com/v1/user").then((response) => {
+		const GET_PROFESSIONALS_URL = "https://project-experthub.onrender.com/v1/user"
+		// const GET_PROFESSIONALS_URL = "http://localhost:5000/v1/user";
+		axios.get(GET_PROFESSIONALS_URL).then((response) => {
 			Array.isArray(response.data?.data.users) &&
 				setProfessionalas(
 					response.data.data.users.map((d) => {
@@ -73,6 +71,27 @@ const Addadmin = () => {
 		})
 	}, [])
 
+	useEffect(() => {
+		if (query.trxref) {
+			// Process transaction
+			axios
+				.get(SERVER_URL + `/api/v5/organization/transaction-verify/${query.trxref}`)
+				.then((res) => {
+					console.log(res)
+					if (res.data.message) {
+						// toast.info(res.data.message);
+						// setTimeout(() => {
+						// 	window.location.href = `/manageadmins?page=${query.page}`
+						// })
+						// Show modal with message and actions (Assign tasks or Manage admins)
+						setOpen(true)
+						setResult(res.data)
+					}
+				})
+				.catch((err) => console.log(err))
+		}
+	}, [query])
+
 	const addProfessional = async () => {
 		if (loading) return
 		if (!userId) {
@@ -81,20 +100,15 @@ const Addadmin = () => {
 		}
 		try {
 			setLoading(true)
-			const { data } = await axios.post(SERVER_URL + "/graphql", {
-				// client: apollo,
-				query: print(ADD_OPERATOR),
-				variables: {
-					CreateOperator: {
-						userId,
-						role,
-						orgId: query.page,
-					},
-				},
+			const res = await axios.post(SERVER_URL + "/api/v5/organization/add-professional", {
+				professionalID: userId,
+				orgId: query.page,
 			})
-			console.log(data)
-			toast.success("Profession added successfully!")
-			location.reload()
+			if (res.status.toString().startsWith("2")) {
+				window.location.href = res.data.authorization_url
+			}
+			// toast.success("Profession added successfully!")
+			// location.reload()
 		} catch (error) {
 			toast.warn("Oops an error occoured")
 		} finally {
@@ -106,7 +120,7 @@ const Addadmin = () => {
 		<FrontLayout showFooter={false}>
 			<>
 				<Head>
-					<title>{`People Power`} || Add Admin </title>
+					<title>{`People Power`} || Add A Professional </title>
 				</Head>
 				<div className="p-4 max-w-[85rem] mx-auto flex gap-3">
 					<div className="sidebar text-base bg-[#f8fbfa] h-fit rounded-md p-3 max-w-sm w-full">
@@ -181,7 +195,7 @@ const Addadmin = () => {
 														return (
 															user.firstName?.toLowerCase()?.includes(search.toLowerCase()) ||
 															user.lastName?.toLowerCase()?.includes(search.toLowerCase()) ||
-															user.name?.toLowerCase()?.includes(search.toLowerCase())
+															(user.name?.toLowerCase()?.includes(search.toLowerCase()) && user.profession == profession)
 														)
 													})
 													.map((user) => (
@@ -210,32 +224,34 @@ const Addadmin = () => {
 															</td>
 														</>
 													))
-											: professionals.map((user) => (
-													<>
-														<td onClick={() => setUserId(user._id)} className="px-2 py-2 flex gap-2 items-center border border-slate-600 cursor-pointer">
-															<svg
-																fill={userId == user._id ? "#18C73E" : "#e6e6e6"}
-																viewBox="0 0 16 16"
-																className="w-7"
-																xmlns="http://www.w3.org/2000/svg"
-																aria-hidden="true"
-															>
-																<path
-																	clipRule="evenodd"
-																	fillRule="evenodd"
-																	d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14Zm3.844-8.791a.75.75 0 0 0-1.188-.918l-3.7 4.79-1.649-1.833a.75.75 0 1 0-1.114 1.004l2.25 2.5a.75.75 0 0 0 1.15-.043l4.25-5.5Z"
-																/>
-															</svg>
-															{user.firstName + " " + user.lastName}
-														</td>
-														<td onClick={() => setUserId(user._id)} className="px-2 py-2 border border-slate-600 cursor-pointer">
-															{user.role}
-														</td>
-														<td onClick={() => setUserId(user._id)} className="px-2 py-2 border border-slate-600 cursor-pointer">
-															{user.description}
-														</td>
-													</>
-											  ))}
+											: professionals
+													.filter((user) => user.profession == profession)
+													.map((user) => (
+														<>
+															<td onClick={() => setUserId(user._id)} className="px-2 py-2 flex gap-2 items-center border border-slate-600 cursor-pointer">
+																<svg
+																	fill={userId == user._id ? "#18C73E" : "#e6e6e6"}
+																	viewBox="0 0 16 16"
+																	className="w-7"
+																	xmlns="http://www.w3.org/2000/svg"
+																	aria-hidden="true"
+																>
+																	<path
+																		clipRule="evenodd"
+																		fillRule="evenodd"
+																		d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14Zm3.844-8.791a.75.75 0 0 0-1.188-.918l-3.7 4.79-1.649-1.833a.75.75 0 1 0-1.114 1.004l2.25 2.5a.75.75 0 0 0 1.15-.043l4.25-5.5Z"
+																	/>
+																</svg>
+																{user.firstName + " " + user.lastName}
+															</td>
+															<td onClick={() => setUserId(user._id)} className="px-2 py-2 border border-slate-600 cursor-pointer">
+																{user.profession}
+															</td>
+															<td onClick={() => setUserId(user._id)} className="px-2 py-2 border border-slate-600 cursor-pointer">
+																{user.description}
+															</td>
+														</>
+													))}
 									</div>
 								) : (
 									<p>No professionals available now</p>
@@ -252,44 +268,16 @@ const Addadmin = () => {
 				</div>
 				<ToastContainer />
 				<Modal open={open} onClose={() => setOpen(!open)}>
-					<div>
-						<div className="p-4">Update Admin role</div>
-						<div>
-							<div>
-								<div className="flex my-1">
-									<div className="my-auto mx-3">
-										<input
-											type="checkbox"
-											className="p-4"
-											value="admin"
-											checked={role === "admin"}
-											onChange={() => {
-												setRole("admin")
-											}}
-										/>
-									</div>
-									<div className="my-auto">
-										<div className="text-lg font-bold">Admin</div>
-									</div>
-								</div>
-								<div className="flex my-1">
-									<div className="my-auto mx-3">
-										<input
-											type="checkbox"
-											className="p-4"
-											value="editor"
-											checked={role === "editor"}
-											onChange={() => {
-												setRole("editor")
-											}}
-										/>
-									</div>
-									<div className="my-auto">
-										<div className="text-lg font-bold">Editor</div>
-										{/* <p>Edit profile, Edit campaigns and designs</p> */}
-									</div>
-								</div>
-							</div>
+					<div className="px-4">
+						<h3 className="pb-2 font-semibold">Add Professional Successful</h3>
+						<p className="text-zinc-500">{result?.message}. Where next?</p>
+						<div className="grid gap-2 mt-2">
+							<Link href={`/mycamp?page=${query.page}`}>
+								<button className="bg-warning text-white rounded px-3 py-1 text-sm">Assign task to user</button>
+							</Link>
+							<Link href={`/manageadmins?page=${query.page}`}>
+								<button className="bg-warning text-white rounded px-3 py-1 text-sm">View admin list</button>
+							</Link>
 						</div>
 					</div>
 				</Modal>

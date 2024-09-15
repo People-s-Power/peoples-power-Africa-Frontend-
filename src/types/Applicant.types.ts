@@ -36,6 +36,7 @@ export interface IUser extends Document {
 	emailVerified: boolean
 	isActive: boolean
 	role: StaffRoleEnum | string
+	profession: string
 	address: string
 	admin: IUser
 	userId: IUser

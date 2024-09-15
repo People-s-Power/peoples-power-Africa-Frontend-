@@ -1,8 +1,8 @@
 
 
 export const TOKEN_NAME = "__ed_KEY"
-export const SERVER_URL = "https://api.experthubllc.com"
-// export const SERVER_URL = "http://localhost:8005"
+// export const SERVER_URL = "https://api.experthubllc.com"
+export const SERVER_URL = "http://localhost:8005"
 export const HTTP_URI = `${SERVER_URL}/api/v5`
 export const BASEURL = process.env.BASE_URL || "http://www.peoplespower.me/"
 
