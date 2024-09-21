@@ -1,8 +1,8 @@
-
-
 export const TOKEN_NAME = "__ed_KEY"
 export const SERVER_URL = "https://api.experthubllc.com"
 // export const SERVER_URL = "http://localhost:8005"
+// export const SERVER_URL = "https://3k3900wh-8005.uks1.devtunnels.ms"
+// export const SERVER_URL = "https://rnyak-105-113-20-156.a.free.pinggy.link"
 export const HTTP_URI = `${SERVER_URL}/api/v5`
 export const BASEURL = process.env.BASE_URL || "http://www.peoplespower.me/"
 

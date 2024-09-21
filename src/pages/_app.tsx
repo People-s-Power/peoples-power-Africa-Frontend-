@@ -24,7 +24,7 @@ import { theme } from "utils/theme"
 import { getIP } from "utils"
 import Cookies from "js-cookie"
 import Script from "next/script"
-import { GoogleOAuthProvider } from '@react-oauth/google';
+import { GoogleOAuthProvider } from "@react-oauth/google"
 
 import TimeAgo from "javascript-time-ago"
 
@@ -52,7 +52,7 @@ export const socket = io(SERVER_URL, {
 })
 
 axios.defaults.baseURL = HTTP_URI
-// axios.defaults.withCredentials = true;
+// axios.defaults.withCredentials = true
 axios.defaults.headers.common["Authorization"] = "Bearer " + token
 
 Router.events.on("routeChangeStart", () => {
@@ -74,7 +74,7 @@ function MyApp({ Component, pageProps }: AppProps): JSX.Element {
 				<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"></meta>
 				<meta name="keywords" content="human right, activist, campaign, Nigeria" />
 				<title>{`peoplespower.me`}</title>
-{/* 				<link rel="icon" type="image/png" href="/images/logo.png"/> */}
+				{/* 				<link rel="icon" type="image/png" href="/images/logo.png"/> */}
 				<meta
 					name="description"
 					content="peoplespower.me is a web-based technology and innovative platform that provides a space for individuals to voice their personal or social issues and connect with experts who can offer relevant solutions. The platform creates a forum where people can freely discuss their concerns and feel heard."
@@ -93,7 +93,6 @@ function MyApp({ Component, pageProps }: AppProps): JSX.Element {
 					</RecoilRoot>
 				</ThemeProvider>
 			</ApolloProvider>
-
 		</Fragment>
 	)
 }
