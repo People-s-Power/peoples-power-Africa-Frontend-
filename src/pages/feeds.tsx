@@ -518,25 +518,26 @@ function Follow(user, getUsers) {
 	const author = useRecoilValue(UserAtom)
 
 	// console.log(user)
-	const followUser = async (user: any) => {
+		const followUser = async (user: any) => {
 		try {
+
 			setLoading(true)
 			const { data } = await axios.post(SERVER_URL + "/graphql", {
 				query: print(FOLLOW),
 				variables: {
-					followerId: author?.id,
-					followId: user?._id,
+					followerId: author.id,
+					followId: user._id,
 				},
 			})
 			console.log(data)
 			setLoading(false)
-			// toast.success("Followed!")
-			// setFollow(true)
-			// getUsers()
+			toast.success("Followed!")
+			setUsers(users => users.filter(userIn => (userIn && userIn._id !== user._id)))
+			getUsers()
 		} catch (error) {
-			console.log(error)
+			console.log(error, "follow error")
 			setLoading(false)
-			// toast.warn("Oops an error occoured!")
+			toast.warn("Oops an error occoured!")
 		}
 	}
 	return (
