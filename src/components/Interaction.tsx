@@ -87,12 +87,14 @@ const CampComp = ({ post }: { post: any }): JSX.Element => {
 		})
 	})
 	// }
-	useEffect(() => {
-		setLiked(post.likes?.some((obj) => obj._id === author?.id))
+		useEffect(() => {
+		setLiked(post.likes?.some((obj) => obj._id === author.id || obj.name === author.name))
 	}, [])
 
 	const like = async () => {
 		try {
+			setLiked(!liked)
+			liked === true ? setLikes(likes - 1) : setLikes(likes + 1)
 			const { data } = await axios.post(SERVER_URL + "/graphql", {
 				query: print(LIKE),
 				variables: {
@@ -101,9 +103,9 @@ const CampComp = ({ post }: { post: any }): JSX.Element => {
 				},
 			})
 			console.log(data)
-			setLiked(!liked)
-			liked === true ? setLikes(likes - 1) : setLikes(likes + 1)
+
 		} catch (error) {
+			setLiked(!liked)
 			console.log(error)
 		}
 	}
