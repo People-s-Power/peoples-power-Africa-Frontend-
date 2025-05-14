@@ -117,3 +117,4 @@ const Victory = ({ post, timeLine, orgs }: IProps): JSX.Element => {
 }
 
 export default Victory
+  
