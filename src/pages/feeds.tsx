@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import FrontLayout from "layout/FrontLayout"
-import React, { useEffect, useState } from "react"
+import React, { Dispatch, SetStateAction, useEffect, useState } from "react"
 import CampComp from "../components/CampComp"
 import CreatePost from "../components/modals/CreatePost"
 import CreateAdvert from "../components/modals/CreateAdvert"
@@ -338,7 +338,7 @@ const HomePage = () => {
 									</Link>
 								</div>
 								<div>
-									{orgs.map((org, i) => (
+									{orgs.map((org: any, i) => (
 										<div key={i} className="flex cursor-pointer my-2" onClick={() => singleOrg(org?._id)}>
 											{isValidUrl(org?.image) ? (
 												<img className="w-8 h-8 rounded-full" src={org?.image} alt="" />
@@ -468,10 +468,10 @@ const HomePage = () => {
 				</section>
 				<aside className="w-[20%] sm:hidden p-2 fixed bg-white right-20">
 					<div className="text-sm">Grow your Support Base by following persons and organizations that interest you</div>
-					{users?.slice(0, 4).map((user, index) =>
+					{users?.slice(0, 4).map((user: any, index) =>
 						user?._id !== author?.id ? (
 							<div key={index}>
-								<Follow user={user} getUsers={getUsers()} setUsers={setUsers} />
+								<Follow user={user} getUsers={getUsers} setUsers={setUsers} />
 							</div>
 						) : null
 					)}
@@ -513,7 +513,7 @@ const HomePage = () => {
 
 export default HomePage
 
-function Follow(user, getUsers, setUsers) {
+function Follow({ user, getUsers, setUsers }: { user: any, getUsers: () => void, setUsers: Dispatch<SetStateAction<any>> }) {
 	const [loading, setLoading] = useState(false)
 	const author = useRecoilValue(UserAtom)
 
