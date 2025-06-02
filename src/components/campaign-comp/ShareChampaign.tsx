@@ -125,7 +125,7 @@ const ShareChampaign = (): JSX.Element => {
 						</Clipboard>
 					</div>
 					<div className="mt-3 text-center">
-						<a href="/" className="text-decoration-none  text-inherit">
+						<a href="/" className="text-decoration-none text-inherit">
 							Go home
 						</a>
 					</div>
