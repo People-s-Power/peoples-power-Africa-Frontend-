@@ -258,18 +258,18 @@ const HomePage = () => {
 			</div>
 			{orgs !== null
 				? orgs?.map((org: any, index: number) => (
-						<div
-							onClick={() => {
-								setActive(org)
-								// getData()
-							}}
-							key={index}
-							className="flex m-1 cursor-pointer"
-						>
-							<img src={org?.image} className="w-8 h-8 rounded-full mr-4" alt="" />
-							<div className="text-sm my-auto">{org?.name}</div>
-						</div>
-				  ))
+					<div
+						onClick={() => {
+							setActive(org)
+							// getData()
+						}}
+						key={index}
+						className="flex m-1 cursor-pointer"
+					>
+						<img src={org?.image} className="w-8 h-8 rounded-full mr-4" alt="" />
+						<div className="text-sm my-auto">{org?.name}</div>
+					</div>
+				))
 				: null}
 		</Popover>
 	)
@@ -471,7 +471,7 @@ const HomePage = () => {
 					{users?.slice(0, 4).map((user, index) =>
 						user?._id !== author?.id ? (
 							<div key={index}>
-								<Follow user={user} getUsers={getUsers()} />
+								<Follow user={user} getUsers={getUsers()} setUsers={setUsers} />
 							</div>
 						) : null
 					)}
@@ -513,12 +513,12 @@ const HomePage = () => {
 
 export default HomePage
 
-function Follow(user, getUsers) {
+function Follow(user, getUsers, setUsers) {
 	const [loading, setLoading] = useState(false)
 	const author = useRecoilValue(UserAtom)
 
 	// console.log(user)
-		const followUser = async (user: any) => {
+	const followUser = async (user: any) => {
 		try {
 
 			setLoading(true)
