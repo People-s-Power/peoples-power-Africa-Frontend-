@@ -67,7 +67,7 @@ const HomePage = () => {
 	}, [])
 
 	useQuery(GET_ORGANIZATIONS, {
-		variables: { ID: author?.id },
+		variables: { ID: author?.userId },
 		client: apollo,
 		onCompleted: (data) => {
 			// console.log(data.getUserOrganizations)
@@ -107,7 +107,7 @@ const HomePage = () => {
 
 	const getSingle = () => {
 		try {
-			axios.get(`/user/single/${author?.id}`).then(function (response) {
+			axios.get(`/user/single/${author?.userId}`).then(function (response) {
 				// console.log(response.data.user.orgOperating)
 				response.data.user?.orgOperating.map((operating: any) => {
 					setOrgId(operating)
@@ -234,10 +234,12 @@ const HomePage = () => {
 			const { data } = await axios.post(SERVER_URL + "/graphql", {
 				query: print(CONNECTIONS),
 				variables: {
-					authorId: author?.id,
+					authorId: author.userId,
 				},
 			})
 			// console.log(data)
+			console.log(data.data);
+
 			setUsers(data.data.connections)
 		} catch (e) {
 			console.log(e.response)
@@ -468,10 +470,10 @@ const HomePage = () => {
 				</section>
 				<aside className="w-[20%] sm:hidden p-2 fixed bg-white right-20">
 					<div className="text-sm">Grow your Support Base by following persons and organizations that interest you</div>
-					{users?.slice(0, 4).map((user: any, index) =>
-						user?._id !== author?.id ? (
+					{users.slice(0, 4).map((user: any, index) =>
+						user?._id !== author?.userId ? (
 							<div key={index}>
-								<Follow user={user} getUsers={getUsers} setUsers={setUsers} />
+								<Follow user={user} setUsers={setUsers} getUsers={getUsers} />
 							</div>
 						) : null
 					)}
@@ -514,6 +516,7 @@ const HomePage = () => {
 export default HomePage
 
 function Follow({ user, getUsers, setUsers }: { user: any, getUsers: () => void, setUsers: Dispatch<SetStateAction<any>> }) {
+
 	const [loading, setLoading] = useState(false)
 	const author = useRecoilValue(UserAtom)
 
@@ -525,7 +528,7 @@ function Follow({ user, getUsers, setUsers }: { user: any, getUsers: () => void,
 			const { data } = await axios.post(SERVER_URL + "/graphql", {
 				query: print(FOLLOW),
 				variables: {
-					followerId: author.id,
+					followerId: author.userId,
 					followId: user._id,
 				},
 			})
@@ -542,14 +545,14 @@ function Follow({ user, getUsers, setUsers }: { user: any, getUsers: () => void,
 	}
 	return (
 		<div className="flex justify-between my-4">
-			<Link href={`user?page=${user?.user?._id}`}>
-				<img src={user?.user?.image} className="w-12 mx-2 my-auto h-12 cursor-pointer rounded-full" alt="" />
+			<Link href={`user?page=${user._id}`}>
+				<img src={user.image} className="w-12 mx-2 my-auto h-12 cursor-pointer rounded-full" alt="" />
 			</Link>
 			<div className="w-[80%]">
-				<Link href={`user?page=${user?.user?._id}`}>
+				<Link href={`user?page=${user._id}`}>
 					<div className="cursor-pointer">
-						<div className="text-base font-light">{user?.user?.name} </div>
-						<div className="text-xs">{user?.user?.description.substring(0, 30)}</div>
+						<div className="text-base font-light">{user.name} </div>
+						<div className="text-xs">{user.description.substring(0, 30)}</div>
 					</div>
 				</Link>
 				{loading ? (
@@ -557,9 +560,9 @@ function Follow({ user, getUsers, setUsers }: { user: any, getUsers: () => void,
 						<div className="my-auto text-sm text-warning">Following...</div>
 					</div>
 				) : (
-					<div className="flex cursor-pointer justify-between px-4 py-1 text-xs border border-black w-[70%] mt-2 rounded-md">
+					<div onClick={() => followUser(user)} className="flex cursor-pointer justify-between px-4 py-1 text-xs border border-black w-[70%] mt-2 rounded-md">
 						<div className="text-lg">+</div>
-						<div className="my-auto text-sm" onClick={() => followUser(user?.user)}>
+						<div className="my-auto text-sm" >
 							Follow
 						</div>
 					</div>

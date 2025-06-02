@@ -28,7 +28,7 @@ export interface Operator {
 
 const Manageadmin = () => {
 	const author = useRecoilValue(UserAtom)
-	const [admins, setAdmins] = useState<IUser[]>([])
+	const [admins, setAdmins] = useState<any[]>([])
 	const { query } = useRouter()
 	const [role, setRole] = useState("")
 	const [loading, setLoading] = useState(false)
@@ -40,7 +40,7 @@ const Manageadmin = () => {
 		try {
 			const res = await axios(`/organization/${orgId}/operators`)
 			console.log(res.data)
-			setAdmins(res.data)
+			setAdmins(res.data as any)
 		} catch (error) {
 			console.log(error)
 		}
