@@ -234,7 +234,7 @@ const HomePage = () => {
 			const { data } = await axios.post(SERVER_URL + "/graphql", {
 				query: print(CONNECTIONS),
 				variables: {
-					authorId: author.userId,
+					authorId: author.id,
 				},
 			})
 			// console.log(data)
@@ -528,7 +528,7 @@ function Follow({ user, getUsers, setUsers }: { user: any, getUsers: () => void,
 			const { data } = await axios.post(SERVER_URL + "/graphql", {
 				query: print(FOLLOW),
 				variables: {
-					followerId: author.userId,
+					followerId: author.id,
 					followId: user._id,
 				},
 			})
