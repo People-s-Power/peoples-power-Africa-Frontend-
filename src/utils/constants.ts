@@ -1,5 +1,5 @@
 export const TOKEN_NAME = "__ed_KEY"
-export const SERVER_URL = "https://api.experthubllc.com"
+export const SERVER_URL = "https://people-powapi-v5-5ifxz.ondigitalocean.app"
 // export const SERVER_URL = "http://localhost:8005"
 // export const SERVER_URL = "https://3k3900wh-8005.uks1.devtunnels.ms"
 // export const SERVER_URL = "https://rnyak-105-113-20-156.a.free.pinggy.link"
